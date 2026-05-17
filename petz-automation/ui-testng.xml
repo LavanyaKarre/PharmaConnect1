@@ -19,4 +19,48 @@
         </classes>
     </test>
 
+    <test name="Hospital Dashboard Scenario (TC070 to TC073)">
+        <groups>
+            <run>
+                <include name="hospitalDashboard"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.cts.mfrp.petz.tests.HospitalDashboardTest"/>
+        </classes>
+    </test>
+
+    <test name="Hospital Doctors Scenario (TC074 to TC079)">
+        <groups>
+            <run>
+                <include name="hospitalDoctors"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.cts.mfrp.petz.tests.HospitalDoctorsTest"/>
+        </classes>
+    </test>
+
+    <test name="Role-Based Access Scenario (TC080 to TC084)">
+        <groups>
+            <run>
+                <include name="roleAccess"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.cts.mfrp.petz.tests.RoleBasedAccessTest"/>
+        </classes>
+    </test>
+
+    <test name="Cross-Cutting Scenario (TC085 to TC090)">
+        <groups>
+            <run>
+                <include name="crossCutting"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.cts.mfrp.petz.tests.CrossCuttingTest"/>
+        </classes>
+    </test>
+
 </suite>
