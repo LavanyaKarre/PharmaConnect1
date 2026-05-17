@@ -28,7 +28,12 @@ public class TestListener implements ITestListener {
 
     @Override
     public void onTestStart(ITestResult result) {
-        ExtentReportManager.createTest(result);
+        com.aventstack.extentreports.ExtentTest et =
+                ExtentReportManager.createTest(result);
+        String className = result.getTestClass().getRealClass().getSimpleName();
+        String category  = className.endsWith("Test")
+                ? className.substring(0, className.length() - 4) : className;
+        et.assignCategory(category);
     }
 
     @Override
