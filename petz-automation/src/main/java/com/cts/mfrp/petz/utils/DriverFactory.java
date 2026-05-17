@@ -4,6 +4,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.events.EventFiringDecorator;
 
 import java.time.Duration;
 
@@ -11,7 +12,7 @@ import static com.cts.mfrp.petz.constants.AppConstants.*;
 
 public class DriverFactory {
 
-    private static ThreadLocal<WebDriver> driver = new ThreadLocal<>();
+    private static final ThreadLocal<WebDriver> driver = new ThreadLocal<>();
 
     public static WebDriver getDriver() {
         return driver.get();
@@ -26,13 +27,12 @@ public class DriverFactory {
         options.addArguments("--disable-popup-blocking");
         options.addArguments("--remote-allow-origins=*");
 
-        WebDriver webDriver = new ChromeDriver(options);
-        webDriver.manage().timeouts()
-                .implicitlyWait(Duration.ofSeconds(IMPLICIT_WAIT));
-        webDriver.manage().timeouts()
-                .pageLoadTimeout(Duration.ofSeconds(PAGE_LOAD_WAIT));
+        WebDriver raw = new ChromeDriver(options);
+        raw.manage().timeouts().implicitlyWait(Duration.ofSeconds(IMPLICIT_WAIT));
+        raw.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(PAGE_LOAD_WAIT));
 
-        driver.set(webDriver);
+        WebDriver decorated = new EventFiringDecorator<>(new WebDriverEventLogger()).decorate(raw);
+        driver.set(decorated);
     }
 
     public static void quitDriver() {

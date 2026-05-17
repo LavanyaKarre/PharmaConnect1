@@ -4,6 +4,7 @@ import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
+import org.testng.ITestResult;
 
 import java.io.File;
 
@@ -12,16 +13,18 @@ import static com.cts.mfrp.petz.constants.AppConstants.REPORT_PATH;
 public class ExtentReportManager {
 
     private static ExtentReports extent;
-    private static ThreadLocal<ExtentTest> test = new ThreadLocal<>();
+    private static final ThreadLocal<ExtentTest> test = new ThreadLocal<>();
 
-    public static void initReport() {
+    public static synchronized void initReport() {
+        if (extent != null) return;
+
         new File("test-output/reports").mkdirs();
         new File("test-output/screenshots").mkdirs();
 
         ExtentSparkReporter spark = new ExtentSparkReporter(REPORT_PATH);
         spark.config().setTheme(Theme.DARK);
         spark.config().setDocumentTitle("PETZ Automation Report");
-        spark.config().setReportName("TC001 - TC005 Landing Page Tests");
+        spark.config().setReportName("PETZ UI Test Run");
 
         extent = new ExtentReports();
         extent.attachReporter(spark);
@@ -37,13 +40,21 @@ public class ExtentReportManager {
         return extentTest;
     }
 
+    public static ExtentTest createTest(ITestResult result) {
+        String name = result.getMethod().getMethodName();
+        String desc = result.getMethod().getDescription();
+        return createTest(name, desc == null ? "" : desc);
+    }
+
     public static ExtentTest getTest() {
         return test.get();
     }
 
+    public static void removeTest() {
+        test.remove();
+    }
+
     public static void flushReport() {
-        if (extent != null) {
-            extent.flush();
-        }
+        if (extent != null) extent.flush();
     }
 }
