@@ -1,13 +1,14 @@
-package com.cts.mfrp.petz.tests;
+package com.cts.mfrp.petz.tests.functional;
 
 import com.cts.mfrp.petz.base.BaseTest;
 import com.cts.mfrp.petz.pages.BrowseAnimalsPage;
 import com.cts.mfrp.petz.pages.LoginPage;
 import com.cts.mfrp.petz.utils.StepReporter;
+import com.cts.mfrp.petz.utils.Waits;
 import org.testng.annotations.Test;
 
 /**
- * Browse Animals (/adoption/animals) scenario — PETZ_TC026 to PETZ_TC031.
+ * Browse Animals (/adoption/animals) scenario â€” PETZ_TC026 to PETZ_TC031.
  * Group: browseAnimals.
  *
  * TC027 / TC028 / TC029 / TC030 depend on backend data. Where the dataset is
@@ -15,7 +16,8 @@ import org.testng.annotations.Test;
  */
 public class BrowseAnimalsTest extends BaseTest {
 
-    @Test(priority = 26, groups = {"browseAnimals"},
+    @Test(priority = 26,
+          groups = {"browseAnimals", "functional", "regression", "sanity", "positive"},
           description = "PETZ_TC026 - Validate 'Find Your Companion' page layout")
     public void TC026_BrowseRender() {
         new LoginPage(driver).loginAsPetOwner();
@@ -39,7 +41,8 @@ public class BrowseAnimalsTest extends BaseTest {
                 "'N animals available for adoption'", page.getCounterText());
     }
 
-    @Test(priority = 27, groups = {"browseAnimals"},
+    @Test(priority = 27,
+          groups = {"browseAnimals", "functional", "regression", "positive"},
           description = "PETZ_TC027 - Validate fields on each pet card")
     public void TC027_BrowsePetCardFields() {
         new LoginPage(driver).loginAsPetOwner();
@@ -52,7 +55,7 @@ public class BrowseAnimalsTest extends BaseTest {
         if (count == 0) {
             StepReporter.note("Pet card fields",
                     "Species chip / breed-age / city / Vaccinated / View Profile",
-                    "no cards in this dataset — skipped strict checks");
+                    "no cards in this dataset â€” skipped strict checks");
             return;
         }
         StepReporter.check("Species chip overlay (DOG/CAT/etc.)",
@@ -64,7 +67,8 @@ public class BrowseAnimalsTest extends BaseTest {
                 "Location icon present on cards", page.cardShowsLocationPin());
     }
 
-    @Test(priority = 28, groups = {"browseAnimals"},
+    @Test(priority = 28,
+          groups = {"browseAnimals", "functional", "regression", "positive"},
           description = "PETZ_TC028 - Filter by Species = Dog")
     public void TC028_BrowseSearchSpecies() {
         new LoginPage(driver).loginAsPetOwner();
@@ -73,11 +77,11 @@ public class BrowseAnimalsTest extends BaseTest {
 
         try { page.selectSpecies("Dog"); }
         catch (Exception e) {
-            StepReporter.info("Species 'Dog' option not in this dataset — skipping filter assertion.");
+            StepReporter.info("Species 'Dog' option not in this dataset â€” skipping filter assertion.");
             return;
         }
         page.clickSearch();
-        try { Thread.sleep(1500); } catch (InterruptedException ignored) {}
+        Waits.urlContains(driver, "/adoption/animals");
 
         StepReporter.note("Counter after Species=Dog",
                 "Reflects filtered total", page.getCounterText());
@@ -85,7 +89,8 @@ public class BrowseAnimalsTest extends BaseTest {
                 "/adoption/animals", page.getCurrentUrl());
     }
 
-    @Test(priority = 29, groups = {"browseAnimals"},
+    @Test(priority = 29,
+          groups = {"browseAnimals", "functional", "regression", "positive"},
           description = "PETZ_TC029 - Filter by City = Chennai")
     public void TC029_BrowseSearchCity() {
         new LoginPage(driver).loginAsPetOwner();
@@ -94,7 +99,7 @@ public class BrowseAnimalsTest extends BaseTest {
 
         page.typeCity("Chennai");
         page.clickSearch();
-        try { Thread.sleep(1500); } catch (InterruptedException ignored) {}
+        Waits.urlContains(driver, "/adoption/animals");
 
         StepReporter.note("Counter after City=Chennai",
                 "Reflects filtered total", page.getCounterText());
@@ -102,7 +107,8 @@ public class BrowseAnimalsTest extends BaseTest {
                 "/adoption/animals", page.getCurrentUrl());
     }
 
-    @Test(priority = 30, groups = {"browseAnimals"},
+    @Test(priority = 30,
+          groups = {"browseAnimals", "functional", "regression", "positive"},
           description = "PETZ_TC030 - No-results empty state for City=Atlantis")
     public void TC030_BrowseSearchNoResults() {
         new LoginPage(driver).loginAsPetOwner();
@@ -111,7 +117,7 @@ public class BrowseAnimalsTest extends BaseTest {
 
         page.typeCity("Atlantis");
         page.clickSearch();
-        try { Thread.sleep(1500); } catch (InterruptedException ignored) {}
+        Waits.documentReady(driver);
 
         int count = page.getPetCardCount();
         StepReporter.check("Pet card count for nonsense city",
@@ -119,14 +125,15 @@ public class BrowseAnimalsTest extends BaseTest {
                 count == 0 || page.isEmptyStateVisible());
     }
 
-    @Test(priority = 31, groups = {"browseAnimals"},
+    @Test(priority = 31,
+          groups = {"browseAnimals", "functional", "regression", "positive"},
           description = "PETZ_TC031 - 'My Applications' shortcut routes to /adoption/my")
     public void TC031_BrowseMyApplicationsLink() {
         new LoginPage(driver).loginAsPetOwner();
         BrowseAnimalsPage page = new BrowseAnimalsPage(driver);
         page.open();
         page.clickMyApplications();
-        try { Thread.sleep(1500); } catch (InterruptedException ignored) {}
+        Waits.urlContains(driver, "/adoption/my");
 
         StepReporter.check("After clicking 'My Applications'",
                 "/adoption/my", page.getCurrentUrl());

@@ -1,16 +1,17 @@
-package com.cts.mfrp.petz.tests;
+package com.cts.mfrp.petz.tests.functional;
 
 import com.cts.mfrp.petz.base.BaseTest;
 import com.cts.mfrp.petz.pages.BookAppointmentPage;
 import com.cts.mfrp.petz.pages.LoginPage;
 import com.cts.mfrp.petz.utils.StepReporter;
+import com.cts.mfrp.petz.utils.Waits;
 import org.testng.annotations.Test;
 
 import java.time.LocalDate;
 import java.util.List;
 
 /**
- * Book Appointment (/appointments/book) scenario — PETZ_TC038 to PETZ_TC044.
+ * Book Appointment (/appointments/book) scenario â€” PETZ_TC038 to PETZ_TC044.
  * Group: bookAppointment.
  *
  * The booking flow depends on the live data (hospitals + doctors + slots).
@@ -18,7 +19,8 @@ import java.util.List;
  */
 public class BookAppointmentTest extends BaseTest {
 
-    @Test(priority = 38, groups = {"bookAppointment"},
+    @Test(priority = 38,
+          groups = {"bookAppointment", "functional", "regression", "positive"},
           description = "PETZ_TC038 - Layout of /appointments/book")
     public void TC038_BookFormLayout() {
         new LoginPage(driver).loginAsPetOwner();
@@ -47,7 +49,8 @@ public class BookAppointmentTest extends BaseTest {
                 "Disabled (grey)", page.isConfirmDisabled());
     }
 
-    @Test(priority = 39, groups = {"bookAppointment"},
+    @Test(priority = 39,
+          groups = {"bookAppointment", "functional", "regression", "negative"},
           description = "PETZ_TC039 - Confirm Booking stays disabled until every required field is filled")
     public void TC039_BookConfirmDisabledUntilValid() {
         new LoginPage(driver).loginAsPetOwner();
@@ -74,13 +77,14 @@ public class BookAppointmentTest extends BaseTest {
                 "Confirm still disabled (Reason missing)", page.isConfirmDisabled());
 
         try { page.typeReason("Annual vaccination"); } catch (Exception ignored) {}
-        try { Thread.sleep(800); } catch (InterruptedException ignored) {}
+        Waits.documentReady(driver);
         StepReporter.check("After Reason filled",
                 "Confirm enabled OR disabled-due-to-missing-slot data",
                 page.isConfirmEnabled() || page.isConfirmDisabled());
     }
 
-    @Test(priority = 40, groups = {"bookAppointment"},
+    @Test(priority = 40,
+          groups = {"bookAppointment", "functional", "regression", "positive"},
           description = "PETZ_TC040 - Hospital + Doctor dropdowns")
     public void TC040_BookHospitalDoctorOptions() {
         new LoginPage(driver).loginAsPetOwner();
@@ -104,7 +108,8 @@ public class BookAppointmentTest extends BaseTest {
                 doctors.isEmpty() ? "empty (no doctors)" : doctors.toString());
     }
 
-    @Test(priority = 41, groups = {"bookAppointment"},
+    @Test(priority = 41,
+          groups = {"bookAppointment", "functional", "regression", "negative"},
           description = "PETZ_TC041 - Date picker rejects past dates")
     public void TC041_BookDateRejectsPast() {
         new LoginPage(driver).loginAsPetOwner();
@@ -118,7 +123,8 @@ public class BookAppointmentTest extends BaseTest {
                 disabled);
     }
 
-    @Test(priority = 42, groups = {"bookAppointment"},
+    @Test(priority = 42,
+          groups = {"bookAppointment", "functional", "regression", "positive"},
           description = "PETZ_TC042 - Preferred Time dropdown for a future date")
     public void TC042_BookTimeOptions() {
         new LoginPage(driver).loginAsPetOwner();
@@ -135,7 +141,8 @@ public class BookAppointmentTest extends BaseTest {
                 times.isEmpty() ? "no slots" : times.toString());
     }
 
-    @Test(priority = 43, groups = {"bookAppointment"},
+    @Test(priority = 43,
+          groups = {"bookAppointment", "functional", "regression", "positive"},
           description = "PETZ_TC043 - Cancel resets / routes back to /appointments")
     public void TC043_BookCancel() {
         new LoginPage(driver).loginAsPetOwner();
@@ -144,14 +151,15 @@ public class BookAppointmentTest extends BaseTest {
 
         try { page.typeReason("Annual vaccination"); } catch (Exception ignored) {}
         page.clickCancel();
-        try { Thread.sleep(1500); } catch (InterruptedException ignored) {}
+        Waits.urlContains(driver, "/appointments");
 
         StepReporter.check("After Cancel",
                 "Routed back to /appointments OR form cleared on /appointments/book",
                 page.getCurrentUrl().contains("/appointments"));
     }
 
-    @Test(priority = 44, groups = {"bookAppointment"},
+    @Test(priority = 44,
+          groups = {"bookAppointment", "functional", "regression", "sanity", "positive"},
           description = "PETZ_TC044 - Happy-path booking (best-effort if data exists)")
     public void TC044_BookHappy() {
         new LoginPage(driver).loginAsPetOwner();
@@ -159,20 +167,20 @@ public class BookAppointmentTest extends BaseTest {
         page.open();
 
         try { page.selectFirstHospital(); } catch (Exception ignored) {
-            StepReporter.info("No hospitals — happy path not feasible. Recording form layout only.");
+            StepReporter.info("No hospitals â€” happy path not feasible. Recording form layout only.");
             return;
         }
         try { page.selectFirstDoctor(); } catch (Exception ignored) {
-            StepReporter.info("No doctors for selected hospital — bail.");
+            StepReporter.info("No doctors for selected hospital â€” bail.");
             return;
         }
         try { page.selectDate(LocalDate.now().plusDays(1)); } catch (Exception ignored) {}
         try { page.selectFirstTime(); } catch (Exception ignored) {
-            StepReporter.info("No time slots — bail.");
+            StepReporter.info("No time slots â€” bail.");
             return;
         }
         page.typeReason("Annual vaccination");
-        try { Thread.sleep(800); } catch (InterruptedException ignored) {}
+        Waits.documentReady(driver);
 
         boolean enabled = page.isConfirmEnabled();
         StepReporter.check("Confirm Booking enabled after all fields",
@@ -180,7 +188,7 @@ public class BookAppointmentTest extends BaseTest {
         if (!enabled) return;
 
         page.clickConfirm();
-        try { Thread.sleep(3500); } catch (InterruptedException ignored) {}
+        Waits.urlContains(driver, "/appointments");
 
         StepReporter.check("After Confirm",
                 "/appointments listing reached", page.getCurrentUrl());

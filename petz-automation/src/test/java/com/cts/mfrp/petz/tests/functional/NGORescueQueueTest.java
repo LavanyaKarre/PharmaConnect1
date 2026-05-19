@@ -1,4 +1,4 @@
-package com.cts.mfrp.petz.tests;
+package com.cts.mfrp.petz.tests.functional;
 
 import com.cts.mfrp.petz.base.BaseTest;
 import com.cts.mfrp.petz.pages.LoginPage;
@@ -7,7 +7,7 @@ import com.cts.mfrp.petz.utils.StepReporter;
 import org.testng.annotations.Test;
 
 /**
- * NGO Rescue Queue (/ngo/rescues) scenario — PETZ_TC068 to PETZ_TC069.
+ * NGO Rescue Queue (/ngo/rescues) scenario â€” PETZ_TC068 to PETZ_TC069.
  * Group: ngoRescueQueue.
  *
  * TC069's spec involves a second Pet Owner browser submitting a /rescue/report;
@@ -16,7 +16,8 @@ import org.testng.annotations.Test;
  */
 public class NGORescueQueueTest extends BaseTest {
 
-    @Test(priority = 68, groups = {"ngoRescueQueue"},
+    @Test(priority = 68,
+          groups = {"ngoRescueQueue", "functional", "regression", "positive"},
           description = "PETZ_TC068 - Empty state of /ngo/rescues")
     public void TC068_NGOQueueEmpty() {
         new LoginPage(driver).loginAsNgo();
@@ -36,11 +37,12 @@ public class NGORescueQueueTest extends BaseTest {
             StepReporter.check("Empty state",
                     "'Queue is clear' visible", true);
         } else {
-            StepReporter.info("Queue is not empty — skipping empty-state assertion.");
+            StepReporter.info("Queue is not empty â€” skipping empty-state assertion.");
         }
     }
 
-    @Test(priority = 69, groups = {"ngoRescueQueue"},
+    @Test(priority = 69,
+          groups = {"ngoRescueQueue", "functional", "regression", "positive"},
           description = "PETZ_TC069 - Accept/Decline buttons appear when a rescue is queued (single-browser view)")
     public void TC069_NGOQueueAcceptDecline() {
         new LoginPage(driver).loginAsNgo();
@@ -53,7 +55,7 @@ public class NGORescueQueueTest extends BaseTest {
         if (count == 0) {
             StepReporter.note("Accept/Decline check",
                     "Accept + Decline visible on queued cards",
-                    "queue is empty — submit a rescue from a Pet Owner session to populate");
+                    "queue is empty â€” submit a rescue from a Pet Owner session to populate");
             return;
         }
         StepReporter.check("Accept + Decline buttons present",

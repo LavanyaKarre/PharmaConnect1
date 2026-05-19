@@ -1,4 +1,4 @@
-package com.cts.mfrp.petz.tests;
+package com.cts.mfrp.petz.tests.functional;
 
 import com.cts.mfrp.petz.base.BaseTest;
 import com.cts.mfrp.petz.pages.LoginPage;
@@ -13,7 +13,7 @@ import java.time.Duration;
 import static com.cts.mfrp.petz.constants.AppConstants.*;
 
 /**
- * Role-Based Access scenario — PETZ_TC080 to PETZ_TC084.
+ * Role-Based Access scenario â€” PETZ_TC080 to PETZ_TC084.
  * All tests live in the TestNG group "roleAccess".
  *
  * The guard contract:
@@ -33,10 +33,11 @@ public class RoleBasedAccessTest extends BaseTest {
                         + expectedUrlPart + "', but was: " + driver.getCurrentUrl());
     }
 
-    @Test(priority = 80, groups = {"roleAccess"},
+    @Test(priority = 80,
+          groups = {"roleAccess", "functional", "regression", "sanity", "negative"},
           description = "PETZ_TC080 - Anonymous user is sent to /auth/login on every guarded route")
     public void TC080_GuardRedirectAnonymous() {
-        // /adoption/animals is intentionally excluded — it is a public Browse page.
+        // /adoption/animals is intentionally excluded â€” it is a public Browse page.
         String[] guardedRoutes = {
                 DASHBOARD_URL,
                 NGO_URL,
@@ -49,7 +50,8 @@ public class RoleBasedAccessTest extends BaseTest {
         }
     }
 
-    @Test(priority = 81, groups = {"roleAccess"},
+    @Test(priority = 81,
+          groups = {"roleAccess", "functional", "regression", "sanity", "negative"},
           description = "PETZ_TC081 - Pet Owner cannot enter NGO routes (redirect to /dashboard)")
     public void TC081_PetOwnerCannotEnterNGO() {
         new LoginPage(driver).loginAsPetOwner();
@@ -65,7 +67,8 @@ public class RoleBasedAccessTest extends BaseTest {
                 "After NGO redirect, sidebar role label should remain 'USER' for a Pet Owner.");
     }
 
-    @Test(priority = 82, groups = {"roleAccess"},
+    @Test(priority = 82,
+          groups = {"roleAccess", "functional", "regression", "sanity", "negative"},
           description = "PETZ_TC082 - Pet Owner cannot enter Hospital routes (redirect to /dashboard)")
     public void TC082_PetOwnerCannotEnterHospital() {
         new LoginPage(driver).loginAsPetOwner();
@@ -78,13 +81,14 @@ public class RoleBasedAccessTest extends BaseTest {
         }
     }
 
-    @Test(priority = 83, groups = {"roleAccess"},
+    @Test(priority = 83,
+          groups = {"roleAccess", "functional", "regression", "sanity", "negative"},
           description = "PETZ_TC083 - NGO user cannot enter Hospital routes (redirect to a safe page)")
     public void TC083_NGOCannotEnterHospital() {
         new LoginPage(driver).loginAsNgo();
 
         // Spec says redirect to /ngo, but the app actually sends every cross-role attempt
-        // to /dashboard. The security property — "no longer on /hospital" — still holds.
+        // to /dashboard. The security property â€” "no longer on /hospital" â€” still holds.
         String[] hospitalRoutes = {
                 HOSPITAL_URL, HOSPITAL_APPOINTMENTS_URL, HOSPITAL_DOCTORS_URL
         };
@@ -93,12 +97,13 @@ public class RoleBasedAccessTest extends BaseTest {
         }
     }
 
-    @Test(priority = 84, groups = {"roleAccess"},
+    @Test(priority = 84,
+          groups = {"roleAccess", "functional", "regression", "sanity", "negative"},
           description = "PETZ_TC084 - Hospital user cannot enter NGO routes (redirect to a safe page)")
     public void TC084_HospitalCannotEnterNGO() {
         new LoginPage(driver).loginAsHospital();
 
-        // Same as TC083 — app's guard redirects to /dashboard, not /hospital as the spec describes.
+        // Same as TC083 â€” app's guard redirects to /dashboard, not /hospital as the spec describes.
         String[] ngoRoutes = { NGO_URL, NGO_ANIMALS_URL, NGO_APPLICATIONS_URL, NGO_RESCUES_URL };
         for (String route : ngoRoutes) {
             assertRedirectsTo(route, "/dashboard");

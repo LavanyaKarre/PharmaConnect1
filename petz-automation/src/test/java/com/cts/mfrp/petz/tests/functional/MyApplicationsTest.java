@@ -1,18 +1,20 @@
-package com.cts.mfrp.petz.tests;
+package com.cts.mfrp.petz.tests.functional;
 
 import com.cts.mfrp.petz.base.BaseTest;
 import com.cts.mfrp.petz.pages.LoginPage;
 import com.cts.mfrp.petz.pages.MyApplicationsPage;
 import com.cts.mfrp.petz.utils.StepReporter;
+import com.cts.mfrp.petz.utils.Waits;
 import org.testng.annotations.Test;
 
 /**
- * My Applications (/adoption/my) scenario — PETZ_TC036 to PETZ_TC037.
+ * My Applications (/adoption/my) scenario â€” PETZ_TC036 to PETZ_TC037.
  * Group: myApplications.
  */
 public class MyApplicationsTest extends BaseTest {
 
-    @Test(priority = 36, groups = {"myApplications"},
+    @Test(priority = 36,
+          groups = {"myApplications", "functional", "regression", "sanity", "positive"},
           description = "PETZ_TC036 - Empty state on /adoption/my")
     public void TC036_MyAppsEmpty() {
         new LoginPage(driver).loginAsPetOwner();
@@ -30,15 +32,16 @@ public class MyApplicationsTest extends BaseTest {
                     "'No applications yet' empty state visible",
                     page.isEmptyStateVisible());
             page.clickBrowseAnimalsEmpty();
-            try { Thread.sleep(1500); } catch (InterruptedException ignored) {}
+            Waits.urlContains(driver, "/adoption/animals");
             StepReporter.check("'Browse Animals' destination",
                     "/adoption/animals", page.getCurrentUrl());
         } else {
-            StepReporter.info("Account already has " + count + " applications — skipping empty-state checks.");
+            StepReporter.info("Account already has " + count + " applications â€” skipping empty-state checks.");
         }
     }
 
-    @Test(priority = 37, groups = {"myApplications"},
+    @Test(priority = 37,
+          groups = {"myApplications", "functional", "regression", "positive"},
           description = "PETZ_TC037 - List state once at least one application exists")
     public void TC037_MyAppsListWithStatus() {
         new LoginPage(driver).loginAsPetOwner();
@@ -51,7 +54,7 @@ public class MyApplicationsTest extends BaseTest {
         if (count == 0) {
             StepReporter.note("List state",
                     "At least one application card with status badge",
-                    "No applications exist for this account — checked structure only");
+                    "No applications exist for this account â€” checked structure only");
             return;
         }
         StepReporter.check("Status badge on at least one card",

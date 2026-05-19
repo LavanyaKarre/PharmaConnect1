@@ -1,4 +1,4 @@
-package com.cts.mfrp.petz.tests;
+package com.cts.mfrp.petz.tests.functional;
 
 import com.cts.mfrp.petz.base.BaseTest;
 import com.cts.mfrp.petz.pages.LoginPage;
@@ -7,7 +7,7 @@ import com.cts.mfrp.petz.utils.StepReporter;
 import org.testng.annotations.Test;
 
 /**
- * NGO Applications (/ngo/applications) scenario — PETZ_TC066 to PETZ_TC067.
+ * NGO Applications (/ngo/applications) scenario â€” PETZ_TC066 to PETZ_TC067.
  * Group: ngoApplications.
  *
  * TC067 in the spec uses a second browser; single-browser version just
@@ -15,7 +15,8 @@ import org.testng.annotations.Test;
  */
 public class NGOApplicationsTest extends BaseTest {
 
-    @Test(priority = 66, groups = {"ngoApplications"},
+    @Test(priority = 66,
+          groups = {"ngoApplications", "functional", "regression", "positive"},
           description = "PETZ_TC066 - Empty state of /ngo/applications")
     public void TC066_NGOAppsEmpty() {
         new LoginPage(driver).loginAsNgo();
@@ -38,11 +39,12 @@ public class NGOApplicationsTest extends BaseTest {
             StepReporter.check("Empty state",
                     "'No applications yet' visible", true);
         } else {
-            StepReporter.info("Applications already exist — skipping empty-state assertion.");
+            StepReporter.info("Applications already exist â€” skipping empty-state assertion.");
         }
     }
 
-    @Test(priority = 67, groups = {"ngoApplications"},
+    @Test(priority = 67,
+          groups = {"ngoApplications", "functional", "regression", "sanity", "positive"},
           description = "PETZ_TC067 - Fresh applications appear on /ngo/applications (single-browser view)")
     public void TC067_NGOAppsCardOnArrival() {
         new LoginPage(driver).loginAsNgo();

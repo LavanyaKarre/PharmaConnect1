@@ -1,4 +1,4 @@
-package com.cts.mfrp.petz.tests;
+package com.cts.mfrp.petz.tests.functional;
 
 import com.cts.mfrp.petz.base.BaseTest;
 import com.cts.mfrp.petz.pages.HeaderComponent;
@@ -16,12 +16,12 @@ import java.time.Duration;
 import static com.cts.mfrp.petz.constants.AppConstants.*;
 
 /**
- * Cross-Cutting scenario — PETZ_TC085 to PETZ_TC090.
+ * Cross-Cutting scenario â€” PETZ_TC085 to PETZ_TC090.
  * Group: crossCutting.
  *
  * Notes on actual vs. expected:
  *   - TC085: HeaderComponent.isHeaderComplete() requires all 5 elements (logo,
- *     hamburger, title, bell, avatar) to match strict locators — too brittle on
+ *     hamburger, title, bell, avatar) to match strict locators â€” too brittle on
  *     the live app. We relax to "bell icon is reliably present", since the bell
  *     is the navigation affordance the user explicitly cares about.
  *   - TC086: the live app does not toggle a CSS class we can reliably detect on
@@ -33,7 +33,8 @@ import static com.cts.mfrp.petz.constants.AppConstants.*;
  */
 public class CrossCuttingTest extends BaseTest {
 
-    @Test(priority = 85, groups = {"crossCutting"},
+    @Test(priority = 85,
+          groups = {"crossCutting", "functional", "regression", "sanity", "positive"},
           description = "PETZ_TC085 - Bell icon is present on every authenticated page")
     public void TC085_HeaderConstant() {
         new LoginPage(driver).loginAsPetOwner();
@@ -52,7 +53,8 @@ public class CrossCuttingTest extends BaseTest {
         }
     }
 
-    @Test(priority = 86, groups = {"crossCutting"},
+    @Test(priority = 86,
+          groups = {"crossCutting", "functional", "regression", "positive"},
           description = "PETZ_TC086 - Sidebar chevron click does not crash; sidebar stays in DOM")
     public void TC086_SidebarCollapse() {
         new LoginPage(driver).loginAsPetOwner();
@@ -67,7 +69,8 @@ public class CrossCuttingTest extends BaseTest {
                 "Sidebar should remain in the DOM after toggle cycle.");
     }
 
-    @Test(priority = 87, groups = {"crossCutting"},
+    @Test(priority = 87,
+          groups = {"crossCutting", "functional", "regression", "sanity", "positive"},
           description = "PETZ_TC087 - Header bell icon routes to /notifications")
     public void TC087_BellIconRoutesToNotifications() {
         new LoginPage(driver).loginAsPetOwner();
@@ -79,7 +82,8 @@ public class CrossCuttingTest extends BaseTest {
                 "Clicking the bell did not navigate to /notifications. Actual: " + driver.getCurrentUrl());
     }
 
-    @Test(priority = 88, groups = {"crossCutting"},
+    @Test(priority = 88,
+          groups = {"crossCutting", "functional", "regression", "sanity", "positive"},
           description = "PETZ_TC088 - Back-arrow / browser-back returns to the parent page")
     public void TC088_BackArrowReturns() {
         new LoginPage(driver).loginAsPetOwner();
@@ -102,14 +106,15 @@ public class CrossCuttingTest extends BaseTest {
                 "Back arrow on /notifications did not navigate away.");
     }
 
-    @Test(priority = 89, groups = {"crossCutting"},
+    @Test(priority = 89,
+          groups = {"crossCutting", "functional", "regression", "sanity", "positive"},
           description = "PETZ_TC089 - Clearing session redirects guarded routes to /auth/login")
     public void TC089_SignOut() {
         new LoginPage(driver).loginAsPetOwner();
         Assert.assertTrue(driver.getCurrentUrl().contains("/dashboard"),
                 "Pre-condition: expected to be on /dashboard after login.");
 
-        // Programmatic sign-out — clears all auth state (the menu-driven sign-out
+        // Programmatic sign-out â€” clears all auth state (the menu-driven sign-out
         // affordance varies by build; this property is what we actually care about).
         ((JavascriptExecutor) driver).executeScript(
                 "localStorage.clear(); sessionStorage.clear();");
@@ -121,7 +126,8 @@ public class CrossCuttingTest extends BaseTest {
                 "After clearing session, /dashboard should redirect to /auth/login. Actual: " + driver.getCurrentUrl());
     }
 
-    @Test(priority = 90, groups = {"crossCutting"},
+    @Test(priority = 90,
+          groups = {"crossCutting", "functional", "regression", "sanity", "positive"},
           description = "PETZ_TC090 - Session persists across browser reloads")
     public void TC090_SessionPersistsOnReload() {
         new LoginPage(driver).loginAsPetOwner();
@@ -135,6 +141,6 @@ public class CrossCuttingTest extends BaseTest {
         Assert.assertTrue(driver.getCurrentUrl().contains("/dashboard"),
                 "After reload, expected to remain on /dashboard. Actual: " + driver.getCurrentUrl());
         Assert.assertFalse(driver.getCurrentUrl().contains("/auth/login"),
-                "Reload kicked the user back to /auth/login — session did not persist.");
+                "Reload kicked the user back to /auth/login â€” session did not persist.");
     }
 }

@@ -1,4 +1,4 @@
-package com.cts.mfrp.petz.tests;
+package com.cts.mfrp.petz.tests.functional;
 
 import com.cts.mfrp.petz.base.BaseTest;
 import com.cts.mfrp.petz.pages.DashboardPage;
@@ -15,13 +15,15 @@ import static com.cts.mfrp.petz.constants.AppConstants.EXPLICIT_WAIT;
 import static com.cts.mfrp.petz.constants.AppConstants.PET_OWNER_NAME;
 
 /**
- * Pet Owner Dashboard scenario — TC021 to TC025 in one class.
+ * Pet Owner Dashboard scenario â€” TC021 to TC025 in one class.
  * Each @Test method is one test case; BaseTest provides a fresh WebDriver per method.
- * Reporting is auto-handled by TestListener — no need to call ExtentReportManager here.
+ * Reporting is auto-handled by TestListener â€” no need to call ExtentReportManager here.
  */
 public class PetOwnerDashboardTest extends BaseTest {
 
-    @Test(priority = 21, description =
+    @Test(priority = 21,
+            groups = {"petOwnerDashboard", "functional", "regression", "smoke", "sanity", "positive"},
+            description =
             "PETZ_TC021 - Validate greeting block and date on /dashboard")
     public void TC021_verifyDashboardGreetingAndDate() {
         new LoginPage(driver).loginAsPetOwner();
@@ -47,7 +49,9 @@ public class PetOwnerDashboardTest extends BaseTest {
         driver.get(DASHBOARD_URL);
     }
 
-    @Test(priority = 22, description =
+    @Test(priority = 22,
+            groups = {"petOwnerDashboard", "functional", "regression", "positive"},
+            description =
             "PETZ_TC022 - Validate red 'Animal in Distress?' banner on /dashboard")
     public void TC022_verifyEmergencyBanner() {
         new LoginPage(driver).loginAsPetOwner();
@@ -77,7 +81,9 @@ public class PetOwnerDashboardTest extends BaseTest {
                 "'Report Animal in Need' form is not shown after clicking 'Report Now ->'.");
     }
 
-    @Test(priority = 23, description =
+    @Test(priority = 23,
+            groups = {"petOwnerDashboard", "functional", "regression", "positive"},
+            description =
             "PETZ_TC023 - Validate 4 stat tiles on /dashboard for a Pet Owner")
     public void TC023_verifyStatTiles() {
         new LoginPage(driver).loginAsPetOwner();
@@ -104,7 +110,9 @@ public class PetOwnerDashboardTest extends BaseTest {
                         "or the corresponding empty-state copy).");
     }
 
-    @Test(priority = 24, description =
+    @Test(priority = 24,
+            groups = {"petOwnerDashboard", "functional", "regression", "sanity", "positive"},
+            description =
             "PETZ_TC024 - Validate Quick Actions cards route to the right pages")
     public void TC024_verifyQuickActions() {
         new LoginPage(driver).loginAsPetOwner();
@@ -140,7 +148,9 @@ public class PetOwnerDashboardTest extends BaseTest {
         }
     }
 
-    @Test(priority = 25, description =
+    @Test(priority = 25,
+            groups = {"petOwnerDashboard", "functional", "regression", "sanity", "positive"},
+            description =
             "PETZ_TC025 - Validate sidebar items for a Pet Owner on /dashboard")
     public void TC025_verifySidebar() {
         new LoginPage(driver).loginAsPetOwner();

@@ -1,8 +1,9 @@
-package com.cts.mfrp.petz.tests;
+package com.cts.mfrp.petz.tests.functional;
 
 import com.cts.mfrp.petz.base.BaseTest;
 import com.cts.mfrp.petz.pages.RegisterPage;
 import com.cts.mfrp.petz.utils.StepReporter;
+import com.cts.mfrp.petz.utils.Waits;
 import org.testng.annotations.Test;
 
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.List;
 import static com.cts.mfrp.petz.constants.AppConstants.PET_OWNER_EMAIL;
 
 /**
- * Register (/auth/register) scenario — PETZ_TC013 to PETZ_TC020.
+ * Register (/auth/register) scenario â€” PETZ_TC013 to PETZ_TC020.
  * Group: authRegister.
  *
  * TC016/17/18 actually submit the form; we generate a unique email per run
@@ -23,7 +24,8 @@ public class RegisterPageTest extends BaseTest {
         return "petz_" + role + "_" + System.currentTimeMillis() + "@example.com";
     }
 
-    @Test(priority = 13, groups = {"authRegister"},
+    @Test(priority = 13,
+          groups = {"authRegister", "functional", "regression", "sanity", "positive"},
           description = "PETZ_TC013 - Validate /auth/register layout")
     public void TC013_RegisterRender() {
         RegisterPage page = new RegisterPage(driver);
@@ -51,7 +53,8 @@ public class RegisterPageTest extends BaseTest {
                 "min. 6 characters", page.getPlaceholder("password"));
     }
 
-    @Test(priority = 14, groups = {"authRegister"},
+    @Test(priority = 14,
+          groups = {"authRegister", "functional", "regression", "positive"},
           description = "PETZ_TC014 - Account Type dropdown lists exactly Pet Owner / NGO / Vet")
     public void TC014_RegisterAccountTypeOptions() {
         RegisterPage page = new RegisterPage(driver);
@@ -70,7 +73,8 @@ public class RegisterPageTest extends BaseTest {
                 "3 options (no Admin/Reporter/etc.)", options.size() == 3);
     }
 
-    @Test(priority = 15, groups = {"authRegister"},
+    @Test(priority = 15,
+          groups = {"authRegister", "functional", "regression", "negative"},
           description = "PETZ_TC015 - Progressive rules that enable 'Create Account'")
     public void TC015_RegisterButtonDisabledRules() {
         RegisterPage page = new RegisterPage(driver);
@@ -101,7 +105,8 @@ public class RegisterPageTest extends BaseTest {
                 "Create Account disables again", page.isCreateAccountDisabled());
     }
 
-    @Test(priority = 16, groups = {"authRegister"},
+    @Test(priority = 16,
+          groups = {"authRegister", "functional", "regression", "sanity", "positive"},
           description = "PETZ_TC016 - Successful registration as Pet Owner routes to /dashboard")
     public void TC016_RegisterPetOwnerSuccess() {
         RegisterPage page = new RegisterPage(driver);
@@ -119,13 +124,14 @@ public class RegisterPageTest extends BaseTest {
                 "Create Account is enabled", page.isCreateAccountEnabled());
 
         page.clickCreateAccount();
-        try { Thread.sleep(4000); } catch (InterruptedException ignored) {}
+        Waits.urlContains(driver, "/dashboard");
 
         StepReporter.check("After submit",
                 "/dashboard", page.getCurrentUrl());
     }
 
-    @Test(priority = 17, groups = {"authRegister"},
+    @Test(priority = 17,
+          groups = {"authRegister", "functional", "regression", "positive"},
           description = "PETZ_TC017 - Successful registration as NGO routes to /ngo")
     public void TC017_RegisterNGOSuccess() {
         RegisterPage page = new RegisterPage(driver);
@@ -140,13 +146,14 @@ public class RegisterPageTest extends BaseTest {
         page.selectAccountType("NGO");
 
         page.clickCreateAccount();
-        try { Thread.sleep(4000); } catch (InterruptedException ignored) {}
+        Waits.urlContains(driver, "/ngo");
 
         StepReporter.check("After submit",
                 "/ngo", page.getCurrentUrl());
     }
 
-    @Test(priority = 18, groups = {"authRegister"},
+    @Test(priority = 18,
+          groups = {"authRegister", "functional", "regression", "positive"},
           description = "PETZ_TC018 - Successful registration as Vet routes to /hospital")
     public void TC018_RegisterVetSuccess() {
         RegisterPage page = new RegisterPage(driver);
@@ -161,13 +168,14 @@ public class RegisterPageTest extends BaseTest {
         page.selectAccountType("Veterinary");
 
         page.clickCreateAccount();
-        try { Thread.sleep(4000); } catch (InterruptedException ignored) {}
+        Waits.urlContains(driver, "/hospital");
 
         StepReporter.check("After submit",
                 "/hospital", page.getCurrentUrl());
     }
 
-    @Test(priority = 19, groups = {"authRegister"},
+    @Test(priority = 19,
+          groups = {"authRegister", "functional", "regression", "negative"},
           description = "PETZ_TC019 - Duplicate email is rejected")
     public void TC019_RegisterDuplicateEmail() {
         RegisterPage page = new RegisterPage(driver);
@@ -180,7 +188,7 @@ public class RegisterPageTest extends BaseTest {
         page.fillConfirmPassword("Strong@123");
         page.selectAccountType("Pet Owner");
         page.clickCreateAccount();
-        try { Thread.sleep(3000); } catch (InterruptedException ignored) {}
+        Waits.documentReady(driver);
 
         boolean stillOnRegister = page.getCurrentUrl().contains("/auth/register");
         StepReporter.check("URL after duplicate-email submit",
@@ -189,7 +197,8 @@ public class RegisterPageTest extends BaseTest {
                 "Some error indication present", stillOnRegister || page.hasErrorMessage());
     }
 
-    @Test(priority = 20, groups = {"authRegister"},
+    @Test(priority = 20,
+          groups = {"authRegister", "functional", "regression", "sanity", "positive"},
           description = "PETZ_TC020 - 'Sign in' link returns to /auth/login")
     public void TC020_RegisterSignInLink() {
         RegisterPage page = new RegisterPage(driver);

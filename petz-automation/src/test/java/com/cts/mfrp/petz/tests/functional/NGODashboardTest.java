@@ -1,18 +1,20 @@
-package com.cts.mfrp.petz.tests;
+package com.cts.mfrp.petz.tests.functional;
 
 import com.cts.mfrp.petz.base.BaseTest;
 import com.cts.mfrp.petz.pages.LoginPage;
 import com.cts.mfrp.petz.pages.NGODashboardPage;
 import com.cts.mfrp.petz.utils.StepReporter;
+import com.cts.mfrp.petz.utils.Waits;
 import org.testng.annotations.Test;
 
 /**
- * NGO Dashboard (/ngo) scenario — PETZ_TC059 to PETZ_TC062.
+ * NGO Dashboard (/ngo) scenario â€” PETZ_TC059 to PETZ_TC062.
  * Group: ngoDashboard.
  */
 public class NGODashboardTest extends BaseTest {
 
-    @Test(priority = 59, groups = {"ngoDashboard"},
+    @Test(priority = 59,
+          groups = {"ngoDashboard", "functional", "regression", "sanity", "positive"},
           description = "PETZ_TC059 - NGO dashboard layout")
     public void TC059_NGODashLayout() {
         new LoginPage(driver).loginAsNgo();
@@ -29,7 +31,8 @@ public class NGODashboardTest extends BaseTest {
                 page.areStatTilesVisible());
     }
 
-    @Test(priority = 60, groups = {"ngoDashboard"},
+    @Test(priority = 60,
+          groups = {"ngoDashboard", "functional", "regression", "positive"},
           description = "PETZ_TC060 - Two donut charts (Rescue Pipeline / Application Status)")
     public void TC060_NGODashCharts() {
         new LoginPage(driver).loginAsNgo();
@@ -46,7 +49,8 @@ public class NGODashboardTest extends BaseTest {
                 "Link visible", page.isReviewLinkVisible());
     }
 
-    @Test(priority = 61, groups = {"ngoDashboard"},
+    @Test(priority = 61,
+          groups = {"ngoDashboard", "functional", "regression", "positive"},
           description = "PETZ_TC061 - Three Quick Action cards route correctly")
     public void TC061_NGODashQuickActions() {
         LoginPage login = new LoginPage(driver);
@@ -59,24 +63,25 @@ public class NGODashboardTest extends BaseTest {
                 page.areQuickActionsVisible());
 
         page.clickManageAnimals();
-        try { Thread.sleep(1500); } catch (InterruptedException ignored) {}
+        Waits.urlContains(driver, "/ngo/animals");
         StepReporter.check("Manage Animals destination",
                 "/ngo/animals", page.getCurrentUrl());
 
         page.open();
         page.clickRescueQueue();
-        try { Thread.sleep(1500); } catch (InterruptedException ignored) {}
+        Waits.urlContains(driver, "/ngo/rescues");
         StepReporter.check("Rescue Queue destination",
                 "/ngo/rescues", page.getCurrentUrl());
 
         page.open();
         page.clickAdoptionApplications();
-        try { Thread.sleep(1500); } catch (InterruptedException ignored) {}
+        Waits.urlContains(driver, "/ngo/applications");
         StepReporter.check("Adoption Applications destination",
                 "/ngo/applications", page.getCurrentUrl());
     }
 
-    @Test(priority = 62, groups = {"ngoDashboard"},
+    @Test(priority = 62,
+          groups = {"ngoDashboard", "functional", "regression", "sanity", "positive"},
           description = "PETZ_TC062 - NGO sidebar items")
     public void TC062_NGODashSidebar() {
         new LoginPage(driver).loginAsNgo();

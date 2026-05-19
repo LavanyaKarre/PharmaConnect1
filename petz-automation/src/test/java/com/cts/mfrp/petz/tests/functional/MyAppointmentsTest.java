@@ -1,18 +1,20 @@
-package com.cts.mfrp.petz.tests;
+package com.cts.mfrp.petz.tests.functional;
 
 import com.cts.mfrp.petz.base.BaseTest;
 import com.cts.mfrp.petz.pages.LoginPage;
 import com.cts.mfrp.petz.pages.MyAppointmentsPage;
 import com.cts.mfrp.petz.utils.StepReporter;
+import com.cts.mfrp.petz.utils.Waits;
 import org.testng.annotations.Test;
 
 /**
- * My Appointments (/appointments) scenario — PETZ_TC045 to PETZ_TC046.
+ * My Appointments (/appointments) scenario â€” PETZ_TC045 to PETZ_TC046.
  * Group: myAppointments.
  */
 public class MyAppointmentsTest extends BaseTest {
 
-    @Test(priority = 45, groups = {"myAppointments"},
+    @Test(priority = 45,
+          groups = {"myAppointments", "functional", "regression", "positive"},
           description = "PETZ_TC045 - Empty state on /appointments")
     public void TC045_MyApptsEmpty() {
         new LoginPage(driver).loginAsPetOwner();
@@ -30,18 +32,19 @@ public class MyAppointmentsTest extends BaseTest {
                     "'No appointments' empty state visible", page.isEmptyStateVisible());
             try {
                 page.clickBookNowEmpty();
-                try { Thread.sleep(1500); } catch (InterruptedException ignored) {}
+                Waits.urlContains(driver, "/appointments/book");
                 StepReporter.check("After clicking '+ Book Now'",
                         "/appointments/book", page.getCurrentUrl());
             } catch (Exception ignored) {
-                StepReporter.info("'+ Book Now' button not present — likely a top-CTA variant only.");
+                StepReporter.info("'+ Book Now' button not present â€” likely a top-CTA variant only.");
             }
         } else {
-            StepReporter.info("Account has " + count + " appointments already — skipping empty-state checks.");
+            StepReporter.info("Account has " + count + " appointments already â€” skipping empty-state checks.");
         }
     }
 
-    @Test(priority = 46, groups = {"myAppointments"},
+    @Test(priority = 46,
+          groups = {"myAppointments", "functional", "regression", "positive"},
           description = "PETZ_TC046 - List state on /appointments")
     public void TC046_MyApptsList() {
         new LoginPage(driver).loginAsPetOwner();
@@ -52,7 +55,7 @@ public class MyAppointmentsTest extends BaseTest {
         if (count == 0) {
             StepReporter.note("List state",
                     "Rows with hospital/doctor/date/time + status badge",
-                    "no appointments exist — structure-only check");
+                    "no appointments exist â€” structure-only check");
             return;
         }
         StepReporter.check("Status badge present",

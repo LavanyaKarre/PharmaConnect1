@@ -24,7 +24,7 @@ out/
 # Secrets
 **/application.properties
 .env
-
+petz-automation/commands_for_testing.md
 # --- Uploaded Documents (CRITICAL for Privacy) ---
 # Ignore the upload-dir inside your Spring project
 pc/upload-dir/

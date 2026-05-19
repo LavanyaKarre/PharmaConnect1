@@ -5,6 +5,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.events.EventFiringDecorator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.time.Duration;
 
@@ -12,6 +14,7 @@ import static com.cts.mfrp.petz.constants.AppConstants.*;
 
 public class DriverFactory {
 
+    private static final Logger log = LoggerFactory.getLogger(DriverFactory.class);
     private static final ThreadLocal<WebDriver> driver = new ThreadLocal<>();
 
     public static WebDriver getDriver() {
@@ -19,6 +22,7 @@ public class DriverFactory {
     }
 
     public static void initDriver() {
+        log.debug("Initializing ChromeDriver via WebDriverManager");
         WebDriverManager.chromedriver().setup();
 
         ChromeOptions options = new ChromeOptions();
@@ -33,10 +37,13 @@ public class DriverFactory {
 
         WebDriver decorated = new EventFiringDecorator<>(new WebDriverEventLogger()).decorate(raw);
         driver.set(decorated);
+        log.info("ChromeDriver started (implicitWait={}s, pageLoadWait={}s)",
+                IMPLICIT_WAIT, PAGE_LOAD_WAIT);
     }
 
     public static void quitDriver() {
         if (driver.get() != null) {
+            log.debug("Quitting ChromeDriver");
             driver.get().quit();
             driver.remove();
         }

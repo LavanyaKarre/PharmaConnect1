@@ -1,4 +1,4 @@
-package com.cts.mfrp.petz.tests;
+package com.cts.mfrp.petz.tests.functional;
 
 import com.cts.mfrp.petz.base.BaseTest;
 import com.cts.mfrp.petz.pages.LoginPage;
@@ -7,12 +7,13 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 /**
- * Notifications scenario — PETZ_TS_12 (TC057 & TC058).
+ * Notifications scenario â€” PETZ_TS_12 (TC057 & TC058).
  * Both tests belong to the "notifications" TestNG group.
  */
 public class NotificationsTest extends BaseTest {
 
-    @Test(priority = 57, groups = {"notifications"},
+    @Test(priority = 57,
+          groups = {"notifications", "functional", "regression", "sanity", "positive"},
           description = "PETZ_TC057 - Bell icon opens /notifications with title and content")
     public void TC057_verifyNotificationsRender() {
         new LoginPage(driver).loginAsPetOwner();
@@ -29,7 +30,8 @@ public class NotificationsTest extends BaseTest {
                 "Neither empty state nor a list of notifications was shown.");
     }
 
-    @Test(priority = 58, groups = {"notifications"},
+    @Test(priority = 58,
+          groups = {"notifications", "functional", "regression", "positive"},
           description = "PETZ_TC058 - Back arrow on /notifications returns to previous page")
     public void TC058_verifyNotificationsBackArrow() {
         new LoginPage(driver).loginAsPetOwner();

@@ -1,4 +1,4 @@
-package com.cts.mfrp.petz.tests;
+package com.cts.mfrp.petz.tests.functional;
 
 import com.cts.mfrp.petz.base.BaseTest;
 import com.cts.mfrp.petz.pages.HospitalAppointmentsPage;
@@ -8,7 +8,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 /**
- * Hospital Dashboard scenario — PETZ_TC070 to PETZ_TC073.
+ * Hospital Dashboard scenario â€” PETZ_TC070 to PETZ_TC073.
  * Group: hospitalDashboard.
  *
  * Strategy: use POMs to navigate/click; rely on page-source text checks for
@@ -23,7 +23,8 @@ public class HospitalDashboardTest extends BaseTest {
         return true;
     }
 
-    @Test(priority = 70, groups = {"hospitalDashboard"},
+    @Test(priority = 70,
+          groups = {"hospitalDashboard", "functional", "regression", "sanity", "positive"},
           description = "PETZ_TC070 - Validate Hospital dashboard layout (title, stat tiles, info cards, nav cards)")
     public void TC070_HospitalDashLayout() {
         new LoginPage(driver).loginAsHospital();
@@ -54,7 +55,8 @@ public class HospitalDashboardTest extends BaseTest {
                 "Manage Doctors navigation card copy missing.");
     }
 
-    @Test(priority = 71, groups = {"hospitalDashboard"},
+    @Test(priority = 71,
+          groups = {"hospitalDashboard", "functional", "regression", "positive"},
           description = "PETZ_TC071 - /hospital/appointments tabs, week strip, filters and empty state")
     public void TC071_HospitalApptsTabsAndStrip() {
         new LoginPage(driver).loginAsHospital();
@@ -75,14 +77,15 @@ public class HospitalDashboardTest extends BaseTest {
         Assert.assertTrue(pageContains("Search"), "Search input placeholder text not found.");
     }
 
-    @Test(priority = 72, groups = {"hospitalDashboard"},
+    @Test(priority = 72,
+          groups = {"hospitalDashboard", "functional", "regression", "positive"},
           description = "PETZ_TC072 - Tabs respond to clicks (URL stays on /hospital/appointments)")
     public void TC072_HospitalApptsTabFilter() {
         new LoginPage(driver).loginAsHospital();
         HospitalAppointmentsPage page = new HospitalAppointmentsPage(driver);
         page.open();
 
-        // Tab click is tolerant — we don't enforce visual selection styling, just that
+        // Tab click is tolerant â€” we don't enforce visual selection styling, just that
         // the URL/page remains on /hospital/appointments and the tab labels stay present.
         try { page.clickTab(HospitalAppointmentsPage.TAB_PENDING); } catch (Exception ignored) { }
         Assert.assertTrue(page.getCurrentUrl().contains("/hospital/appointments"),
@@ -95,14 +98,15 @@ public class HospitalDashboardTest extends BaseTest {
                 "After clicking CONFIRMED tab, URL left /hospital/appointments.");
     }
 
-    @Test(priority = 73, groups = {"hospitalDashboard"},
+    @Test(priority = 73,
+          groups = {"hospitalDashboard", "functional", "regression", "positive"},
           description = "PETZ_TC073 - Week range header rendered; 'All Week' present")
     public void TC073_HospitalApptsDateNavigation() {
         new LoginPage(driver).loginAsHospital();
         HospitalAppointmentsPage page = new HospitalAppointmentsPage(driver);
         page.open();
 
-        // Week range pill format ("May 4 - May 10, 2026") — sniff for any month abbreviation.
+        // Week range pill format ("May 4 - May 10, 2026") â€” sniff for any month abbreviation.
         boolean hasMonth = false;
         for (String m : new String[]{"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"}) {
             if (driver.getPageSource().contains(m)) { hasMonth = true; break; }

@@ -2,6 +2,8 @@ package com.cts.mfrp.petz.api.swagger;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.awt.Desktop;
 import java.io.IOException;
@@ -19,6 +21,8 @@ import java.util.Map;
  */
 public final class SwaggerReport {
 
+    private static final Logger log = LoggerFactory.getLogger(SwaggerReport.class);
+
     private static final ObjectMapper JSON = new ObjectMapper()
             .enable(SerializationFeature.INDENT_OUTPUT);
 
@@ -27,20 +31,34 @@ public final class SwaggerReport {
             <html lang="en">
             <head>
               <meta charset="utf-8" />
-              <title>PETZ API — observed</title>
+              <title>PETZ API - observed</title>
               <link rel="stylesheet" href="https://unpkg.com/swagger-ui-dist@5/swagger-ui.css" />
-              <style> body { margin: 0; } </style>
+              <style> body { margin: 0; } .swagger-ui .topbar { display: none; } </style>
             </head>
             <body>
               <div id="ui"></div>
               <script src="https://unpkg.com/swagger-ui-dist@5/swagger-ui-bundle.js"></script>
+              <script src="https://unpkg.com/swagger-ui-dist@5/swagger-ui-standalone-preset.js"></script>
               <script>
                 window.onload = function () {
                   window.ui = SwaggerUIBundle({
                     dom_id: '#ui',
                     spec: __SPEC__,
                     deepLinking: true,
-                    presets: [SwaggerUIBundle.presets.apis]
+                    layout: 'StandaloneLayout',
+                    presets: [
+                      SwaggerUIBundle.presets.apis,
+                      SwaggerUIStandalonePreset
+                    ],
+                    plugins: [
+                      SwaggerUIBundle.plugins.DownloadUrl
+                    ],
+                    tryItOutEnabled: true,
+                    requestSnippetsEnabled: true,
+                    persistAuthorization: true,
+                    displayRequestDuration: true,
+                    filter: true,
+                    docExpansion: 'list'
                   });
                 };
               </script>
@@ -59,7 +77,7 @@ public final class SwaggerReport {
     public static void write(List<Capture> captures, String serverUrl,
                              Path outputDir, boolean openInBrowser) {
         if (captures.isEmpty()) {
-            System.out.println("[swagger] no captures recorded — skipping report.");
+            log.warn("No captures recorded - skipping Swagger report.");
             return;
         }
 
@@ -73,12 +91,12 @@ public final class SwaggerReport {
             Files.writeString(jsonFile, specJson);
             Files.writeString(htmlFile, HTML_TEMPLATE.replace("__SPEC__", specJson));
 
-            System.out.println("[swagger] wrote " + jsonFile.toAbsolutePath());
-            System.out.println("[swagger] wrote " + htmlFile.toAbsolutePath());
+            log.info("Swagger spec written: {}", jsonFile.toAbsolutePath());
+            log.info("Swagger UI written:   {}", htmlFile.toAbsolutePath());
 
             if (openInBrowser) openInBrowser(htmlFile);
         } catch (IOException e) {
-            System.err.println("[swagger] failed to write report: " + e.getMessage());
+            log.error("Failed to write Swagger report", e);
         }
     }
 
@@ -87,14 +105,14 @@ public final class SwaggerReport {
             if (Desktop.isDesktopSupported()
                     && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
                 Desktop.getDesktop().browse(htmlFile.toUri());
-                System.out.println("[swagger] opened in default browser.");
+                log.info("Swagger UI opened in default browser.");
             } else {
-                System.out.println("[swagger] desktop browse unsupported — open manually: "
-                        + htmlFile.toAbsolutePath());
+                log.warn("Desktop browse unsupported - open manually: {}",
+                        htmlFile.toAbsolutePath());
             }
         } catch (Exception e) {
-            System.out.println("[swagger] could not open browser (" + e.getMessage()
-                    + ") — open manually: " + htmlFile.toAbsolutePath());
+            log.warn("Could not auto-open browser ({}) - open manually: {}",
+                    e.getMessage(), htmlFile.toAbsolutePath());
         }
     }
 }

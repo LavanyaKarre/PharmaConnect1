@@ -1,14 +1,15 @@
-package com.cts.mfrp.petz.tests;
+package com.cts.mfrp.petz.tests.functional;
 
 import com.cts.mfrp.petz.base.BaseTest;
 import com.cts.mfrp.petz.pages.LoginPage;
 import com.cts.mfrp.petz.utils.StepReporter;
+import com.cts.mfrp.petz.utils.Waits;
 import org.testng.annotations.Test;
 
 import static com.cts.mfrp.petz.constants.AppConstants.*;
 
 /**
- * Login (/auth/login) scenario — PETZ_TC006 to PETZ_TC012.
+ * Login (/auth/login) scenario â€” PETZ_TC006 to PETZ_TC012.
  * Group: authLogin.
  *
  * TC011 requires three role accounts to be present (seeded). If a role login
@@ -16,7 +17,8 @@ import static com.cts.mfrp.petz.constants.AppConstants.*;
  */
 public class LoginPageTest extends BaseTest {
 
-    @Test(priority = 6, groups = {"authLogin"},
+    @Test(priority = 6,
+          groups = {"authLogin", "functional", "regression", "smoke", "sanity", "positive"},
           description = "PETZ_TC006 - Validate /auth/login layout")
     public void TC006_LoginRender() {
         LoginPage page = new LoginPage(driver);
@@ -38,7 +40,8 @@ public class LoginPageTest extends BaseTest {
                 page.isSignInDisabled());
     }
 
-    @Test(priority = 7, groups = {"authLogin"},
+    @Test(priority = 7,
+          groups = {"authLogin", "functional", "regression", "negative"},
           description = "PETZ_TC007 - Sign In stays disabled until both fields valid")
     public void TC007_LoginButtonDisabledEmpty() {
         LoginPage page = new LoginPage(driver);
@@ -61,7 +64,8 @@ public class LoginPageTest extends BaseTest {
                 "Sign In enabled (orange)", page.isSignInEnabled());
     }
 
-    @Test(priority = 8, groups = {"authLogin"},
+    @Test(priority = 8,
+          groups = {"authLogin", "functional", "regression", "negative"},
           description = "PETZ_TC008 - Invalid email keeps Sign In disabled (HTML5 validation)")
     public void TC008_LoginInvalidEmail() {
         LoginPage page = new LoginPage(driver);
@@ -77,7 +81,8 @@ public class LoginPageTest extends BaseTest {
                 page.isSignInDisabled());
     }
 
-    @Test(priority = 9, groups = {"authLogin"},
+    @Test(priority = 9,
+          groups = {"authLogin", "functional", "regression", "positive"},
           description = "PETZ_TC009 - Password show/hide eye toggle")
     public void TC009_LoginPasswordEyeToggle() {
         LoginPage page = new LoginPage(driver);
@@ -96,7 +101,8 @@ public class LoginPageTest extends BaseTest {
                 "Password masked again", page.isPasswordMasked());
     }
 
-    @Test(priority = 10, groups = {"authLogin"},
+    @Test(priority = 10,
+          groups = {"authLogin", "functional", "regression", "negative"},
           description = "PETZ_TC010 - Wrong credentials show an error / stay on /auth/login")
     public void TC010_LoginWrongCredentials() {
         LoginPage page = new LoginPage(driver);
@@ -106,7 +112,7 @@ public class LoginPageTest extends BaseTest {
         page.clickSignIn();
 
         // Wait briefly then check URL + error surface.
-        try { Thread.sleep(2000); } catch (InterruptedException ignored) {}
+        Waits.documentReady(driver);
 
         boolean stillOnLogin = page.getCurrentUrl().contains("/auth/login");
         StepReporter.check("URL after submit",
@@ -116,7 +122,8 @@ public class LoginPageTest extends BaseTest {
                 stillOnLogin || page.hasErrorMessage());
     }
 
-    @Test(priority = 11, groups = {"authLogin"},
+    @Test(priority = 11,
+          groups = {"authLogin", "functional", "regression", "smoke", "sanity", "positive"},
           description = "PETZ_TC011 - Successful login routes to the right dashboard per role")
     public void TC011_LoginSuccessRoutes() {
         LoginPage page = new LoginPage(driver);
@@ -138,7 +145,8 @@ public class LoginPageTest extends BaseTest {
                 "/hospital", page.getCurrentUrl());
     }
 
-    @Test(priority = 12, groups = {"authLogin"},
+    @Test(priority = 12,
+          groups = {"authLogin", "functional", "regression", "positive"},
           description = "PETZ_TC012 - 'Create one' link routes to /auth/register")
     public void TC012_LoginCreateOneLink() {
         LoginPage page = new LoginPage(driver);

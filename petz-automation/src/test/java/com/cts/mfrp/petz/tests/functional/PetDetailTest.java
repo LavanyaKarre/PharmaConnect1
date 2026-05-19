@@ -1,18 +1,19 @@
-package com.cts.mfrp.petz.tests;
+package com.cts.mfrp.petz.tests.functional;
 
 import com.cts.mfrp.petz.base.BaseTest;
 import com.cts.mfrp.petz.pages.BrowseAnimalsPage;
 import com.cts.mfrp.petz.pages.LoginPage;
 import com.cts.mfrp.petz.pages.PetDetailPage;
 import com.cts.mfrp.petz.utils.StepReporter;
+import com.cts.mfrp.petz.utils.Waits;
 import org.testng.annotations.Test;
 
 /**
- * Pet Detail (/adoption/animals/{id}) scenario — PETZ_TC032 to PETZ_TC035.
+ * Pet Detail (/adoption/animals/{id}) scenario â€” PETZ_TC032 to PETZ_TC035.
  * Group: petDetail.
  *
  * If the dataset has no listed pets, we mark the entire scenario as
- * informational (no cards = nothing to detail) — keeps runs green on
+ * informational (no cards = nothing to detail) â€” keeps runs green on
  * empty environments.
  */
 public class PetDetailTest extends BaseTest {
@@ -23,15 +24,16 @@ public class PetDetailTest extends BaseTest {
         BrowseAnimalsPage browse = new BrowseAnimalsPage(driver);
         browse.open();
         if (browse.getPetCardCount() == 0) {
-            StepReporter.info("No pets listed in the live dataset — skipping detail-page checks.");
+            StepReporter.info("No pets listed in the live dataset â€” skipping detail-page checks.");
             return false;
         }
         browse.openFirstPetProfile();
-        try { Thread.sleep(1500); } catch (InterruptedException ignored) {}
+        Waits.urlContains(driver, "/adoption/animals/");
         return true;
     }
 
-    @Test(priority = 32, groups = {"petDetail"},
+    @Test(priority = 32,
+          groups = {"petDetail", "functional", "regression", "positive"},
           description = "PETZ_TC032 - Pet detail page layout")
     public void TC032_PetDetailLayout() {
         if (!openFirstPet()) return;
@@ -51,7 +53,8 @@ public class PetDetailTest extends BaseTest {
                 "Pin icon present", page.hasLocationPin());
     }
 
-    @Test(priority = 33, groups = {"petDetail"},
+    @Test(priority = 33,
+          groups = {"petDetail", "functional", "regression", "positive"},
           description = "PETZ_TC033 - Apply-to-Adopt form fields")
     public void TC033_ApplyFormFields() {
         if (!openFirstPet()) return;
@@ -60,19 +63,21 @@ public class PetDetailTest extends BaseTest {
                 "'Apply to Adopt <name>' visible", page.isApplyFormVisible());
     }
 
-    @Test(priority = 34, groups = {"petDetail"},
+    @Test(priority = 34,
+          groups = {"petDetail", "functional", "regression", "negative"},
           description = "PETZ_TC034 - Submit button is disabled while 'Why' is empty")
     public void TC034_ApplySubmitDisabled() {
         if (!openFirstPet()) return;
         PetDetailPage page = new PetDetailPage(driver);
 
-        // Try filling Why with empty (clear) — submit should remain disabled.
+        // Try filling Why with empty (clear) â€” submit should remain disabled.
         try { page.fillWhy(""); } catch (Exception ignored) {}
         StepReporter.check("Submit state with empty 'Why'",
                 "Submit disabled (button greyed out)", page.isSubmitDisabled());
     }
 
-    @Test(priority = 35, groups = {"petDetail"},
+    @Test(priority = 35,
+          groups = {"petDetail", "functional", "regression", "sanity", "positive"},
           description = "PETZ_TC035 - Successful adoption-application submission")
     public void TC035_ApplySubmitHappy() {
         if (!openFirstPet()) return;
@@ -86,11 +91,11 @@ public class PetDetailTest extends BaseTest {
                 "Submit enabled (orange)", enabled);
 
         if (!enabled) {
-            StepReporter.info("Submit remained disabled — likely an extra required field. Stopping happy-path here.");
+            StepReporter.info("Submit remained disabled â€” likely an extra required field. Stopping happy-path here.");
             return;
         }
         page.clickSubmit();
-        try { Thread.sleep(3500); } catch (InterruptedException ignored) {}
+        Waits.documentReady(driver);
 
         StepReporter.note("URL after submit",
                 "/adoption/my OR success toast on detail page", page.getCurrentUrl());

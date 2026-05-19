@@ -1,8 +1,9 @@
-package com.cts.mfrp.petz.tests;
+package com.cts.mfrp.petz.tests.functional;
 
 import com.cts.mfrp.petz.base.BaseTest;
 import com.cts.mfrp.petz.pages.HospitalDoctorsPage;
 import com.cts.mfrp.petz.pages.LoginPage;
+import com.cts.mfrp.petz.utils.Waits;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
@@ -11,7 +12,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 /**
- * Hospital Doctors scenario — PETZ_TC074 to PETZ_TC079.
+ * Hospital Doctors scenario â€” PETZ_TC074 to PETZ_TC079.
  * Group: hospitalDoctors.
  *
  * Notes on actual vs. expected:
@@ -34,7 +35,8 @@ public class HospitalDoctorsTest extends BaseTest {
         ((JavascriptExecutor) driver).executeScript("arguments[0].click();", el);
     }
 
-    @Test(priority = 74, groups = {"hospitalDoctors"},
+    @Test(priority = 74,
+          groups = {"hospitalDoctors", "functional", "regression", "sanity", "positive"},
           description = "PETZ_TC074 - /hospital/doctors page renders title, stat tiles, and Add Doctor CTA")
     public void TC074_DoctorsEmpty() {
         new LoginPage(driver).loginAsHospital();
@@ -49,7 +51,8 @@ public class HospitalDoctorsTest extends BaseTest {
                 "Four stat tiles (TOTAL DOCTORS / SPECIALIZATIONS / WITH SCHEDULE / SLOTS / DAY) not all visible.");
     }
 
-    @Test(priority = 75, groups = {"hospitalDoctors"},
+    @Test(priority = 75,
+          groups = {"hospitalDoctors", "functional", "regression", "positive"},
           description = "PETZ_TC075 - 'New Doctor Details' form expands with all expected fields")
     public void TC075_AddDoctorForm() {
         new LoginPage(driver).loginAsHospital();
@@ -65,7 +68,8 @@ public class HospitalDoctorsTest extends BaseTest {
                 "Slot Duration should default to 30.");
     }
 
-    @Test(priority = 76, groups = {"hospitalDoctors"},
+    @Test(priority = 76,
+          groups = {"hospitalDoctors", "functional", "regression", "negative"},
           description = "PETZ_TC076 - 'Save Doctor' starts disabled; the form accepts a Full Name")
     public void TC076_AddDoctorRequiredFields() {
         new LoginPage(driver).loginAsHospital();
@@ -83,7 +87,8 @@ public class HospitalDoctorsTest extends BaseTest {
                 "'Save Doctor' button disappeared after typing into Full Name.");
     }
 
-    @Test(priority = 77, groups = {"hospitalDoctors"},
+    @Test(priority = 77,
+          groups = {"hospitalDoctors", "functional", "regression", "positive"},
           description = "PETZ_TC077 - Slot Duration defaults to 30; rejects non-positive; accepts 15/60")
     public void TC077_AddDoctorSlotDurationDefault() {
         new LoginPage(driver).loginAsHospital();
@@ -121,7 +126,8 @@ public class HospitalDoctorsTest extends BaseTest {
                 "Slot Duration should accept 60.");
     }
 
-    @Test(priority = 78, groups = {"hospitalDoctors"},
+    @Test(priority = 78,
+          groups = {"hospitalDoctors", "functional", "regression", "sanity", "positive"},
           description = "PETZ_TC078 - Save Doctor happy path completes without error")
     public void TC078_AddDoctorSaveHappy() {
         new LoginPage(driver).loginAsHospital();
@@ -133,7 +139,7 @@ public class HospitalDoctorsTest extends BaseTest {
 
         page.fillFullName("Dr. Aditi Rao");
         page.fillSpecialization("Dermatology");
-        // Time-picker inputs vary between builds — best-effort fill, never fatal.
+        // Time-picker inputs vary between builds â€” best-effort fill, never fatal.
         try { page.fillScheduleStart("10:00"); } catch (Exception ignored) { }
         try { page.fillScheduleEnd("17:00");   } catch (Exception ignored) { }
         try { page.setSlotDuration(30);        } catch (Exception ignored) { }
@@ -147,14 +153,15 @@ public class HospitalDoctorsTest extends BaseTest {
                     "if(b){b.disabled=false;b.click();}");
         }
 
-        try { Thread.sleep(2500); } catch (InterruptedException ignored) { }
+        Waits.pageSourceContainsAny(driver, "Dr. Aditi Rao", "Dermatology");
 
         int after = page.getDoctorRowCount();
         Assert.assertTrue(after > before || driver.getPageSource().contains("Dr. Aditi Rao"),
                 "Save did not produce a new doctor row or any visible trace of 'Dr. Aditi Rao'.");
     }
 
-    @Test(priority = 79, groups = {"hospitalDoctors"},
+    @Test(priority = 79,
+          groups = {"hospitalDoctors", "functional", "regression", "positive"},
           description = "PETZ_TC079 - Cancel discards entered data and does not add a doctor")
     public void TC079_AddDoctorCancel() {
         new LoginPage(driver).loginAsHospital();

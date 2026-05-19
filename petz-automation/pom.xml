@@ -21,6 +21,9 @@
         <restassured.version>5.4.0</restassured.version>
         <jackson.version>2.16.1</jackson.version>
         <suiteXmlFile>testng.xml</suiteXmlFile>
+        <!-- Empty defaults so an unset -Dgroups means "run everything". -->
+        <groups></groups>
+        <excludedGroups></excludedGroups>
     </properties>
 
     <dependencies>
@@ -72,6 +75,20 @@
             <artifactId>jackson-databind</artifactId>
             <version>${jackson.version}</version>
         </dependency>
+
+        <!-- SLF4J facade — framework code logs through this, never System.out -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>2.0.13</version>
+        </dependency>
+
+        <!-- Logback as the concrete logger (richer config than slf4j-simple) -->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.5.6</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -84,6 +101,14 @@
                     <suiteXmlFiles>
                         <suiteXmlFile>${suiteXmlFile}</suiteXmlFile>
                     </suiteXmlFiles>
+                    <!--
+                      Wire -Dgroups / -DexcludedGroups through to TestNG so the
+                      command line can filter (smoke, sanity, regression, ...).
+                      Default groups property is unset, so all tests in the
+                      configured suite XML run.
+                    -->
+                    <groups>${groups}</groups>
+                    <excludedGroups>${excludedGroups}</excludedGroups>
                 </configuration>
             </plugin>
         </plugins>

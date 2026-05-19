@@ -1,18 +1,20 @@
-package com.cts.mfrp.petz.tests;
+package com.cts.mfrp.petz.tests.functional;
 
 import com.cts.mfrp.petz.base.BaseTest;
 import com.cts.mfrp.petz.pages.LoginPage;
 import com.cts.mfrp.petz.pages.RescueReportsListPage;
 import com.cts.mfrp.petz.utils.StepReporter;
+import com.cts.mfrp.petz.utils.Waits;
 import org.testng.annotations.Test;
 
 /**
- * Rescue Reports list (/rescue) scenario — PETZ_TC047 to PETZ_TC048.
+ * Rescue Reports list (/rescue) scenario â€” PETZ_TC047 to PETZ_TC048.
  * Group: rescueList.
  */
 public class RescueListTest extends BaseTest {
 
-    @Test(priority = 47, groups = {"rescueList"},
+    @Test(priority = 47,
+          groups = {"rescueList", "functional", "regression", "sanity", "positive"},
           description = "PETZ_TC047 - Layout of /rescue")
     public void TC047_RescueListLayout() {
         new LoginPage(driver).loginAsPetOwner();
@@ -33,14 +35,15 @@ public class RescueListTest extends BaseTest {
                 count == 0 ? "empty state" : count + " report card(s)");
     }
 
-    @Test(priority = 48, groups = {"rescueList"},
+    @Test(priority = 48,
+          groups = {"rescueList", "functional", "regression", "sanity", "positive"},
           description = "PETZ_TC048 - 'Report Animal' CTA navigates to /rescue/report")
     public void TC048_RescueListReportButton() {
         new LoginPage(driver).loginAsPetOwner();
         RescueReportsListPage page = new RescueReportsListPage(driver);
         page.open();
         page.clickReportAnimal();
-        try { Thread.sleep(1500); } catch (InterruptedException ignored) {}
+        Waits.urlContains(driver, "/rescue/report");
 
         StepReporter.check("After clicking 'Report Animal'",
                 "/rescue/report", page.getCurrentUrl());
