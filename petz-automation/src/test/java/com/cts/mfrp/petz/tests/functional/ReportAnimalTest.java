@@ -16,7 +16,7 @@ import java.util.List;
 public class ReportAnimalTest extends BaseTest {
 
     @Test(priority = 49,
-          groups = {"reportAnimal", "functional", "regression", "positive"},
+          groups = {"reportAnimal", "ui", "regression", "positive"},
           description = "PETZ_TC049 - Layout of /rescue/report")
     public void TC049_ReportFormLayout() {
         new LoginPage(driver).loginAsPetOwner();
@@ -36,7 +36,7 @@ public class ReportAnimalTest extends BaseTest {
     }
 
     @Test(priority = 50,
-          groups = {"reportAnimal", "functional", "regression", "positive"},
+          groups = {"reportAnimal", "ui", "regression", "positive"},
           description = "PETZ_TC050 - Animal-type dropdown contents")
     public void TC050_ReportAnimalTypeOptions() {
         new LoginPage(driver).loginAsPetOwner();
@@ -54,7 +54,7 @@ public class ReportAnimalTest extends BaseTest {
     }
 
     @Test(priority = 51,
-          groups = {"reportAnimal", "functional", "regression", "positive"},
+          groups = {"reportAnimal", "ui", "regression", "positive"},
           description = "PETZ_TC051 - Urgency level dropdown contents")
     public void TC051_ReportUrgencyOptions() {
         new LoginPage(driver).loginAsPetOwner();
@@ -94,7 +94,7 @@ public class ReportAnimalTest extends BaseTest {
     }
 
     @Test(priority = 53,
-          groups = {"reportAnimal", "functional", "regression", "positive"},
+          groups = {"reportAnimal", "ui", "regression", "positive"},
           description = "PETZ_TC053 - Chennai area dropdown contents")
     public void TC053_ReportChennaiAreaOptions() {
         new LoginPage(driver).loginAsPetOwner();

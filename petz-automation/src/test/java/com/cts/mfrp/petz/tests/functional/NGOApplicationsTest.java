@@ -16,7 +16,7 @@ import org.testng.annotations.Test;
 public class NGOApplicationsTest extends BaseTest {
 
     @Test(priority = 66,
-          groups = {"ngoApplications", "functional", "regression", "positive"},
+          groups = {"ngoApplications", "ui", "regression", "positive"},
           description = "PETZ_TC066 - Empty state of /ngo/applications")
     public void TC066_NGOAppsEmpty() {
         new LoginPage(driver).loginAsNgo();
@@ -44,7 +44,7 @@ public class NGOApplicationsTest extends BaseTest {
     }
 
     @Test(priority = 67,
-          groups = {"ngoApplications", "functional", "regression", "sanity", "positive"},
+          groups = {"ngoApplications", "ui", "regression", "sanity", "positive"},
           description = "PETZ_TC067 - Fresh applications appear on /ngo/applications (single-browser view)")
     public void TC067_NGOAppsCardOnArrival() {
         new LoginPage(driver).loginAsNgo();

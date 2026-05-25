@@ -76,6 +76,13 @@
             <version>${jackson.version}</version>
         </dependency>
 
+        <!-- Jackson XML — reads test-data fixtures under src/test/resources/testdata/*.xml into POJOs -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.dataformat</groupId>
+            <artifactId>jackson-dataformat-xml</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+
         <!-- SLF4J facade — framework code logs through this, never System.out -->
         <dependency>
             <groupId>org.slf4j</groupId>

@@ -24,7 +24,7 @@ public class HospitalDashboardTest extends BaseTest {
     }
 
     @Test(priority = 70,
-          groups = {"hospitalDashboard", "functional", "regression", "sanity", "positive"},
+          groups = {"hospitalDashboard", "ui", "regression", "sanity", "positive"},
           description = "PETZ_TC070 - Validate Hospital dashboard layout (title, stat tiles, info cards, nav cards)")
     public void TC070_HospitalDashLayout() {
         new LoginPage(driver).loginAsHospital();
@@ -56,7 +56,7 @@ public class HospitalDashboardTest extends BaseTest {
     }
 
     @Test(priority = 71,
-          groups = {"hospitalDashboard", "functional", "regression", "positive"},
+          groups = {"hospitalDashboard", "ui", "regression", "positive"},
           description = "PETZ_TC071 - /hospital/appointments tabs, week strip, filters and empty state")
     public void TC071_HospitalApptsTabsAndStrip() {
         new LoginPage(driver).loginAsHospital();
@@ -99,7 +99,7 @@ public class HospitalDashboardTest extends BaseTest {
     }
 
     @Test(priority = 73,
-          groups = {"hospitalDashboard", "functional", "regression", "positive"},
+          groups = {"hospitalDashboard", "ui", "regression", "positive"},
           description = "PETZ_TC073 - Week range header rendered; 'All Week' present")
     public void TC073_HospitalApptsDateNavigation() {
         new LoginPage(driver).loginAsHospital();

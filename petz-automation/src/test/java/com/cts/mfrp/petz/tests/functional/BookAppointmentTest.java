@@ -20,7 +20,7 @@ import java.util.List;
 public class BookAppointmentTest extends BaseTest {
 
     @Test(priority = 38,
-          groups = {"bookAppointment", "functional", "regression", "positive"},
+          groups = {"bookAppointment", "ui", "regression", "positive"},
           description = "PETZ_TC038 - Layout of /appointments/book")
     public void TC038_BookFormLayout() {
         new LoginPage(driver).loginAsPetOwner();
@@ -84,7 +84,7 @@ public class BookAppointmentTest extends BaseTest {
     }
 
     @Test(priority = 40,
-          groups = {"bookAppointment", "functional", "regression", "positive"},
+          groups = {"bookAppointment", "ui", "regression", "positive"},
           description = "PETZ_TC040 - Hospital + Doctor dropdowns")
     public void TC040_BookHospitalDoctorOptions() {
         new LoginPage(driver).loginAsPetOwner();
@@ -124,7 +124,7 @@ public class BookAppointmentTest extends BaseTest {
     }
 
     @Test(priority = 42,
-          groups = {"bookAppointment", "functional", "regression", "positive"},
+          groups = {"bookAppointment", "ui", "regression", "positive"},
           description = "PETZ_TC042 - Preferred Time dropdown for a future date")
     public void TC042_BookTimeOptions() {
         new LoginPage(driver).loginAsPetOwner();

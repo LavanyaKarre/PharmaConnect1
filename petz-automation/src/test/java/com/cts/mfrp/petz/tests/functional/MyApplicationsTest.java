@@ -14,7 +14,7 @@ import org.testng.annotations.Test;
 public class MyApplicationsTest extends BaseTest {
 
     @Test(priority = 36,
-          groups = {"myApplications", "functional", "regression", "sanity", "positive"},
+          groups = {"myApplications", "ui", "regression", "sanity", "positive"},
           description = "PETZ_TC036 - Empty state on /adoption/my")
     public void TC036_MyAppsEmpty() {
         new LoginPage(driver).loginAsPetOwner();
@@ -41,7 +41,7 @@ public class MyApplicationsTest extends BaseTest {
     }
 
     @Test(priority = 37,
-          groups = {"myApplications", "functional", "regression", "positive"},
+          groups = {"myApplications", "ui", "regression", "positive"},
           description = "PETZ_TC037 - List state once at least one application exists")
     public void TC037_MyAppsListWithStatus() {
         new LoginPage(driver).loginAsPetOwner();

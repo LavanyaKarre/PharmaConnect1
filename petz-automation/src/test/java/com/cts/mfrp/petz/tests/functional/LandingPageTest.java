@@ -21,7 +21,7 @@ public class LandingPageTest extends BaseTest {
     }
 
     @Test(priority = 1,
-          groups = {"landingPage", "functional", "regression", "smoke", "sanity", "positive"},
+          groups = {"landingPage", "ui", "regression", "smoke", "sanity", "positive"},
           description = "PETZ_TC001 - Validate header + hero on the landing page")
     public void TC001_HomeRender() {
         LandingPage page = new LandingPage(driver);
@@ -48,7 +48,7 @@ public class LandingPageTest extends BaseTest {
     }
 
     @Test(priority = 2,
-          groups = {"landingPage", "functional", "regression", "positive"},
+          groups = {"landingPage", "ui", "regression", "positive"},
           description = "PETZ_TC002 - Validate stats strip + feature/how-it-works cards")
     public void TC002_HomeStatsAndCards() {
         LandingPage page = new LandingPage(driver);
@@ -88,7 +88,7 @@ public class LandingPageTest extends BaseTest {
     }
 
     @Test(priority = 3,
-          groups = {"landingPage", "functional", "regression", "positive"},
+          groups = {"landingPage", "ui", "regression", "positive"},
           description = "PETZ_TC003 - Validate 'Where We Operate' cities widget")
     public void TC003_HomeCitiesWidget() {
         LandingPage page = new LandingPage(driver);

@@ -17,7 +17,7 @@ import org.testng.annotations.Test;
 public class NGORescueQueueTest extends BaseTest {
 
     @Test(priority = 68,
-          groups = {"ngoRescueQueue", "functional", "regression", "positive"},
+          groups = {"ngoRescueQueue", "ui", "regression", "positive"},
           description = "PETZ_TC068 - Empty state of /ngo/rescues")
     public void TC068_NGOQueueEmpty() {
         new LoginPage(driver).loginAsNgo();
@@ -42,7 +42,7 @@ public class NGORescueQueueTest extends BaseTest {
     }
 
     @Test(priority = 69,
-          groups = {"ngoRescueQueue", "functional", "regression", "positive"},
+          groups = {"ngoRescueQueue", "ui", "regression", "positive"},
           description = "PETZ_TC069 - Accept/Decline buttons appear when a rescue is queued (single-browser view)")
     public void TC069_NGOQueueAcceptDecline() {
         new LoginPage(driver).loginAsNgo();

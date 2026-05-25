@@ -14,7 +14,7 @@ import org.testng.annotations.Test;
 public class RescueListTest extends BaseTest {
 
     @Test(priority = 47,
-          groups = {"rescueList", "functional", "regression", "sanity", "positive"},
+          groups = {"rescueList", "ui", "regression", "sanity", "positive"},
           description = "PETZ_TC047 - Layout of /rescue")
     public void TC047_RescueListLayout() {
         new LoginPage(driver).loginAsPetOwner();

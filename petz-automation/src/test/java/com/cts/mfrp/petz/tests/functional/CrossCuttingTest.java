@@ -34,7 +34,7 @@ import static com.cts.mfrp.petz.constants.AppConstants.*;
 public class CrossCuttingTest extends BaseTest {
 
     @Test(priority = 85,
-          groups = {"crossCutting", "functional", "regression", "sanity", "positive"},
+          groups = {"crossCutting", "ui", "regression", "sanity", "positive"},
           description = "PETZ_TC085 - Bell icon is present on every authenticated page")
     public void TC085_HeaderConstant() {
         new LoginPage(driver).loginAsPetOwner();

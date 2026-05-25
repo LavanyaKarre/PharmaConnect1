@@ -16,7 +16,7 @@ import java.util.List;
 public class NGOMyAnimalsTest extends BaseTest {
 
     @Test(priority = 63,
-          groups = {"ngoMyAnimals", "functional", "regression", "positive"},
+          groups = {"ngoMyAnimals", "ui", "regression", "positive"},
           description = "PETZ_TC063 - Empty state of /ngo/animals")
     public void TC063_NGOAnimalsEmpty() {
         new LoginPage(driver).loginAsNgo();
@@ -43,7 +43,7 @@ public class NGOMyAnimalsTest extends BaseTest {
     }
 
     @Test(priority = 64,
-          groups = {"ngoMyAnimals", "functional", "regression", "positive"},
+          groups = {"ngoMyAnimals", "ui", "regression", "positive"},
           description = "PETZ_TC064 - Filters: Species / Status / Sort dropdown contents")
     public void TC064_NGOAnimalsFilters() {
         new LoginPage(driver).loginAsNgo();

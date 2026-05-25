@@ -17,7 +17,7 @@ import org.testng.annotations.Test;
 public class BrowseAnimalsTest extends BaseTest {
 
     @Test(priority = 26,
-          groups = {"browseAnimals", "functional", "regression", "sanity", "positive"},
+          groups = {"browseAnimals", "ui", "regression", "sanity", "positive"},
           description = "PETZ_TC026 - Validate 'Find Your Companion' page layout")
     public void TC026_BrowseRender() {
         new LoginPage(driver).loginAsPetOwner();
@@ -42,7 +42,7 @@ public class BrowseAnimalsTest extends BaseTest {
     }
 
     @Test(priority = 27,
-          groups = {"browseAnimals", "functional", "regression", "positive"},
+          groups = {"browseAnimals", "ui", "regression", "positive"},
           description = "PETZ_TC027 - Validate fields on each pet card")
     public void TC027_BrowsePetCardFields() {
         new LoginPage(driver).loginAsPetOwner();

@@ -14,7 +14,7 @@ import org.testng.annotations.Test;
 public class MyAppointmentsTest extends BaseTest {
 
     @Test(priority = 45,
-          groups = {"myAppointments", "functional", "regression", "positive"},
+          groups = {"myAppointments", "ui", "regression", "positive"},
           description = "PETZ_TC045 - Empty state on /appointments")
     public void TC045_MyApptsEmpty() {
         new LoginPage(driver).loginAsPetOwner();
@@ -44,7 +44,7 @@ public class MyAppointmentsTest extends BaseTest {
     }
 
     @Test(priority = 46,
-          groups = {"myAppointments", "functional", "regression", "positive"},
+          groups = {"myAppointments", "ui", "regression", "positive"},
           description = "PETZ_TC046 - List state on /appointments")
     public void TC046_MyApptsList() {
         new LoginPage(driver).loginAsPetOwner();

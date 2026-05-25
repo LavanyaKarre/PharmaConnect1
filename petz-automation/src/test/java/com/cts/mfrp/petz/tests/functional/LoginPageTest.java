@@ -18,7 +18,7 @@ import static com.cts.mfrp.petz.constants.AppConstants.*;
 public class LoginPageTest extends BaseTest {
 
     @Test(priority = 6,
-          groups = {"authLogin", "functional", "regression", "smoke", "sanity", "positive"},
+          groups = {"authLogin", "ui", "regression", "smoke", "sanity", "positive"},
           description = "PETZ_TC006 - Validate /auth/login layout")
     public void TC006_LoginRender() {
         LoginPage page = new LoginPage(driver);

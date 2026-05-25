@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Fixture for PetOwnerDashboardTest TC024 (Quick Actions routing) and TC025
+  (Sidebar items + routing). Each test loads this same file via
+  DashboardNav.load() and iterates only the section it cares about.
+
+  Schema:
+    quickActions/action     : the 5 Quick Action cards on /dashboard.
+                              Each <action> has:
+                                <label>         — exact button text shown
+                                <routeFragment> — relative URL fragment the
+                                                  button must navigate to
+                                                  (composed with AppConstants
+                                                  BASE_URL by the test)
+    sidebarItems/sidebarItem: the 5 sidebar nav items for a Pet Owner — same
+                              shape as quickActions/action.
+    sidebarExpectedLabels/label : the labels TC025's
+                              {@code DashboardPage.sidebarContains(...)} call
+                              asserts are present in the rendered sidebar.
+
+  No new test cases are added by editing this file. The two top-level sections
+  feed two already-existing @Test methods (TC024, TC025) in
+  PetOwnerDashboardTest; rows are 1:1 with what those methods iterate today.
+-->
+<dashboardNav>
+
+    <quickActions>
+        <action>
+            <label>Report Rescue</label>
+            <routeFragment>/rescue</routeFragment>
+        </action>
+        <action>
+            <label>Browse Adoptions</label>
+            <routeFragment>/adoption/animals</routeFragment>
+        </action>
+        <action>
+            <label>Book Appointment</label>
+            <routeFragment>/appointments/book</routeFragment>
+        </action>
+        <action>
+            <label>My Adoptions</label>
+            <routeFragment>/adoption/my</routeFragment>
+        </action>
+        <action>
+            <label>My Appointments</label>
+            <routeFragment>/appointments</routeFragment>
+        </action>
+    </quickActions>
+
+    <sidebarItems>
+        <sidebarItem>
+            <label>My Adoptions</label>
+            <routeFragment>/adoption/my</routeFragment>
+        </sidebarItem>
+        <sidebarItem>
+            <label>Browse Animals</label>
+            <routeFragment>/adoption/animals</routeFragment>
+        </sidebarItem>
+        <sidebarItem>
+            <label>Appointments</label>
+            <routeFragment>/appointments</routeFragment>
+        </sidebarItem>
+        <sidebarItem>
+            <label>Rescue</label>
+            <routeFragment>/rescue</routeFragment>
+        </sidebarItem>
+        <sidebarItem>
+            <label>Dashboard</label>
+            <routeFragment>/dashboard</routeFragment>
+        </sidebarItem>
+    </sidebarItems>
+
+    <sidebarExpectedLabels>
+        <label>Dashboard</label>
+        <label>My Adoptions</label>
+        <label>Browse Animals</label>
+        <label>Appointments</label>
+        <label>Rescue</label>
+    </sidebarExpectedLabels>
+
+</dashboardNav>

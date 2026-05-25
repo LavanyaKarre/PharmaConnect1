@@ -25,7 +25,7 @@ public class RegisterPageTest extends BaseTest {
     }
 
     @Test(priority = 13,
-          groups = {"authRegister", "functional", "regression", "sanity", "positive"},
+          groups = {"authRegister", "ui", "regression", "sanity", "positive"},
           description = "PETZ_TC013 - Validate /auth/register layout")
     public void TC013_RegisterRender() {
         RegisterPage page = new RegisterPage(driver);
@@ -54,7 +54,7 @@ public class RegisterPageTest extends BaseTest {
     }
 
     @Test(priority = 14,
-          groups = {"authRegister", "functional", "regression", "positive"},
+          groups = {"authRegister", "ui", "regression", "positive"},
           description = "PETZ_TC014 - Account Type dropdown lists exactly Pet Owner / NGO / Vet")
     public void TC014_RegisterAccountTypeOptions() {
         RegisterPage page = new RegisterPage(driver);

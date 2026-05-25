@@ -36,7 +36,7 @@ public class HospitalDoctorsTest extends BaseTest {
     }
 
     @Test(priority = 74,
-          groups = {"hospitalDoctors", "functional", "regression", "sanity", "positive"},
+          groups = {"hospitalDoctors", "ui", "regression", "sanity", "positive"},
           description = "PETZ_TC074 - /hospital/doctors page renders title, stat tiles, and Add Doctor CTA")
     public void TC074_DoctorsEmpty() {
         new LoginPage(driver).loginAsHospital();
@@ -52,7 +52,7 @@ public class HospitalDoctorsTest extends BaseTest {
     }
 
     @Test(priority = 75,
-          groups = {"hospitalDoctors", "functional", "regression", "positive"},
+          groups = {"hospitalDoctors", "ui", "regression", "positive"},
           description = "PETZ_TC075 - 'New Doctor Details' form expands with all expected fields")
     public void TC075_AddDoctorForm() {
         new LoginPage(driver).loginAsHospital();

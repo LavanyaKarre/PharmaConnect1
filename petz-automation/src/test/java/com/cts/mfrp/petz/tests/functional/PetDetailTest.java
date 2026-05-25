@@ -33,7 +33,7 @@ public class PetDetailTest extends BaseTest {
     }
 
     @Test(priority = 32,
-          groups = {"petDetail", "functional", "regression", "positive"},
+          groups = {"petDetail", "ui", "regression", "positive"},
           description = "PETZ_TC032 - Pet detail page layout")
     public void TC032_PetDetailLayout() {
         if (!openFirstPet()) return;
@@ -54,7 +54,7 @@ public class PetDetailTest extends BaseTest {
     }
 
     @Test(priority = 33,
-          groups = {"petDetail", "functional", "regression", "positive"},
+          groups = {"petDetail", "ui", "regression", "positive"},
           description = "PETZ_TC033 - Apply-to-Adopt form fields")
     public void TC033_ApplyFormFields() {
         if (!openFirstPet()) return;

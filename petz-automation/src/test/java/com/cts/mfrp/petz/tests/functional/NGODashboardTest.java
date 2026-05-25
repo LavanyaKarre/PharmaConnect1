@@ -14,7 +14,7 @@ import org.testng.annotations.Test;
 public class NGODashboardTest extends BaseTest {
 
     @Test(priority = 59,
-          groups = {"ngoDashboard", "functional", "regression", "sanity", "positive"},
+          groups = {"ngoDashboard", "ui", "regression", "sanity", "positive"},
           description = "PETZ_TC059 - NGO dashboard layout")
     public void TC059_NGODashLayout() {
         new LoginPage(driver).loginAsNgo();
@@ -32,7 +32,7 @@ public class NGODashboardTest extends BaseTest {
     }
 
     @Test(priority = 60,
-          groups = {"ngoDashboard", "functional", "regression", "positive"},
+          groups = {"ngoDashboard", "ui", "regression", "positive"},
           description = "PETZ_TC060 - Two donut charts (Rescue Pipeline / Application Status)")
     public void TC060_NGODashCharts() {
         new LoginPage(driver).loginAsNgo();
@@ -81,7 +81,7 @@ public class NGODashboardTest extends BaseTest {
     }
 
     @Test(priority = 62,
-          groups = {"ngoDashboard", "functional", "regression", "sanity", "positive"},
+          groups = {"ngoDashboard", "ui", "regression", "sanity", "positive"},
           description = "PETZ_TC062 - NGO sidebar items")
     public void TC062_NGODashSidebar() {
         new LoginPage(driver).loginAsNgo();

@@ -1,6 +1,8 @@
 package com.cts.mfrp.petz.tests.functional;
 
 import com.cts.mfrp.petz.base.BaseTest;
+import com.cts.mfrp.petz.models.testdata.DashboardNav;
+import com.cts.mfrp.petz.models.testdata.NavItem;
 import com.cts.mfrp.petz.pages.DashboardPage;
 import com.cts.mfrp.petz.pages.LoginPage;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -22,7 +24,7 @@ import static com.cts.mfrp.petz.constants.AppConstants.PET_OWNER_NAME;
 public class PetOwnerDashboardTest extends BaseTest {
 
     @Test(priority = 21,
-            groups = {"petOwnerDashboard", "functional", "regression", "smoke", "sanity", "positive"},
+            groups = {"petOwnerDashboard", "ui", "regression", "smoke", "sanity", "positive"},
             description =
             "PETZ_TC021 - Validate greeting block and date on /dashboard")
     public void TC021_verifyDashboardGreetingAndDate() {
@@ -50,7 +52,7 @@ public class PetOwnerDashboardTest extends BaseTest {
     }
 
     @Test(priority = 22,
-            groups = {"petOwnerDashboard", "functional", "regression", "positive"},
+            groups = {"petOwnerDashboard", "ui", "regression", "positive"},
             description =
             "PETZ_TC022 - Validate red 'Animal in Distress?' banner on /dashboard")
     public void TC022_verifyEmergencyBanner() {
@@ -82,7 +84,7 @@ public class PetOwnerDashboardTest extends BaseTest {
     }
 
     @Test(priority = 23,
-            groups = {"petOwnerDashboard", "functional", "regression", "positive"},
+            groups = {"petOwnerDashboard", "ui", "regression", "positive"},
             description =
             "PETZ_TC023 - Validate 4 stat tiles on /dashboard for a Pet Owner")
     public void TC023_verifyStatTiles() {
@@ -124,27 +126,18 @@ public class PetOwnerDashboardTest extends BaseTest {
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(EXPLICIT_WAIT));
 
-        String[][] actions = {
-                {"Report Rescue",    "/rescue"},
-                {"Browse Adoptions", "/adoption/animals"},
-                {"Book Appointment", "/appointments/book"},
-                {"My Adoptions",     "/adoption/my"},
-                {"My Appointments",  "/appointments"}
-        };
-
-        for (String[] action : actions) {
-            String label   = action[0];
-            String urlPart = action[1];
-
+        // Label/route pairs come from testdata/dashboard-nav.xml; the test composes
+        // full URLs at runtime using AppConstants.DASHBOARD_URL.
+        for (NavItem action : DashboardNav.load().getQuickActions()) {
             driver.get(DASHBOARD_URL);
             wait.until(ExpectedConditions.urlContains("/dashboard"));
 
-            dashboard.clickQuickAction(label);
-            wait.until(ExpectedConditions.urlContains(urlPart));
+            dashboard.clickQuickAction(action.getLabel());
+            wait.until(ExpectedConditions.urlContains(action.getRouteFragment()));
 
-            Assert.assertTrue(driver.getCurrentUrl().contains(urlPart),
-                    "Quick Action '" + label + "' did not route to " + urlPart +
-                            ". Actual URL: " + driver.getCurrentUrl());
+            Assert.assertTrue(driver.getCurrentUrl().contains(action.getRouteFragment()),
+                    "Quick Action '" + action.getLabel() + "' did not route to "
+                            + action.getRouteFragment() + ". Actual URL: " + driver.getCurrentUrl());
         }
     }
 
@@ -159,35 +152,28 @@ public class PetOwnerDashboardTest extends BaseTest {
         Assert.assertTrue(dashboard.isSidebarVisible(),
                 "Sidebar is not visible on /dashboard.");
 
+        // Expected-label list + label/route routing pairs both come from
+        // testdata/dashboard-nav.xml.
+        DashboardNav nav = DashboardNav.load();
+        String[] expectedLabels = nav.getSidebarExpectedLabels().toArray(new String[0]);
+
         Assert.assertTrue(
-                dashboard.sidebarContains(
-                        "Dashboard", "My Adoptions", "Browse Animals", "Appointments", "Rescue"),
-                "Sidebar is missing one or more expected items: " +
-                        "Dashboard, My Adoptions, Browse Animals, Appointments, Rescue.");
+                dashboard.sidebarContains(expectedLabels),
+                "Sidebar is missing one or more expected items: "
+                        + String.join(", ", expectedLabels) + ".");
 
         Assert.assertTrue(dashboard.sidebarUserLabelVisible(),
                 "User widget at the bottom of the sidebar does not show the 'USER' label.");
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(EXPLICIT_WAIT));
 
-        String[][] navItems = {
-                {"My Adoptions",   "/adoption/my"},
-                {"Browse Animals", "/adoption/animals"},
-                {"Appointments",   "/appointments"},
-                {"Rescue",         "/rescue"},
-                {"Dashboard",      "/dashboard"}
-        };
+        for (NavItem item : nav.getSidebarItems()) {
+            dashboard.clickSidebarItem(item.getLabel());
+            wait.until(ExpectedConditions.urlContains(item.getRouteFragment()));
 
-        for (String[] item : navItems) {
-            String label   = item[0];
-            String urlPart = item[1];
-
-            dashboard.clickSidebarItem(label);
-            wait.until(ExpectedConditions.urlContains(urlPart));
-
-            Assert.assertTrue(driver.getCurrentUrl().contains(urlPart),
-                    "Sidebar item '" + label + "' did not route to " + urlPart +
-                            ". Actual URL: " + driver.getCurrentUrl());
+            Assert.assertTrue(driver.getCurrentUrl().contains(item.getRouteFragment()),
+                    "Sidebar item '" + item.getLabel() + "' did not route to "
+                            + item.getRouteFragment() + ". Actual URL: " + driver.getCurrentUrl());
         }
     }
 }

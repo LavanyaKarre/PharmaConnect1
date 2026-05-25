@@ -1,0 +1,42 @@
+package com.cts.mfrp.petz.models.testdata;
+
+import com.cts.mfrp.petz.utils.XmlDataLoader;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
+
+import java.util.List;
+import java.util.NoSuchElementException;
+
+/**
+ * Wrapper for the root {@code <loginCases>} element in
+ * {@code src/test/resources/testdata/auth-login.xml}. Parsed once, cached.
+ */
+@JacksonXmlRootElement(localName = "loginCases")
+public class LoginCases {
+
+    private static final String RESOURCE = "testdata/auth-login.xml";
+    private static volatile LoginCases cached;
+
+    @JacksonXmlElementWrapper(useWrapping = false)
+    @JacksonXmlProperty(localName = "case")
+    private List<LoginCase> cases;
+
+    public List<LoginCase> getCases()            { return cases; }
+    public void setCases(List<LoginCase> value)  { this.cases = value; }
+
+    public static LoginCase byId(String id) {
+        if (cached == null) {
+            synchronized (LoginCases.class) {
+                if (cached == null) {
+                    cached = XmlDataLoader.load(RESOURCE, LoginCases.class);
+                }
+            }
+        }
+        return cached.cases.stream()
+                .filter(c -> id.equals(c.getId()))
+                .findFirst()
+                .orElseThrow(() -> new NoSuchElementException(
+                        "No <case> with id=" + id + " in " + RESOURCE));
+    }
+}

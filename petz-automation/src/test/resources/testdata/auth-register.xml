@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Fixture for TC102_AuthRegisterTest. One <case> per existing @Test method;
+  the method fetches its row by id via RegisterCases.byId(...).
+
+  Schema:
+    id, description    : identity + intent (matches the @Test description)
+
+    payloadMode        : how the test method builds the request body.
+                           EMPTY     — new RegisterRequest() (TC102_2)
+                           GENERATED — validUser(emailSuffix) then apply overrides
+                                       (TC102_1, _3, _4, _5; this is the default
+                                       when payloadMode is omitted)
+    emailSuffix        : per-case unique-email seed for GENERATED mode (keeps the
+                         generated email distinct across test methods).
+    emailOverride      : literal email to set AFTER GENERATED produces a body
+                         (TC102_3 uses 'not-an-email' to trip the format check).
+    passwordOverride   : literal password to set AFTER GENERATED (TC102_4).
+    useSeededEmail     : role key — PET_OWNER / NGO / HOSPITAL — resolved at
+                         runtime against AppConstants.{PET_OWNER,NGO,HOSPITAL}_EMAIL.
+                         XML stores ONLY the key; the literal email lives in
+                         AppConstants. (TC102_5 reuses the PET_OWNER seed email
+                         to deliberately trigger the duplicate-email branch.)
+
+    expectedStatus     : exact HTTP status to assert.
+    expectedStatusMin  } range used when the backend's exact code is unstable
+    expectedStatusMax  } (TC102_5 — backend may return 400, 409, or 422 over time).
+    expectedSuccess    : Boolean — value of response.success.
+    expectedMessage    : exact value of response.message.
+    expectedFields     : list of <field name="...">value</field> entries asserted
+                         under response.data.
+    expectedFieldPresent : assert data.{name} is non-null without enforcing its
+                           exact text (TC102_4 — backend wording on short
+                           passwords varies).
+    expectedRole       : exact value of response.data.role (TC102_1).
+    expectedIsApproved : Boolean — value of response.data.isApproved (TC102_1).
+    expectedTokenPresent : Boolean — assert response.data.token is non-null
+                           (TC102_1 — JWT must be issued on happy path).
+
+  No new test cases are added by editing this file — rows are 1:1 with the
+  existing @Test methods in TC102_AuthRegisterTest.
+-->
+<registerCases>
+
+    <case>
+        <id>TC102_1</id>
+        <description>register USER happy path returns 200 with token + isApproved=true</description>
+        <payloadMode>GENERATED</payloadMode>
+        <emailSuffix>a</emailSuffix>
+        <expectedStatus>200</expectedStatus>
+        <expectedSuccess>true</expectedSuccess>
+        <expectedTokenPresent>true</expectedTokenPresent>
+        <expectedRole>USER</expectedRole>
+        <expectedIsApproved>true</expectedIsApproved>
+    </case>
+
+    <case>
+        <id>TC102_2</id>
+        <description>register with empty body returns 400 with validation map</description>
+        <payloadMode>EMPTY</payloadMode>
+        <expectedStatus>400</expectedStatus>
+        <expectedMessage>Validation failed.</expectedMessage>
+        <expectedFields>
+            <field name="name">must not be blank</field>
+            <field name="email">must not be blank</field>
+            <field name="password">must not be blank</field>
+        </expectedFields>
+    </case>
+
+    <case>
+        <id>TC102_3</id>
+        <description>register with invalid email format returns 400</description>
+        <payloadMode>GENERATED</payloadMode>
+        <emailSuffix>b</emailSuffix>
+        <emailOverride>not-an-email</emailOverride>
+        <expectedStatus>400</expectedStatus>
+        <expectedFields>
+            <field name="email">must be a well-formed email address</field>
+        </expectedFields>
+    </case>
+
+    <case>
+        <id>TC102_4</id>
+        <description>register with short password returns 400</description>
+        <payloadMode>GENERATED</payloadMode>
+        <emailSuffix>c</emailSuffix>
+        <passwordOverride>ab</passwordOverride>
+        <expectedStatus>400</expectedStatus>
+        <expectedFieldPresent>password</expectedFieldPresent>
+    </case>
+
+    <case>
+        <id>TC102_5</id>
+        <description>register duplicate email returns 4xx (seed PET_OWNER email)</description>
+        <payloadMode>GENERATED</payloadMode>
+        <emailSuffix>d</emailSuffix>
+        <useSeededEmail>PET_OWNER</useSeededEmail>
+        <expectedStatusMin>400</expectedStatusMin>
+        <expectedStatusMax>499</expectedStatusMax>
+        <expectedSuccess>false</expectedSuccess>
+    </case>
+
+</registerCases>
