@@ -70,7 +70,7 @@ public class NGOMyAnimalsPage {
             "//label[contains(@class,'select-label') and normalize-space()='Sort']/following-sibling::select"
           + " | //label[normalize-space()='Sort']/following-sibling::select");
 
-    private final By emptyStateTitle = By.xpath("//*[contains(normalize-space(),'No animals listed yet')]");
+    //private final By emptyStateTitle = By.xpath("//*[contains(normalize-space(),'No animals listed yet')]");
 
 
     // Add-animal form container
