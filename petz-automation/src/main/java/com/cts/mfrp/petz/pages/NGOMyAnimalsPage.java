@@ -71,7 +71,7 @@ public class NGOMyAnimalsPage {
           + " | //label[normalize-space()='Sort']/following-sibling::select");
 
     private final By emptyStateTitle = By.xpath("//*[contains(normalize-space(),'No animals listed yet')]");
->>>>>>> main
+
 
     // Add-animal form container
     private final By formCard = By.cssSelector(".form-card");
