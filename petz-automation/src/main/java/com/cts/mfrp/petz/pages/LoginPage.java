@@ -32,7 +32,7 @@ public class LoginPage {
     private final By leftPanelLogo  = By.cssSelector(".auth-left .brand, .auth-left [class*='logo'], .auth-left");
     private final By welcomeBackH2  = By.xpath("//h2[normalize-space()='Welcome back']");
     private final By backToHomeLink = By.xpath("//a[@routerlink='/' and contains(normalize-space(),'Back to home')]");
-    private final By createOneLink  = By.xpath("//a[@routerlink='/auth/register' and contains(normalize-space(),'Create one')]");
+    private final By createOneLink  = By.xpath("//a[@routerlink='/auth/register']");
 
     // Eye toggle (its title flips between Show/Hide on click)
     private final By eyeToggleButton = By.xpath(
