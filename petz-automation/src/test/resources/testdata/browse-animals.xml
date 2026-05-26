@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Fixture for BrowseAnimalsTest search-filter cases (TC028, TC029, TC030).
+  One <case> per existing @Test method; each method fetches its own row via
+  BrowseAnimalsCases.byId(...).
+
+  Schema:
+    - id                       : key the @Test method looks up (TC028 / TC029 / TC030)
+    - description              : mirrors the @Test description (for Extent context)
+    - searchMode               : SPECIES (typed into the Species autocomplete input)
+                                 or CITY (typed into the City-or-area input)
+    - searchValue              : the literal value to type into the chosen input
+    - expectedUrlFragment      : substring the URL must contain after Search.
+                                 RELATIVE only — composed with AppConstants.BASE_URL
+                                 at runtime. (TC028 / TC029 only.)
+    - expectedZeroCardsOrEmpty : true when the search is expected to yield no
+                                 results (TC030 — nonsense city). Drives the
+                                 "0 cards OR empty-state visible" assertion.
+    - speciesLookupTolerant    : true when selectSpecies(value) may legitimately
+                                 fail because the option isn't in the live
+                                 dataset, in which case the test bails as INFO
+                                 instead of failing (TC028 only).
+
+  TC026 (layout render), TC027 (card content contract), TC031 (single-click
+  navigation) intentionally stay inline in the test class — their value is in
+  the contract assertions, not in repeated input/expectation data.
+
+  No new test cases are added by editing this file — rows are 1:1 with the
+  existing @Test methods.
+-->
+<browseAnimalsCases>
+
+    <case>
+        <id>TC028</id>
+        <description>Filter by Species = Dog</description>
+        <searchMode>SPECIES</searchMode>
+        <searchValue>Cat</searchValue>
+        <expectedUrlFragment>/adoption/animals</expectedUrlFragment>
+        <speciesLookupTolerant>true</speciesLookupTolerant>
+    </case>
+
+    <case>
+        <id>TC029</id>
+        <description>Filter by City = Chennai</description>
+        <searchMode>CITY</searchMode>
+        <searchValue>Chennai</searchValue>
+        <expectedUrlFragment>/adoption/animals</expectedUrlFragment>
+    </case>
+
+    <case>
+        <id>TC030</id>
+        <description>No-results empty state for City=Atlantis</description>
+        <searchMode>CITY</searchMode>
+        <searchValue>Atlantis</searchValue>
+        <expectedZeroCardsOrEmpty>true</expectedZeroCardsOrEmpty>
+    </case>
+
+</browseAnimalsCases>
