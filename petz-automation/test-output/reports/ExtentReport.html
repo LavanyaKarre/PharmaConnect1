@@ -35,7 +35,7 @@
 <a href="#"><span class="badge badge-primary">PETZ Functional & API Test Run</span></a>
 </li>
 <li class="m-r-10">
-<a href="#"><span class="badge badge-primary">25-May-2026 17:49:59</span></a>
+<a href="#"><span class="badge badge-primary">26-May-2026 08:56:44</span></a>
 </li>
 </ul>
 </div>
@@ -45,6 +45,11 @@
 <li class="nav-item dropdown" onclick="toggleView('test-view')">
 <a id="nav-test" class="dropdown-toggle" href="#">
 <span class="ico"><i class="fa fa-list"></i></span>
+</a>
+</li>
+<li class="nav-item dropdown" onclick="toggleView('exception-view')">
+<a id="nav-exception" class="dropdown-toggle" href="#">
+<span class="ico"><i class="fa fa-bug"></i></span>
 </a>
 </li>
 <li class="nav-item dropdown" onclick="toggleView('category-view')">
@@ -71,7 +76,7 @@
 <li class="dropdown">
 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-exclamation-circle"></i></a>
 <ul id="status-toggle" class="dropdown-menu dropdown-md p-v-0">
-<a class="dropdown-item" status="pass" href="#"><span>Pass</span><span class="status success"></span></a>
+<a class="dropdown-item" status="fail" href="#"><span>Fail</span><span class="status danger"></span></a>
 <div class="dropdown-divider"></div>
 <a status="clear" class="dropdown-item" href="#"><span>Clear</span><span class="pull-right"><i class="fa fa-close"></i></span></a>
 </ul>
@@ -79,138 +84,220 @@
 <li class="dropdown">
 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-tag"></i></a>
 <ul id="tag-toggle" class="dropdown-menu dropdown-md p-v-0">
-<a class="dropdown-item" href="#">ui</a><a class="dropdown-item" href="#">PetOwnerDashboard</a><a class="dropdown-item" href="#">sanity</a><a class="dropdown-item" href="#">petOwnerDashboard</a><a class="dropdown-item" href="#">regression</a><a class="dropdown-item" href="#">smoke</a><a class="dropdown-item" href="#">functional</a><a class="dropdown-item" href="#">positive</a>
+<a class="dropdown-item" href="#">ui</a><a class="dropdown-item" href="#">positive</a><a class="dropdown-item" href="#">ngoRescueQueue</a><a class="dropdown-item" href="#">regression</a><a class="dropdown-item" href="#">NGORescueQueue</a>
 </ul>
 </li>
 </ul>
 </div>    <div class="test-list-wrapper scrollable">
       <ul class="test-list-item">
-        <li class="test-item"  status="pass" test-id="1"
+        <li class="test-item"  status="fail" test-id="1"
           author=""
-          tag="PetOwnerDashboard positive regression smoke sanity petOwnerDashboard ui"
+          tag="ngoRescueQueue positive NGORescueQueue regression ui"
           device="">
           <div class="test-detail">
-            <p class="name">TC021_verifyDashboardGreetingAndDate</p>
+            <p class="name">TC068_NGOQueueEmpty</p>
             <p class="text-sm">
-              <span>5:50:06 pm</span> / <span>00:00:10:271</span>
-              <span class="badge pass-bg log float-right">Pass</span>
+              <span>8:56:58 am</span> / <span>00:00:33:316</span>
+              <span class="badge fail-bg log float-right">Fail</span>
             </p>
           </div>
           <div class="test-contents d-none">
 <div class="detail-head">
 <div class="p-v-10">
 <div class="info">
-<h5 class="test-status text-pass">TC021_verifyDashboardGreetingAndDate</h5>
-<span class='badge badge-success'>05.25.2026 5:50:06 pm</span>
-<span class='badge badge-danger'>05.25.2026 5:50:17 pm</span>
-<span class='badge badge-default'>00:00:10:271</span>
+<h5 class="test-status text-fail">TC068_NGOQueueEmpty</h5>
+<span class='badge badge-success'>05.26.2026 8:56:58 am</span>
+<span class='badge badge-danger'>05.26.2026 8:57:31 am</span>
+<span class='badge badge-default'>00:00:33:316</span>
 &middot; <span class='uri-anchor badge badge-default'>#test-id=1</span>
 <span title='Skip to the next failed step' class='badge badge-danger pointer float-right ne ml-1'><i class="fa fa-fast-forward"></i></span>
 <span title='Collapse all nodes' class='badge badge-default pointer float-right ct ml-1'><i class="fa fa-compress"></i></span>
 <span title='Expand all nodes' class='badge badge-default pointer float-right et'><i class="fa fa-expand"></i></span>
 </div>
-<div class="m-t-15"><span class="badge badge-pill badge-default">PetOwnerDashboard</span>
+<div class="m-t-15"><span class="badge badge-pill badge-default">ngoRescueQueue</span>
 <span class="badge badge-pill badge-default">positive</span>
+<span class="badge badge-pill badge-default">NGORescueQueue</span>
 <span class="badge badge-pill badge-default">regression</span>
-<span class="badge badge-pill badge-default">smoke</span>
-<span class="badge badge-pill badge-default">sanity</span>
-<span class="badge badge-pill badge-default">petOwnerDashboard</span>
 <span class="badge badge-pill badge-default">ui</span></div>
-<div class="m-t-10 m-l-5">PETZ_TC021 - Validate greeting block and date on /dashboard</div>
+<div class="m-t-10 m-l-5">PETZ_TC068 - Empty state of /ngo/rescues</div>
 </div>
-</div><div class="detail-body mt-4">
+</div>    <div class="row mb-3"><div class="col-md-3">
+<img data-featherlight='C:\Users\2480040\pharmaconnect\petz-automation\test-output\screenshots\TC068_NGOQueueEmpty_20260526_085730.png' src="C:\Users\2480040\pharmaconnect\petz-automation\test-output\screenshots\TC068_NGOQueueEmpty_20260526_085730.png">
+    
+    </div></div>
+<div class="detail-body mt-4">
 <table class="table table-sm">
   <thead><tr><th class="status-col">Status</th><th class="timestamp-col">Timestamp</th><th class="details-col">Details</th></tr></thead>
   <tbody>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>5:50:06 pm</td>
+        <td>8:56:58 am</td>
         <td>
-          <b>Test plan intent:</b> PETZ_TC021 - Validate greeting block and date on /dashboard
+          <b>Test plan intent:</b> PETZ_TC068 - Empty state of /ngo/rescues
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>5:50:06 pm</td>
+        <td>8:56:58 am</td>
         <td>
           Navigate to: https://stellular-taffy-e3ee7a.netlify.app/auth/login
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>5:50:07 pm</td>
+        <td>8:57:01 am</td>
         <td>
           Find element: By.xpath: //input[@formcontrolname='email']
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>5:50:09 pm</td>
+        <td>8:57:03 am</td>
         <td>
-          Type into <input>: user@petz.com
+          Type into <input>: ngo@petz.com
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>5:50:10 pm</td>
+        <td>8:57:04 am</td>
         <td>
           Find element: By.xpath: //input[@formcontrolname='password']
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>5:50:11 pm</td>
+        <td>8:57:04 am</td>
         <td>
           Type into <input>: ********
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>5:50:11 pm</td>
+        <td>8:57:04 am</td>
         <td>
           Find element: By.xpath: //button[@type='submit' and (normalize-space()='Sign In' or normalize-space()='Login' or normalize-space()='Log In')]
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>5:50:11 pm</td>
+        <td>8:57:05 am</td>
         <td>
           Click: <button> 'Sign In'
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>5:50:15 pm</td>
+        <td>8:57:08 am</td>
         <td>
-          Find element: By.xpath: //*[self::h1 or self::h2 or self::h3][contains(.,'Good Morning') or contains(.,'Good Afternoon') or contains(.,'Good Evening') or contains(.,'Good morning') or contains(.,'Good afternoon') or contains(.,'Good evening')]
+          Navigate to: https://stellular-taffy-e3ee7a.netlify.app/ngo/rescues
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>5:50:15 pm</td>
+        <td>8:57:09 am</td>
         <td>
-          Find element: By.xpath: //*[self::h1 or self::h2 or self::h3][contains(.,'Good Morning') or contains(.,'Good Afternoon') or contains(.,'Good Evening') or contains(.,'Good morning') or contains(.,'Good afternoon') or contains(.,'Good evening')]
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:50:16 pm</td>
-        <td>
-          Find element: By.xpath: //*[contains(text(),"today's overview") or contains(text(),'today’s overview')]
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:50:16 pm</td>
-        <td>
-          Navigate to: https://stellular-taffy-e3ee7a.netlify.app/dashboard
+          Find element: By.xpath: //*[self::h1 or self::h2 or self::h3][contains(normalize-space(),'Rescue Queue')]
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log pass-bg">Pass</span></td>
-        <td>5:50:17 pm</td>
+        <td>8:57:09 am</td>
         <td>
-          Test passed
+          <table style='border-collapse:collapse;width:100%;font-size:13px;margin:2px 0;'><tr style='background:#1d2939;color:#fff;'><th style='padding:4px 8px;text-align:left;width:35%;'>Step</th><th style='padding:4px 8px;text-align:left;width:30%;'>Expected</th><th style='padding:4px 8px;text-align:left;width:25%;'>Actual</th><th style='padding:4px 8px;width:10%;'>Status</th></tr><tr style='background:#2b3343;color:#fff;'><td style='padding:4px 8px;'>Title 'Rescue Queue'</td><td style='padding:4px 8px;'>Heading visible</td><td style='padding:4px 8px;'>as expected</td><td style='padding:4px 8px;font-weight:bold;color:#22c55e;'>PASS</td></tr></table>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>8:57:09 am</td>
+        <td>
+          Find element: By.xpath: //*[contains(normalize-space(),'Rescue assignments waiting for your response')]
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>8:57:10 am</td>
+        <td>
+          <table style='border-collapse:collapse;width:100%;font-size:13px;margin:2px 0;'><tr style='background:#1d2939;color:#fff;'><th style='padding:4px 8px;text-align:left;width:35%;'>Step</th><th style='padding:4px 8px;text-align:left;width:30%;'>Expected</th><th style='padding:4px 8px;text-align:left;width:25%;'>Actual</th><th style='padding:4px 8px;width:10%;'>Status</th></tr><tr style='background:#2b3343;color:#fff;'><td style='padding:4px 8px;'>Subtitle</td><td style='padding:4px 8px;'>'Rescue assignments waiting for your response'</td><td style='padding:4px 8px;'>as expected</td><td style='padding:4px 8px;font-weight:bold;color:#22c55e;'>PASS</td></tr></table>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>8:57:10 am</td>
+        <td>
+          Find element: By.xpath: //input[contains(@placeholder,'Search') and (contains(@placeholder,'animal') or contains(@placeholder,'address') or contains(@placeholder,'type'))]
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>8:57:10 am</td>
+        <td>
+          <table style='border-collapse:collapse;width:100%;font-size:13px;margin:2px 0;'><tr style='background:#1d2939;color:#fff;'><th style='padding:4px 8px;text-align:left;width:35%;'>Step</th><th style='padding:4px 8px;text-align:left;width:30%;'>Expected</th><th style='padding:4px 8px;text-align:left;width:25%;'>Actual</th><th style='padding:4px 8px;width:10%;'>Status</th></tr><tr style='background:#2b3343;color:#fff;'><td style='padding:4px 8px;'>Search input</td><td style='padding:4px 8px;'>Search by animal-type/address visible</td><td style='padding:4px 8px;'>as expected</td><td style='padding:4px 8px;font-weight:bold;color:#22c55e;'>PASS</td></tr></table>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>8:57:10 am</td>
+        <td>
+          Find element: By.xpath: //mat-select[@formcontrolname='status' or @name='statusFilter'] | //*[contains(@class,'mat-mdc-select') and ancestor::*[contains(.,'Status')][1]]
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>8:57:20 am</td>
+        <td>
+          Find element: By.xpath: //mat-select[@formcontrolname='status' or @name='statusFilter'] | //*[contains(@class,'mat-mdc-select') and ancestor::*[contains(.,'Status')][1]]
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log fail-bg">Fail</span></td>
+        <td>8:57:30 am</td>
+        <td>
+          <table style='border-collapse:collapse;width:100%;font-size:13px;margin:2px 0;'><tr style='background:#1d2939;color:#fff;'><th style='padding:4px 8px;text-align:left;width:35%;'>Step</th><th style='padding:4px 8px;text-align:left;width:30%;'>Expected</th><th style='padding:4px 8px;text-align:left;width:25%;'>Actual</th><th style='padding:4px 8px;width:10%;'>Status</th></tr><tr style='background:#2b3343;color:#fff;'><td style='padding:4px 8px;'>Three filters</td><td style='padding:4px 8px;'>Status / Urgency / Sort filters visible</td><td style='padding:4px 8px;'>not as expected</td><td style='padding:4px 8px;font-weight:bold;color:#ef4444;'>FAIL</td></tr></table>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log fail-bg">Fail</span></td>
+        <td>8:57:31 am</td>
+        <td>
+          <textarea readonly class="code-block">java.lang.AssertionError: Step failed: Three filters | expected: Status / Urgency / Sort filters visible expected [true] but found [false]
+	at org.testng.Assert.fail(Assert.java:111)
+	at org.testng.Assert.failNotEquals(Assert.java:1578)
+	at org.testng.Assert.assertTrue(Assert.java:57)
+	at com.cts.mfrp.petz.utils.StepReporter.check(StepReporter.java:37)
+	at com.cts.mfrp.petz.tests.functional.NGORescueQueueTest.TC068_NGOQueueEmpty(NGORescueQueueTest.java:33)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:139)
+	at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:664)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:228)
+	at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:961)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:201)
+	at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:148)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:128)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.testng.TestRunner.privateRun(TestRunner.java:819)
+	at org.testng.TestRunner.run(TestRunner.java:619)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:443)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:437)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:397)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:336)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1301)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1228)
+	at org.testng.TestNG.runSuites(TestNG.java:1134)
+	at org.testng.TestNG.run(TestNG.java:1101)
+	at org.apache.maven.surefire.testng.TestNGExecutor.run(TestNGExecutor.java:155)
+	at org.apache.maven.surefire.testng.TestNGDirectoryTestSuite.executeSingleClass(TestNGDirectoryTestSuite.java:102)
+	at org.apache.maven.surefire.testng.TestNGDirectoryTestSuite.execute(TestNGDirectoryTestSuite.java:91)
+	at org.apache.maven.surefire.testng.TestNGProvider.invoke(TestNGProvider.java:137)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+</textarea>
+          
         </td>
       </tr>
   </tbody>
@@ -218,678 +305,165 @@
 </div>
           </div>
         </li>
-        <li class="test-item"  status="pass" test-id="2"
+        <li class="test-item"  status="fail" test-id="2"
           author=""
-          tag="PetOwnerDashboard positive regression petOwnerDashboard ui"
+          tag="ngoRescueQueue positive NGORescueQueue regression ui"
           device="">
           <div class="test-detail">
-            <p class="name">TC022_verifyEmergencyBanner</p>
+            <p class="name">TC069_NGOQueueAcceptDecline</p>
             <p class="text-sm">
-              <span>5:50:26 pm</span> / <span>00:00:06:800</span>
-              <span class="badge pass-bg log float-right">Pass</span>
+              <span>8:57:43 am</span> / <span>00:00:15:885</span>
+              <span class="badge fail-bg log float-right">Fail</span>
             </p>
           </div>
           <div class="test-contents d-none">
 <div class="detail-head">
 <div class="p-v-10">
 <div class="info">
-<h5 class="test-status text-pass">TC022_verifyEmergencyBanner</h5>
-<span class='badge badge-success'>05.25.2026 5:50:26 pm</span>
-<span class='badge badge-danger'>05.25.2026 5:50:33 pm</span>
-<span class='badge badge-default'>00:00:06:800</span>
+<h5 class="test-status text-fail">TC069_NGOQueueAcceptDecline</h5>
+<span class='badge badge-success'>05.26.2026 8:57:43 am</span>
+<span class='badge badge-danger'>05.26.2026 8:57:59 am</span>
+<span class='badge badge-default'>00:00:15:885</span>
 &middot; <span class='uri-anchor badge badge-default'>#test-id=2</span>
 <span title='Skip to the next failed step' class='badge badge-danger pointer float-right ne ml-1'><i class="fa fa-fast-forward"></i></span>
 <span title='Collapse all nodes' class='badge badge-default pointer float-right ct ml-1'><i class="fa fa-compress"></i></span>
 <span title='Expand all nodes' class='badge badge-default pointer float-right et'><i class="fa fa-expand"></i></span>
 </div>
-<div class="m-t-15"><span class="badge badge-pill badge-default">PetOwnerDashboard</span>
+<div class="m-t-15"><span class="badge badge-pill badge-default">ngoRescueQueue</span>
 <span class="badge badge-pill badge-default">positive</span>
+<span class="badge badge-pill badge-default">NGORescueQueue</span>
 <span class="badge badge-pill badge-default">regression</span>
-<span class="badge badge-pill badge-default">petOwnerDashboard</span>
 <span class="badge badge-pill badge-default">ui</span></div>
-<div class="m-t-10 m-l-5">PETZ_TC022 - Validate red 'Animal in Distress?' banner on /dashboard</div>
+<div class="m-t-10 m-l-5">PETZ_TC069 - Accept/Decline buttons appear when a rescue is queued (single-browser view)</div>
 </div>
-</div><div class="detail-body mt-4">
+</div>    <div class="row mb-3"><div class="col-md-3">
+<img data-featherlight='C:\Users\2480040\pharmaconnect\petz-automation\test-output\screenshots\TC069_NGOQueueAcceptDecline_20260526_085759.png' src="C:\Users\2480040\pharmaconnect\petz-automation\test-output\screenshots\TC069_NGOQueueAcceptDecline_20260526_085759.png">
+    
+    </div></div>
+<div class="detail-body mt-4">
 <table class="table table-sm">
   <thead><tr><th class="status-col">Status</th><th class="timestamp-col">Timestamp</th><th class="details-col">Details</th></tr></thead>
   <tbody>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>5:50:26 pm</td>
+        <td>8:57:43 am</td>
         <td>
-          <b>Test plan intent:</b> PETZ_TC022 - Validate red 'Animal in Distress?' banner on /dashboard
+          <b>Test plan intent:</b> PETZ_TC069 - Accept/Decline buttons appear when a rescue is queued (single-browser view)
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>5:50:26 pm</td>
+        <td>8:57:43 am</td>
         <td>
           Navigate to: https://stellular-taffy-e3ee7a.netlify.app/auth/login
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>5:50:27 pm</td>
+        <td>8:57:44 am</td>
         <td>
           Find element: By.xpath: //input[@formcontrolname='email']
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>5:50:28 pm</td>
+        <td>8:57:45 am</td>
         <td>
-          Type into <input>: user@petz.com
+          Type into <input>: ngo@petz.com
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>5:50:29 pm</td>
-        <td>
-          Find element: By.xpath: //input[@formcontrolname='password']
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:50:29 pm</td>
-        <td>
-          Type into <input>: ********
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:50:29 pm</td>
-        <td>
-          Find element: By.xpath: //button[@type='submit' and (normalize-space()='Sign In' or normalize-space()='Login' or normalize-space()='Log In')]
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:50:29 pm</td>
-        <td>
-          Click: <button> 'Sign In'
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:50:32 pm</td>
-        <td>
-          Find element: By.xpath: //*[contains(text(),'Animal in Distress')]
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:50:32 pm</td>
-        <td>
-          Find element: By.xpath: //button[@routerlink='/rescue/report'] | //button[contains(@class,'emergency-btn')] | //a[contains(@class,'emergency-banner')] | //button[contains(.,'Report Now')] | //a[contains(.,'Report Now')]
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:50:32 pm</td>
-        <td>
-          Find element: By.xpath: //button[@routerlink='/rescue/report'] | //button[contains(@class,'emergency-btn')] | //a[contains(@class,'emergency-banner')] | //button[contains(.,'Report Now')] | //a[contains(.,'Report Now')]
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:50:32 pm</td>
-        <td>
-          Click: <button> 'arrow_forward
-Report Now'
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log pass-bg">Pass</span></td>
-        <td>5:50:33 pm</td>
-        <td>
-          Test passed
-        </td>
-      </tr>
-  </tbody>
-</table>
-</div>
-          </div>
-        </li>
-        <li class="test-item"  status="pass" test-id="3"
-          author=""
-          tag="PetOwnerDashboard positive regression petOwnerDashboard ui"
-          device="">
-          <div class="test-detail">
-            <p class="name">TC023_verifyStatTiles</p>
-            <p class="text-sm">
-              <span>5:50:40 pm</span> / <span>00:00:06:279</span>
-              <span class="badge pass-bg log float-right">Pass</span>
-            </p>
-          </div>
-          <div class="test-contents d-none">
-<div class="detail-head">
-<div class="p-v-10">
-<div class="info">
-<h5 class="test-status text-pass">TC023_verifyStatTiles</h5>
-<span class='badge badge-success'>05.25.2026 5:50:40 pm</span>
-<span class='badge badge-danger'>05.25.2026 5:50:46 pm</span>
-<span class='badge badge-default'>00:00:06:279</span>
-&middot; <span class='uri-anchor badge badge-default'>#test-id=3</span>
-<span title='Skip to the next failed step' class='badge badge-danger pointer float-right ne ml-1'><i class="fa fa-fast-forward"></i></span>
-<span title='Collapse all nodes' class='badge badge-default pointer float-right ct ml-1'><i class="fa fa-compress"></i></span>
-<span title='Expand all nodes' class='badge badge-default pointer float-right et'><i class="fa fa-expand"></i></span>
-</div>
-<div class="m-t-15"><span class="badge badge-pill badge-default">PetOwnerDashboard</span>
-<span class="badge badge-pill badge-default">positive</span>
-<span class="badge badge-pill badge-default">regression</span>
-<span class="badge badge-pill badge-default">petOwnerDashboard</span>
-<span class="badge badge-pill badge-default">ui</span></div>
-<div class="m-t-10 m-l-5">PETZ_TC023 - Validate 4 stat tiles on /dashboard for a Pet Owner</div>
-</div>
-</div><div class="detail-body mt-4">
-<table class="table table-sm">
-  <thead><tr><th class="status-col">Status</th><th class="timestamp-col">Timestamp</th><th class="details-col">Details</th></tr></thead>
-  <tbody>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:50:40 pm</td>
-        <td>
-          <b>Test plan intent:</b> PETZ_TC023 - Validate 4 stat tiles on /dashboard for a Pet Owner
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:50:40 pm</td>
-        <td>
-          Navigate to: https://stellular-taffy-e3ee7a.netlify.app/auth/login
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:50:41 pm</td>
-        <td>
-          Find element: By.xpath: //input[@formcontrolname='email']
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:50:41 pm</td>
-        <td>
-          Type into <input>: user@petz.com
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:50:42 pm</td>
+        <td>8:57:45 am</td>
         <td>
           Find element: By.xpath: //input[@formcontrolname='password']
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>5:50:42 pm</td>
+        <td>8:57:45 am</td>
         <td>
           Type into <input>: ********
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>5:50:42 pm</td>
+        <td>8:57:46 am</td>
         <td>
           Find element: By.xpath: //button[@type='submit' and (normalize-space()='Sign In' or normalize-space()='Login' or normalize-space()='Log In')]
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>5:50:42 pm</td>
-        <td>
-          Click: <button> 'Sign In'
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log pass-bg">Pass</span></td>
-        <td>5:50:46 pm</td>
-        <td>
-          Test passed
-        </td>
-      </tr>
-  </tbody>
-</table>
-</div>
-          </div>
-        </li>
-        <li class="test-item"  status="pass" test-id="4"
-          author=""
-          tag="PetOwnerDashboard positive regression sanity functional petOwnerDashboard"
-          device="">
-          <div class="test-detail">
-            <p class="name">TC024_verifyQuickActions</p>
-            <p class="text-sm">
-              <span>5:50:54 pm</span> / <span>00:01:57:637</span>
-              <span class="badge pass-bg log float-right">Pass</span>
-            </p>
-          </div>
-          <div class="test-contents d-none">
-<div class="detail-head">
-<div class="p-v-10">
-<div class="info">
-<h5 class="test-status text-pass">TC024_verifyQuickActions</h5>
-<span class='badge badge-success'>05.25.2026 5:50:54 pm</span>
-<span class='badge badge-danger'>05.25.2026 5:52:51 pm</span>
-<span class='badge badge-default'>00:01:57:637</span>
-&middot; <span class='uri-anchor badge badge-default'>#test-id=4</span>
-<span title='Skip to the next failed step' class='badge badge-danger pointer float-right ne ml-1'><i class="fa fa-fast-forward"></i></span>
-<span title='Collapse all nodes' class='badge badge-default pointer float-right ct ml-1'><i class="fa fa-compress"></i></span>
-<span title='Expand all nodes' class='badge badge-default pointer float-right et'><i class="fa fa-expand"></i></span>
-</div>
-<div class="m-t-15"><span class="badge badge-pill badge-default">PetOwnerDashboard</span>
-<span class="badge badge-pill badge-default">positive</span>
-<span class="badge badge-pill badge-default">regression</span>
-<span class="badge badge-pill badge-default">sanity</span>
-<span class="badge badge-pill badge-default">functional</span>
-<span class="badge badge-pill badge-default">petOwnerDashboard</span></div>
-<div class="m-t-10 m-l-5">PETZ_TC024 - Validate Quick Actions cards route to the right pages</div>
-</div>
-</div><div class="detail-body mt-4">
-<table class="table table-sm">
-  <thead><tr><th class="status-col">Status</th><th class="timestamp-col">Timestamp</th><th class="details-col">Details</th></tr></thead>
-  <tbody>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:50:54 pm</td>
-        <td>
-          <b>Test plan intent:</b> PETZ_TC024 - Validate Quick Actions cards route to the right pages
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:50:54 pm</td>
-        <td>
-          Navigate to: https://stellular-taffy-e3ee7a.netlify.app/auth/login
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:50:54 pm</td>
-        <td>
-          Find element: By.xpath: //input[@formcontrolname='email']
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:50:56 pm</td>
-        <td>
-          Type into <input>: user@petz.com
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:50:57 pm</td>
-        <td>
-          Find element: By.xpath: //input[@formcontrolname='password']
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:50:57 pm</td>
-        <td>
-          Type into <input>: ********
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:50:57 pm</td>
-        <td>
-          Find element: By.xpath: //button[@type='submit' and (normalize-space()='Sign In' or normalize-space()='Login' or normalize-space()='Log In')]
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:50:57 pm</td>
+        <td>8:57:46 am</td>
         <td>
           Click: <button> 'Sign In'
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>5:51:01 pm</td>
+        <td>8:57:48 am</td>
         <td>
-          Navigate to: https://stellular-taffy-e3ee7a.netlify.app/dashboard
+          Navigate to: https://stellular-taffy-e3ee7a.netlify.app/ngo/rescues
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>5:51:02 pm</td>
+        <td>8:57:49 am</td>
         <td>
-          Find element: By.xpath: //a[contains(@class,'action-card') and .//*[contains(@class,'action-title') and normalize-space()='Report Rescue']] | //*[contains(@class,'action-title') and normalize-space()='Report Rescue']/ancestor::a[1]
+          Rescue cards visible: 8
         </td>
       </tr>
       <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:51:12 pm</td>
+        <td><span class="badge log fail-bg">Fail</span></td>
+        <td>8:57:59 am</td>
         <td>
-          Find element: By.xpath: //a[contains(@class,'action-card') and .//*[contains(@class,'action-title') and normalize-space()='Report Rescue']] | //*[contains(@class,'action-title') and normalize-space()='Report Rescue']/ancestor::a[1]
+          <table style='border-collapse:collapse;width:100%;font-size:13px;margin:2px 0;'><tr style='background:#1d2939;color:#fff;'><th style='padding:4px 8px;text-align:left;width:35%;'>Step</th><th style='padding:4px 8px;text-align:left;width:30%;'>Expected</th><th style='padding:4px 8px;text-align:left;width:25%;'>Actual</th><th style='padding:4px 8px;width:10%;'>Status</th></tr><tr style='background:#2b3343;color:#fff;'><td style='padding:4px 8px;'>Accept + Decline buttons present</td><td style='padding:4px 8px;'>Both buttons visible on first card</td><td style='padding:4px 8px;'>not as expected</td><td style='padding:4px 8px;font-weight:bold;color:#ef4444;'>FAIL</td></tr></table>
         </td>
       </tr>
       <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:51:22 pm</td>
+        <td><span class="badge log fail-bg">Fail</span></td>
+        <td>8:57:59 am</td>
         <td>
-          Find element: By.xpath: //*[normalize-space()='Report Rescue']
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:51:23 pm</td>
-        <td>
-          Navigate to: https://stellular-taffy-e3ee7a.netlify.app/dashboard
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:51:24 pm</td>
-        <td>
-          Find element: By.xpath: //a[contains(@class,'action-card') and .//*[contains(@class,'action-title') and normalize-space()='Browse Adoptions']] | //*[contains(@class,'action-title') and normalize-space()='Browse Adoptions']/ancestor::a[1]
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:51:35 pm</td>
-        <td>
-          Find element: By.xpath: //a[contains(@class,'action-card') and .//*[contains(@class,'action-title') and normalize-space()='Browse Adoptions']] | //*[contains(@class,'action-title') and normalize-space()='Browse Adoptions']/ancestor::a[1]
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:51:45 pm</td>
-        <td>
-          Find element: By.xpath: //*[normalize-space()='Browse Adoptions']
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:51:45 pm</td>
-        <td>
-          Navigate to: https://stellular-taffy-e3ee7a.netlify.app/dashboard
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:51:46 pm</td>
-        <td>
-          Find element: By.xpath: //a[contains(@class,'action-card') and .//*[contains(@class,'action-title') and normalize-space()='Book Appointment']] | //*[contains(@class,'action-title') and normalize-space()='Book Appointment']/ancestor::a[1]
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:51:57 pm</td>
-        <td>
-          Find element: By.xpath: //a[contains(@class,'action-card') and .//*[contains(@class,'action-title') and normalize-space()='Book Appointment']] | //*[contains(@class,'action-title') and normalize-space()='Book Appointment']/ancestor::a[1]
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:52:07 pm</td>
-        <td>
-          Find element: By.xpath: //*[normalize-space()='Book Appointment']
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:52:08 pm</td>
-        <td>
-          Navigate to: https://stellular-taffy-e3ee7a.netlify.app/dashboard
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:52:08 pm</td>
-        <td>
-          Find element: By.xpath: //a[contains(@class,'action-card') and .//*[contains(@class,'action-title') and normalize-space()='My Adoptions']] | //*[contains(@class,'action-title') and normalize-space()='My Adoptions']/ancestor::a[1]
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:52:19 pm</td>
-        <td>
-          Find element: By.xpath: //a[contains(@class,'action-card') and .//*[contains(@class,'action-title') and normalize-space()='My Adoptions']] | //*[contains(@class,'action-title') and normalize-space()='My Adoptions']/ancestor::a[1]
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:52:29 pm</td>
-        <td>
-          Find element: By.xpath: //*[normalize-space()='My Adoptions']
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:52:29 pm</td>
-        <td>
-          Navigate to: https://stellular-taffy-e3ee7a.netlify.app/dashboard
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:52:30 pm</td>
-        <td>
-          Find element: By.xpath: //a[contains(@class,'action-card') and .//*[contains(@class,'action-title') and normalize-space()='My Appointments']] | //*[contains(@class,'action-title') and normalize-space()='My Appointments']/ancestor::a[1]
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:52:40 pm</td>
-        <td>
-          Find element: By.xpath: //a[contains(@class,'action-card') and .//*[contains(@class,'action-title') and normalize-space()='My Appointments']] | //*[contains(@class,'action-title') and normalize-space()='My Appointments']/ancestor::a[1]
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:52:51 pm</td>
-        <td>
-          Find element: By.xpath: //*[normalize-space()='My Appointments']
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log pass-bg">Pass</span></td>
-        <td>5:52:51 pm</td>
-        <td>
-          Test passed
-        </td>
-      </tr>
-  </tbody>
-</table>
-</div>
-          </div>
-        </li>
-        <li class="test-item"  status="pass" test-id="5"
-          author=""
-          tag="PetOwnerDashboard positive regression sanity functional petOwnerDashboard"
-          device="">
-          <div class="test-detail">
-            <p class="name">TC025_verifySidebar</p>
-            <p class="text-sm">
-              <span>5:52:58 pm</span> / <span>00:00:07:613</span>
-              <span class="badge pass-bg log float-right">Pass</span>
-            </p>
-          </div>
-          <div class="test-contents d-none">
-<div class="detail-head">
-<div class="p-v-10">
-<div class="info">
-<h5 class="test-status text-pass">TC025_verifySidebar</h5>
-<span class='badge badge-success'>05.25.2026 5:52:58 pm</span>
-<span class='badge badge-danger'>05.25.2026 5:53:05 pm</span>
-<span class='badge badge-default'>00:00:07:613</span>
-&middot; <span class='uri-anchor badge badge-default'>#test-id=5</span>
-<span title='Skip to the next failed step' class='badge badge-danger pointer float-right ne ml-1'><i class="fa fa-fast-forward"></i></span>
-<span title='Collapse all nodes' class='badge badge-default pointer float-right ct ml-1'><i class="fa fa-compress"></i></span>
-<span title='Expand all nodes' class='badge badge-default pointer float-right et'><i class="fa fa-expand"></i></span>
-</div>
-<div class="m-t-15"><span class="badge badge-pill badge-default">PetOwnerDashboard</span>
-<span class="badge badge-pill badge-default">positive</span>
-<span class="badge badge-pill badge-default">regression</span>
-<span class="badge badge-pill badge-default">sanity</span>
-<span class="badge badge-pill badge-default">functional</span>
-<span class="badge badge-pill badge-default">petOwnerDashboard</span></div>
-<div class="m-t-10 m-l-5">PETZ_TC025 - Validate sidebar items for a Pet Owner on /dashboard</div>
-</div>
-</div><div class="detail-body mt-4">
-<table class="table table-sm">
-  <thead><tr><th class="status-col">Status</th><th class="timestamp-col">Timestamp</th><th class="details-col">Details</th></tr></thead>
-  <tbody>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:52:58 pm</td>
-        <td>
-          <b>Test plan intent:</b> PETZ_TC025 - Validate sidebar items for a Pet Owner on /dashboard
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:52:58 pm</td>
-        <td>
-          Navigate to: https://stellular-taffy-e3ee7a.netlify.app/auth/login
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:52:58 pm</td>
-        <td>
-          Find element: By.xpath: //input[@formcontrolname='email']
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:52:59 pm</td>
-        <td>
-          Type into <input>: user@petz.com
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:52:59 pm</td>
-        <td>
-          Find element: By.xpath: //input[@formcontrolname='password']
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:52:59 pm</td>
-        <td>
-          Type into <input>: ********
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:52:59 pm</td>
-        <td>
-          Find element: By.xpath: //button[@type='submit' and (normalize-space()='Sign In' or normalize-space()='Login' or normalize-space()='Log In')]
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:52:59 pm</td>
-        <td>
-          Click: <button> 'Sign In'
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:53:01 pm</td>
-        <td>
-          Find element: By.xpath: //mat-sidenav | //*[contains(@class,'mat-sidenav')] | //*[contains(@class,'sidenav')]
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:53:01 pm</td>
-        <td>
-          Find element: By.xpath: //mat-sidenav | //*[contains(@class,'mat-sidenav')] | //*[contains(@class,'sidenav')]
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:53:01 pm</td>
-        <td>
-          Find element: By.xpath: //mat-sidenav | //*[contains(@class,'mat-sidenav')] | //*[contains(@class,'sidenav')]
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:53:01 pm</td>
-        <td>
-          Find element: By.xpath: //mat-sidenav//a[contains(@class,'mat-mdc-list-item') and .//span[contains(@class,'mdc-list-item__primary-text') and normalize-space()='My Adoptions']] | //mat-sidenav//*[normalize-space()='My Adoptions']/ancestor::a[1]
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:53:01 pm</td>
-        <td>
-          Click: <a> 'favorite
-My Adoptions'
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:53:02 pm</td>
-        <td>
-          Find element: By.xpath: //mat-sidenav//a[contains(@class,'mat-mdc-list-item') and .//span[contains(@class,'mdc-list-item__primary-text') and normalize-space()='Browse Animals']] | //mat-sidenav//*[normalize-space()='Browse Animals']/ancestor::a[1]
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:53:02 pm</td>
-        <td>
-          Click: <a> 'pets
-Browse Animals'
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:53:03 pm</td>
-        <td>
-          Find element: By.xpath: //mat-sidenav//a[contains(@class,'mat-mdc-list-item') and .//span[contains(@class,'mdc-list-item__primary-text') and normalize-space()='Appointments']] | //mat-sidenav//*[normalize-space()='Appointments']/ancestor::a[1]
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:53:03 pm</td>
-        <td>
-          Click: <a> 'event
-Appointments'
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:53:04 pm</td>
-        <td>
-          Find element: By.xpath: //mat-sidenav//a[contains(@class,'mat-mdc-list-item') and .//span[contains(@class,'mdc-list-item__primary-text') and normalize-space()='Rescue']] | //mat-sidenav//*[normalize-space()='Rescue']/ancestor::a[1]
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:53:04 pm</td>
-        <td>
-          Click: <a> 'emergency
-Rescue'
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:53:05 pm</td>
-        <td>
-          Find element: By.xpath: //mat-sidenav//a[contains(@class,'mat-mdc-list-item') and .//span[contains(@class,'mdc-list-item__primary-text') and normalize-space()='Dashboard']] | //mat-sidenav//*[normalize-space()='Dashboard']/ancestor::a[1]
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:53:05 pm</td>
-        <td>
-          Click: <a> 'dashboard
-Dashboard'
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log pass-bg">Pass</span></td>
-        <td>5:53:05 pm</td>
-        <td>
-          Test passed
+          <textarea readonly class="code-block">java.lang.AssertionError: Step failed: Accept + Decline buttons present | expected: Both buttons visible on first card expected [true] but found [false]
+	at org.testng.Assert.fail(Assert.java:111)
+	at org.testng.Assert.failNotEquals(Assert.java:1578)
+	at org.testng.Assert.assertTrue(Assert.java:57)
+	at com.cts.mfrp.petz.utils.StepReporter.check(StepReporter.java:37)
+	at com.cts.mfrp.petz.tests.functional.NGORescueQueueTest.TC069_NGOQueueAcceptDecline(NGORescueQueueTest.java:61)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:139)
+	at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:664)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:228)
+	at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:961)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:201)
+	at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:148)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:128)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.testng.TestRunner.privateRun(TestRunner.java:819)
+	at org.testng.TestRunner.run(TestRunner.java:619)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:443)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:437)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:397)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:336)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1301)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1228)
+	at org.testng.TestNG.runSuites(TestNG.java:1134)
+	at org.testng.TestNG.run(TestNG.java:1101)
+	at org.apache.maven.surefire.testng.TestNGExecutor.run(TestNGExecutor.java:155)
+	at org.apache.maven.surefire.testng.TestNGDirectoryTestSuite.executeSingleClass(TestNGDirectoryTestSuite.java:102)
+	at org.apache.maven.surefire.testng.TestNGDirectoryTestSuite.execute(TestNGDirectoryTestSuite.java:91)
+	at org.apache.maven.surefire.testng.TestNGProvider.invoke(TestNGProvider.java:137)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+</textarea>
+          
         </td>
       </tr>
   </tbody>
@@ -906,336 +480,26 @@ Dashboard'
 </div>
 <div class="test-content-detail"><div class="detail-body"></div></div>
 </div></div>
-<div class="test-wrapper row view category-view attributes-view">
+<div class="test-wrapper row view exception-view attributes-view">
 <div class="test-list">
 <div class="test-list-tools">
-<ul class="tools pull-left"><li><a href=""><span class="font-size-14">Category</span></a></li></ul>
-<ul class="tools text-right"><li><a href="#"><span class="badge badge-primary">8</span></a></li></ul>
+<ul class="tools pull-left"><li><a href=""><span class="font-size-14">Exception</span></a></li></ul>
+<ul class="tools text-right"><li><a href="#"><span class="badge badge-primary">1</span></a></li></ul>
 </div>
 <div class="test-list-wrapper scrollable">
 <ul class="test-list-item">
 <li class="test-item">
 <div class="test-detail">
 <span class="meta">
-<span class='badge log pass-bg'>3</span>
+<span class='badge log badge-danger'>2</span>
 </span>
-<p class="name">ui</p>
-<p class="duration text-sm">3 tests</p>
-</div>
-<div class="test-contents d-none">
-<div class="info">
-<h4>ui</h4>
-<span status="pass" class='badge log pass-bg'>3 passed</span>
-</div>
-<table class='table table-sm mt-4'>
-<thead>
-<tr>
-<th class="status-col">Status</th>
-<th class="timestamp-col">Timestamp</th>
-<th>TestName</th>
-</tr>
-</thead>
-<tbody>
-<tr class="tag-test-status" status="pass">
-<td><span class="badge log pass-bg">Pass</span></td>
-<td>17:50:06 pm</td>
-<td>
-<a href="#" class="linked" test-id='1' id='1'>TC021_verifyDashboardGreetingAndDate</a>
-</td>
-</tr>
-<tr class="tag-test-status" status="pass">
-<td><span class="badge log pass-bg">Pass</span></td>
-<td>17:50:26 pm</td>
-<td>
-<a href="#" class="linked" test-id='2' id='2'>TC022_verifyEmergencyBanner</a>
-</td>
-</tr>
-<tr class="tag-test-status" status="pass">
-<td><span class="badge log pass-bg">Pass</span></td>
-<td>17:50:40 pm</td>
-<td>
-<a href="#" class="linked" test-id='3' id='3'>TC023_verifyStatTiles</a>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</li>
-<li class="test-item">
-<div class="test-detail">
-<span class="meta">
-<span class='badge log pass-bg'>5</span>
-</span>
-<p class="name">PetOwnerDashboard</p>
-<p class="duration text-sm">5 tests</p>
-</div>
-<div class="test-contents d-none">
-<div class="info">
-<h4>PetOwnerDashboard</h4>
-<span status="pass" class='badge log pass-bg'>5 passed</span>
-</div>
-<table class='table table-sm mt-4'>
-<thead>
-<tr>
-<th class="status-col">Status</th>
-<th class="timestamp-col">Timestamp</th>
-<th>TestName</th>
-</tr>
-</thead>
-<tbody>
-<tr class="tag-test-status" status="pass">
-<td><span class="badge log pass-bg">Pass</span></td>
-<td>17:50:06 pm</td>
-<td>
-<a href="#" class="linked" test-id='1' id='1'>TC021_verifyDashboardGreetingAndDate</a>
-</td>
-</tr>
-<tr class="tag-test-status" status="pass">
-<td><span class="badge log pass-bg">Pass</span></td>
-<td>17:50:26 pm</td>
-<td>
-<a href="#" class="linked" test-id='2' id='2'>TC022_verifyEmergencyBanner</a>
-</td>
-</tr>
-<tr class="tag-test-status" status="pass">
-<td><span class="badge log pass-bg">Pass</span></td>
-<td>17:50:40 pm</td>
-<td>
-<a href="#" class="linked" test-id='3' id='3'>TC023_verifyStatTiles</a>
-</td>
-</tr>
-<tr class="tag-test-status" status="pass">
-<td><span class="badge log pass-bg">Pass</span></td>
-<td>17:50:54 pm</td>
-<td>
-<a href="#" class="linked" test-id='4' id='4'>TC024_verifyQuickActions</a>
-</td>
-</tr>
-<tr class="tag-test-status" status="pass">
-<td><span class="badge log pass-bg">Pass</span></td>
-<td>17:52:58 pm</td>
-<td>
-<a href="#" class="linked" test-id='5' id='5'>TC025_verifySidebar</a>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</li>
-<li class="test-item">
-<div class="test-detail">
-<span class="meta">
-<span class='badge log pass-bg'>3</span>
-</span>
-<p class="name">sanity</p>
-<p class="duration text-sm">3 tests</p>
-</div>
-<div class="test-contents d-none">
-<div class="info">
-<h4>sanity</h4>
-<span status="pass" class='badge log pass-bg'>3 passed</span>
-</div>
-<table class='table table-sm mt-4'>
-<thead>
-<tr>
-<th class="status-col">Status</th>
-<th class="timestamp-col">Timestamp</th>
-<th>TestName</th>
-</tr>
-</thead>
-<tbody>
-<tr class="tag-test-status" status="pass">
-<td><span class="badge log pass-bg">Pass</span></td>
-<td>17:50:06 pm</td>
-<td>
-<a href="#" class="linked" test-id='1' id='1'>TC021_verifyDashboardGreetingAndDate</a>
-</td>
-</tr>
-<tr class="tag-test-status" status="pass">
-<td><span class="badge log pass-bg">Pass</span></td>
-<td>17:50:54 pm</td>
-<td>
-<a href="#" class="linked" test-id='4' id='4'>TC024_verifyQuickActions</a>
-</td>
-</tr>
-<tr class="tag-test-status" status="pass">
-<td><span class="badge log pass-bg">Pass</span></td>
-<td>17:52:58 pm</td>
-<td>
-<a href="#" class="linked" test-id='5' id='5'>TC025_verifySidebar</a>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</li>
-<li class="test-item">
-<div class="test-detail">
-<span class="meta">
-<span class='badge log pass-bg'>5</span>
-</span>
-<p class="name">petOwnerDashboard</p>
-<p class="duration text-sm">5 tests</p>
-</div>
-<div class="test-contents d-none">
-<div class="info">
-<h4>petOwnerDashboard</h4>
-<span status="pass" class='badge log pass-bg'>5 passed</span>
-</div>
-<table class='table table-sm mt-4'>
-<thead>
-<tr>
-<th class="status-col">Status</th>
-<th class="timestamp-col">Timestamp</th>
-<th>TestName</th>
-</tr>
-</thead>
-<tbody>
-<tr class="tag-test-status" status="pass">
-<td><span class="badge log pass-bg">Pass</span></td>
-<td>17:50:06 pm</td>
-<td>
-<a href="#" class="linked" test-id='1' id='1'>TC021_verifyDashboardGreetingAndDate</a>
-</td>
-</tr>
-<tr class="tag-test-status" status="pass">
-<td><span class="badge log pass-bg">Pass</span></td>
-<td>17:50:26 pm</td>
-<td>
-<a href="#" class="linked" test-id='2' id='2'>TC022_verifyEmergencyBanner</a>
-</td>
-</tr>
-<tr class="tag-test-status" status="pass">
-<td><span class="badge log pass-bg">Pass</span></td>
-<td>17:50:40 pm</td>
-<td>
-<a href="#" class="linked" test-id='3' id='3'>TC023_verifyStatTiles</a>
-</td>
-</tr>
-<tr class="tag-test-status" status="pass">
-<td><span class="badge log pass-bg">Pass</span></td>
-<td>17:50:54 pm</td>
-<td>
-<a href="#" class="linked" test-id='4' id='4'>TC024_verifyQuickActions</a>
-</td>
-</tr>
-<tr class="tag-test-status" status="pass">
-<td><span class="badge log pass-bg">Pass</span></td>
-<td>17:52:58 pm</td>
-<td>
-<a href="#" class="linked" test-id='5' id='5'>TC025_verifySidebar</a>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</li>
-<li class="test-item">
-<div class="test-detail">
-<span class="meta">
-<span class='badge log pass-bg'>5</span>
-</span>
-<p class="name">regression</p>
-<p class="duration text-sm">5 tests</p>
-</div>
-<div class="test-contents d-none">
-<div class="info">
-<h4>regression</h4>
-<span status="pass" class='badge log pass-bg'>5 passed</span>
-</div>
-<table class='table table-sm mt-4'>
-<thead>
-<tr>
-<th class="status-col">Status</th>
-<th class="timestamp-col">Timestamp</th>
-<th>TestName</th>
-</tr>
-</thead>
-<tbody>
-<tr class="tag-test-status" status="pass">
-<td><span class="badge log pass-bg">Pass</span></td>
-<td>17:50:06 pm</td>
-<td>
-<a href="#" class="linked" test-id='1' id='1'>TC021_verifyDashboardGreetingAndDate</a>
-</td>
-</tr>
-<tr class="tag-test-status" status="pass">
-<td><span class="badge log pass-bg">Pass</span></td>
-<td>17:50:26 pm</td>
-<td>
-<a href="#" class="linked" test-id='2' id='2'>TC022_verifyEmergencyBanner</a>
-</td>
-</tr>
-<tr class="tag-test-status" status="pass">
-<td><span class="badge log pass-bg">Pass</span></td>
-<td>17:50:40 pm</td>
-<td>
-<a href="#" class="linked" test-id='3' id='3'>TC023_verifyStatTiles</a>
-</td>
-</tr>
-<tr class="tag-test-status" status="pass">
-<td><span class="badge log pass-bg">Pass</span></td>
-<td>17:50:54 pm</td>
-<td>
-<a href="#" class="linked" test-id='4' id='4'>TC024_verifyQuickActions</a>
-</td>
-</tr>
-<tr class="tag-test-status" status="pass">
-<td><span class="badge log pass-bg">Pass</span></td>
-<td>17:52:58 pm</td>
-<td>
-<a href="#" class="linked" test-id='5' id='5'>TC025_verifySidebar</a>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</li>
-<li class="test-item">
-<div class="test-detail">
-<span class="meta">
-<span class='badge log pass-bg'>1</span>
-</span>
-<p class="name">smoke</p>
-<p class="duration text-sm">1 tests</p>
-</div>
-<div class="test-contents d-none">
-<div class="info">
-<h4>smoke</h4>
-<span status="pass" class='badge log pass-bg'>1 passed</span>
-</div>
-<table class='table table-sm mt-4'>
-<thead>
-<tr>
-<th class="status-col">Status</th>
-<th class="timestamp-col">Timestamp</th>
-<th>TestName</th>
-</tr>
-</thead>
-<tbody>
-<tr class="tag-test-status" status="pass">
-<td><span class="badge log pass-bg">Pass</span></td>
-<td>17:50:06 pm</td>
-<td>
-<a href="#" class="linked" test-id='1' id='1'>TC021_verifyDashboardGreetingAndDate</a>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</li>
-<li class="test-item">
-<div class="test-detail">
-<span class="meta">
-<span class='badge log pass-bg'>2</span>
-</span>
-<p class="name">functional</p>
+<p class="name">java.lang.AssertionError</p>
 <p class="duration text-sm">2 tests</p>
 </div>
 <div class="test-contents d-none">
 <div class="info">
-<h4>functional</h4>
-<span status="pass" class='badge log pass-bg'>2 passed</span>
+<h4>java.lang.AssertionError</h4>
+<span status="fail" class='badge log badge-danger'>2 failed</span>
 </div>
 <table class='table table-sm mt-4'>
 <thead>
@@ -1246,18 +510,74 @@ Dashboard'
 </tr>
 </thead>
 <tbody>
-<tr class="tag-test-status" status="pass">
-<td><span class="badge log pass-bg">Pass</span></td>
-<td>17:50:54 pm</td>
+<tr class="tag-test-status" status="fail">
+<td><span class="badge log fail-bg">Fail</span></td>
+<td>08:56:58 am</td>
 <td>
-<a href="#" class="linked" test-id='4' id='4'>TC024_verifyQuickActions</a>
+<a href="#" class="linked" test-id='1' id='1'>TC068_NGOQueueEmpty</a>
 </td>
 </tr>
-<tr class="tag-test-status" status="pass">
-<td><span class="badge log pass-bg">Pass</span></td>
-<td>17:52:58 pm</td>
+<tr class="tag-test-status" status="fail">
+<td><span class="badge log fail-bg">Fail</span></td>
+<td>08:57:43 am</td>
 <td>
-<a href="#" class="linked" test-id='5' id='5'>TC025_verifySidebar</a>
+<a href="#" class="linked" test-id='2' id='2'>TC069_NGOQueueAcceptDecline</a>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="test-content scrollable">
+<div class="test-content-detail">
+<div class="detail-body"></div>
+</div>
+</div>
+</div><div class="test-wrapper row view category-view attributes-view">
+<div class="test-list">
+<div class="test-list-tools">
+<ul class="tools pull-left"><li><a href=""><span class="font-size-14">Category</span></a></li></ul>
+<ul class="tools text-right"><li><a href="#"><span class="badge badge-primary">5</span></a></li></ul>
+</div>
+<div class="test-list-wrapper scrollable">
+<ul class="test-list-item">
+<li class="test-item">
+<div class="test-detail">
+<span class="meta">
+<span class='badge log badge-danger'>2</span>
+</span>
+<p class="name">ui</p>
+<p class="duration text-sm">2 tests</p>
+</div>
+<div class="test-contents d-none">
+<div class="info">
+<h4>ui</h4>
+<span status="fail" class='badge log badge-danger'>2 failed</span>
+</div>
+<table class='table table-sm mt-4'>
+<thead>
+<tr>
+<th class="status-col">Status</th>
+<th class="timestamp-col">Timestamp</th>
+<th>TestName</th>
+</tr>
+</thead>
+<tbody>
+<tr class="tag-test-status" status="fail">
+<td><span class="badge log fail-bg">Fail</span></td>
+<td>08:56:58 am</td>
+<td>
+<a href="#" class="linked" test-id='1' id='1'>TC068_NGOQueueEmpty</a>
+</td>
+</tr>
+<tr class="tag-test-status" status="fail">
+<td><span class="badge log fail-bg">Fail</span></td>
+<td>08:57:43 am</td>
+<td>
+<a href="#" class="linked" test-id='2' id='2'>TC069_NGOQueueAcceptDecline</a>
 </td>
 </tr>
 </tbody>
@@ -1267,15 +587,15 @@ Dashboard'
 <li class="test-item">
 <div class="test-detail">
 <span class="meta">
-<span class='badge log pass-bg'>5</span>
+<span class='badge log badge-danger'>2</span>
 </span>
 <p class="name">positive</p>
-<p class="duration text-sm">5 tests</p>
+<p class="duration text-sm">2 tests</p>
 </div>
 <div class="test-contents d-none">
 <div class="info">
 <h4>positive</h4>
-<span status="pass" class='badge log pass-bg'>5 passed</span>
+<span status="fail" class='badge log badge-danger'>2 failed</span>
 </div>
 <table class='table table-sm mt-4'>
 <thead>
@@ -1286,39 +606,138 @@ Dashboard'
 </tr>
 </thead>
 <tbody>
-<tr class="tag-test-status" status="pass">
-<td><span class="badge log pass-bg">Pass</span></td>
-<td>17:50:06 pm</td>
+<tr class="tag-test-status" status="fail">
+<td><span class="badge log fail-bg">Fail</span></td>
+<td>08:56:58 am</td>
 <td>
-<a href="#" class="linked" test-id='1' id='1'>TC021_verifyDashboardGreetingAndDate</a>
+<a href="#" class="linked" test-id='1' id='1'>TC068_NGOQueueEmpty</a>
 </td>
 </tr>
-<tr class="tag-test-status" status="pass">
-<td><span class="badge log pass-bg">Pass</span></td>
-<td>17:50:26 pm</td>
+<tr class="tag-test-status" status="fail">
+<td><span class="badge log fail-bg">Fail</span></td>
+<td>08:57:43 am</td>
 <td>
-<a href="#" class="linked" test-id='2' id='2'>TC022_verifyEmergencyBanner</a>
+<a href="#" class="linked" test-id='2' id='2'>TC069_NGOQueueAcceptDecline</a>
 </td>
 </tr>
-<tr class="tag-test-status" status="pass">
-<td><span class="badge log pass-bg">Pass</span></td>
-<td>17:50:40 pm</td>
+</tbody>
+</table>
+</div>
+</li>
+<li class="test-item">
+<div class="test-detail">
+<span class="meta">
+<span class='badge log badge-danger'>2</span>
+</span>
+<p class="name">ngoRescueQueue</p>
+<p class="duration text-sm">2 tests</p>
+</div>
+<div class="test-contents d-none">
+<div class="info">
+<h4>ngoRescueQueue</h4>
+<span status="fail" class='badge log badge-danger'>2 failed</span>
+</div>
+<table class='table table-sm mt-4'>
+<thead>
+<tr>
+<th class="status-col">Status</th>
+<th class="timestamp-col">Timestamp</th>
+<th>TestName</th>
+</tr>
+</thead>
+<tbody>
+<tr class="tag-test-status" status="fail">
+<td><span class="badge log fail-bg">Fail</span></td>
+<td>08:56:58 am</td>
 <td>
-<a href="#" class="linked" test-id='3' id='3'>TC023_verifyStatTiles</a>
+<a href="#" class="linked" test-id='1' id='1'>TC068_NGOQueueEmpty</a>
 </td>
 </tr>
-<tr class="tag-test-status" status="pass">
-<td><span class="badge log pass-bg">Pass</span></td>
-<td>17:50:54 pm</td>
+<tr class="tag-test-status" status="fail">
+<td><span class="badge log fail-bg">Fail</span></td>
+<td>08:57:43 am</td>
 <td>
-<a href="#" class="linked" test-id='4' id='4'>TC024_verifyQuickActions</a>
+<a href="#" class="linked" test-id='2' id='2'>TC069_NGOQueueAcceptDecline</a>
 </td>
 </tr>
-<tr class="tag-test-status" status="pass">
-<td><span class="badge log pass-bg">Pass</span></td>
-<td>17:52:58 pm</td>
+</tbody>
+</table>
+</div>
+</li>
+<li class="test-item">
+<div class="test-detail">
+<span class="meta">
+<span class='badge log badge-danger'>2</span>
+</span>
+<p class="name">regression</p>
+<p class="duration text-sm">2 tests</p>
+</div>
+<div class="test-contents d-none">
+<div class="info">
+<h4>regression</h4>
+<span status="fail" class='badge log badge-danger'>2 failed</span>
+</div>
+<table class='table table-sm mt-4'>
+<thead>
+<tr>
+<th class="status-col">Status</th>
+<th class="timestamp-col">Timestamp</th>
+<th>TestName</th>
+</tr>
+</thead>
+<tbody>
+<tr class="tag-test-status" status="fail">
+<td><span class="badge log fail-bg">Fail</span></td>
+<td>08:56:58 am</td>
 <td>
-<a href="#" class="linked" test-id='5' id='5'>TC025_verifySidebar</a>
+<a href="#" class="linked" test-id='1' id='1'>TC068_NGOQueueEmpty</a>
+</td>
+</tr>
+<tr class="tag-test-status" status="fail">
+<td><span class="badge log fail-bg">Fail</span></td>
+<td>08:57:43 am</td>
+<td>
+<a href="#" class="linked" test-id='2' id='2'>TC069_NGOQueueAcceptDecline</a>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+<li class="test-item">
+<div class="test-detail">
+<span class="meta">
+<span class='badge log badge-danger'>2</span>
+</span>
+<p class="name">NGORescueQueue</p>
+<p class="duration text-sm">2 tests</p>
+</div>
+<div class="test-contents d-none">
+<div class="info">
+<h4>NGORescueQueue</h4>
+<span status="fail" class='badge log badge-danger'>2 failed</span>
+</div>
+<table class='table table-sm mt-4'>
+<thead>
+<tr>
+<th class="status-col">Status</th>
+<th class="timestamp-col">Timestamp</th>
+<th>TestName</th>
+</tr>
+</thead>
+<tbody>
+<tr class="tag-test-status" status="fail">
+<td><span class="badge log fail-bg">Fail</span></td>
+<td>08:56:58 am</td>
+<td>
+<a href="#" class="linked" test-id='1' id='1'>TC068_NGOQueueEmpty</a>
+</td>
+</tr>
+<tr class="tag-test-status" status="fail">
+<td><span class="badge log fail-bg">Fail</span></td>
+<td>08:57:43 am</td>
+<td>
+<a href="#" class="linked" test-id='2' id='2'>TC069_NGOQueueAcceptDecline</a>
 </td>
 </tr>
 </tbody>
@@ -1338,25 +757,25 @@ Dashboard'
 <div class="col-md-3">
 <div class="card"><div class="card-body">
 <p class="m-b-0">Started</p>
-<h3>25-May-2026 17:49:59</h3>
+<h3>26-May-2026 08:56:44</h3>
 </div></div>
 </div>
 <div class="col-md-3">
 <div class="card"><div class="card-body">
 <p class="m-b-0">Ended</p>
-<h3>25-May-2026 17:53:09</h3>
+<h3>26-May-2026 08:58:09</h3>
 </div></div>
 </div>
 <div class="col-md-3">
 <div class="card"><div class="card-body">
 <p class="m-b-0 text-pass">Tests Passed</p>
-<h3>5</h3>
+<h3>0</h3>
 </div></div>
 </div>
 <div class="col-md-3">
 <div class="card"><div class="card-body">
 <p class="m-b-0 text-fail">Tests Failed</p>
-<h3>0</h3>
+<h3>2</h3>
 </div></div>
 </div>
 </div>
@@ -1372,12 +791,12 @@ Dashboard'
 </div>
 </div>
 <div class="card-footer">
-<div><small data-tooltip='100%'>
-<b>5</b> tests passed
+<div><small data-tooltip='0%'>
+<b>0</b> tests passed
 </small>
 </div>
 <div>
-<small data-tooltip='0%'><b>0</b> tests failed,
+<small data-tooltip='100%'><b>2</b> tests failed,
 <b>0</b> skipped, <b data-tooltip='0%'>0</b> others
 </small>
 </div>
@@ -1395,10 +814,10 @@ Dashboard'
 </div>
 </div>
 <div class="card-footer">
-<div><small data-tooltip='5%'><b>5</b> events passed</small></div>
+<div><small data-tooltip='9%'><b>3</b> events passed</small></div>
 <div>
-<small data-tooltip='0%'><b>0</b> events failed,
-<b data-tooltip='%'>81</b> others
+<small data-tooltip='12%'><b>4</b> events failed,
+<b data-tooltip='%'>24</b> others
 </small>
 </div>
 </div>
@@ -1414,7 +833,7 @@ Dashboard'
 </div></div>
 <script>
 var timeline = {
-"TC021_verifyDashboardGreetingAndDate":10.271,"TC022_verifyEmergencyBanner":6.8,"TC023_verifyStatTiles":6.279,"TC024_verifyQuickActions":117.637,"TC025_verifySidebar":7.613
+"TC068_NGOQueueEmpty":33.316,"TC069_NGOQueueAcceptDecline":15.885
 };
 </script>
 <div class="row">
@@ -1425,67 +844,43 @@ var timeline = {
 <thead><tr class="bg-gray"><th>Name</th><th>Passed</th><th>Failed</th><th>Skipped</th><th>Others</th><th>Passed %</th></tr></thead><tbody>
 <tr>
 <td>ui</td>
-<td>3</td>
 <td>0</td>
-<td>0</td>
-<td>0</td>
-<td>100%</td>
-</tr>
-<tr>
-<td>PetOwnerDashboard</td>
-<td>5</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>100%</td>
-</tr>
-<tr>
-<td>sanity</td>
-<td>3</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>100%</td>
-</tr>
-<tr>
-<td>petOwnerDashboard</td>
-<td>5</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>100%</td>
-</tr>
-<tr>
-<td>regression</td>
-<td>5</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>100%</td>
-</tr>
-<tr>
-<td>smoke</td>
-<td>1</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>100%</td>
-</tr>
-<tr>
-<td>functional</td>
 <td>2</td>
 <td>0</td>
 <td>0</td>
-<td>0</td>
-<td>100%</td>
+<td>0%</td>
 </tr>
 <tr>
 <td>positive</td>
-<td>5</td>
+<td>0</td>
+<td>2</td>
 <td>0</td>
 <td>0</td>
+<td>0%</td>
+</tr>
+<tr>
+<td>ngoRescueQueue</td>
 <td>0</td>
-<td>100%</td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>0%</td>
+</tr>
+<tr>
+<td>regression</td>
+<td>0</td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>0%</td>
+</tr>
+<tr>
+<td>NGORescueQueue</td>
+<td>0</td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>0%</td>
 </tr>
 </tbody>
 </table></div>
@@ -1515,11 +910,11 @@ var timeline = {
 </tr>
 <tr>
 <td>Run Started</td>
-<td>25-May-2026 17:49:59</td>
+<td>26-May-2026 08:56:45</td>
 </tr>
 <tr>
 <td>Tester</td>
-<td>2480176</td>
+<td>2480040</td>
 </tr>
 <tr>
 <td>OS</td>
@@ -1554,8 +949,8 @@ var timeline = {
 <script>
 var statusGroup = {
 parentCount: 5,
-passParent: 5,
-failParent: 0,
+passParent: 0,
+failParent: 2,
 warningParent: 0,
 skipParent: 0,
 childCount: 5,
@@ -1571,11 +966,11 @@ warningGrandChild: 0,
 skipGrandChild: 0,
 infoGrandChild: 0,
 eventsCount: 5,
-passEvents: 5,
-failEvents: 0,
+passEvents: 3,
+failEvents: 4,
 warningEvents: 0,
 skipEvents: 0,
-infoEvents: 81
+infoEvents: 24
 };
 </script>        </div>
       </div>

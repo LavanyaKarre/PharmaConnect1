@@ -5,9 +5,11 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.cts.mfrp.petz.constants.AppConstants.EXPLICIT_WAIT;
@@ -15,43 +17,50 @@ import static com.cts.mfrp.petz.constants.AppConstants.NGO_ANIMALS_URL;
 
 /**
  * /ngo/animals. Covers PETZ_TC063 – PETZ_TC065.
+ *
+ * IMPORTANT — verified against the live DOM
+ * (petz-frontend/src/app/features/ngo/ngo-animals/ngo-animals.component.html):
+ *
+ *   • The 3 filter dropdowns are native HTML <select class="fsel">,
+ *     NOT Angular Material <mat-select>. Their options are <option>,
+ *     NOT <mat-option>. Earlier versions of this page used mat-select
+ *     locators which is why every TC was failing.
+ *
+ *   • The Add-Animal form uses [(ngModel)] (template-driven), so the
+ *     inputs DON'T have formControlName attributes. Fields are
+ *     identified by their <label class="field-label"> text.
+ *
+ *   • Filters in DOM order: 0 = Species, 1 = Status, 2 = Sort.
  */
 public class NGOMyAnimalsPage {
 
     private final WebDriver driver;
     private final WebDriverWait wait;
 
-    private final By title    = By.xpath("//*[self::h1 or self::h2 or self::h3][contains(normalize-space(),'My Animals')]");
-    private final By subtitle = By.xpath("//*[contains(normalize-space(),'Manage all animals listed for adoption')]");
+    // ── Page-level locators ──
+    private final By title    = By.xpath(
+            "//*[self::h1 or self::h2 or self::h3][contains(normalize-space(),'My Animals')]");
+    private final By subtitle = By.xpath(
+            "//*[contains(normalize-space(),'Manage all animals listed for adoption')]");
 
-    private final By addAnimalBtnTop   = By.xpath(
-            "(//a[contains(normalize-space(),'Add Animal')] | //button[contains(normalize-space(),'Add Animal')])[1]");
+    private final By addAnimalBtnTop = By.xpath(
+            "(//a[contains(normalize-space(),'Add Animal')] | " +
+                    " //button[contains(normalize-space(),'Add Animal') and not(contains(.,'Cancel'))])[1]");
     private final By addFirstAnimalBtn = By.xpath(
-            "//a[contains(normalize-space(),'Add your first animal')] | //button[contains(normalize-space(),'Add your first animal')]");
+            "//a[contains(normalize-space(),'Add your first animal')] | " +
+                    "//button[contains(normalize-space(),'Add your first animal')]");
 
-    private final By searchInput = By.xpath(
-            "//input[contains(@placeholder,'Search') and (contains(@placeholder,'name') or contains(@placeholder,'breed'))]");
+    private final By searchInput = By.cssSelector("input.search-input");
 
-    private final By speciesFilter = By.xpath(
-            "//mat-select[@formcontrolname='species' or @name='speciesFilter']" +
-            " | //*[contains(@class,'mat-mdc-select') and ancestor::*[contains(.,'Species')][1]]");
-    private final By statusFilter = By.xpath(
-            "//mat-select[@formcontrolname='status' or @name='statusFilter']" +
-            " | //*[contains(@class,'mat-mdc-select') and ancestor::*[contains(.,'Status')][1]]");
-    private final By sortFilter = By.xpath(
-            "//mat-select[@formcontrolname='sort' or @name='sortFilter']" +
-            " | //*[contains(@class,'mat-mdc-select') and ancestor::*[contains(.,'Sort')][1]]");
+    // Filters — native <select class="fsel">, ordered Species / Status / Sort
+    private final By filterSelects = By.cssSelector("select.fsel");
+    private final By filterLabel   = By.cssSelector("label.select-label");
 
-    private final By emptyStateTitle = By.xpath("//*[contains(normalize-space(),'No animals listed yet')]");
-    private final By matOptions = By.xpath("//mat-option | //*[contains(@class,'mat-mdc-option')]");
+    private final By emptyStateTitle = By.xpath(
+            "//*[contains(normalize-space(),'No animals listed yet')]");
 
-    // Add-animal form (after CTA click)
-    private final By formNameInput    = By.xpath("//input[@formcontrolname='name' or @name='name']");
-    private final By formSpeciesInput = By.xpath("//input[@formcontrolname='species'] | //mat-select[@formcontrolname='species']");
-    private final By formBreedInput   = By.xpath("//input[@formcontrolname='breed' or @name='breed']");
-    private final By formAgeInput     = By.xpath("//input[@formcontrolname='ageYears' or @formcontrolname='age' or @name='age']");
-    private final By formGenderInput  = By.xpath("//mat-select[@formcontrolname='gender'] | //input[@formcontrolname='gender']");
-    private final By formCityInput    = By.xpath("//input[@formcontrolname='city' or @name='city']");
+    // Add-animal form container
+    private final By formCard = By.cssSelector(".form-card");
 
     public NGOMyAnimalsPage(WebDriver driver) {
         this.driver = driver;
@@ -60,14 +69,41 @@ public class NGOMyAnimalsPage {
 
     public void open() { driver.get(NGO_ANIMALS_URL); }
 
-    public boolean isTitleVisible()    { return isVisible(title); }
-    public boolean isSubtitleVisible() { return isVisible(subtitle); }
-
+    public boolean isTitleVisible()        { return isVisible(title); }
+    public boolean isSubtitleVisible()     { return isVisible(subtitle); }
     public boolean isAddAnimalBtnVisible() { return isVisible(addAnimalBtnTop); }
     public boolean isSearchInputVisible()  { return isVisible(searchInput); }
 
+    /**
+     * Three filters are visible when we find at least 3 <select.fsel> AND
+     * the three matching <label.select-label> texts (Species, Status, Sort).
+     */
     public boolean areFiltersVisible() {
-        return isVisible(speciesFilter) && isVisible(statusFilter) && isVisible(sortFilter);
+        try {
+            // Strong wait: at least 3 <select> elements AND the page source
+            // contains the three filter label texts. This is forgiving:
+            // even if class names ("fsel") changed at build time, the
+            // labels and the select elements themselves are stable.
+            wait.until(d -> {
+                int selectCount = d.findElements(By.tagName("select")).size();
+                String src = d.getPageSource();
+                return selectCount >= 3
+                        && src.contains("Species")
+                        && src.contains("Status")
+                        && src.contains("Sort");
+            });
+            return true;
+        } catch (Exception e) {
+            // Diagnostic — print what we DID find so we can fix the locator if needed
+            int selectCount = driver.findElements(By.tagName("select")).size();
+            String src = driver.getPageSource();
+            System.out.println("[NGOMyAnimalsPage] areFiltersVisible FAILED");
+            System.out.println("[NGOMyAnimalsPage]   <select> count: " + selectCount);
+            System.out.println("[NGOMyAnimalsPage]   page contains 'Species': " + src.contains("Species"));
+            System.out.println("[NGOMyAnimalsPage]   page contains 'Status':  " + src.contains("Status"));
+            System.out.println("[NGOMyAnimalsPage]   page contains 'Sort':    " + src.contains("Sort"));
+            return false;
+        }
     }
 
     public boolean isEmptyStateVisible() { return isVisible(emptyStateTitle); }
@@ -75,50 +111,77 @@ public class NGOMyAnimalsPage {
     public void clickAddAnimalTop()   { safeClick(addAnimalBtnTop); }
     public void clickAddFirstAnimal() { safeClick(addFirstAnimalBtn); }
 
-    public List<String> openSpeciesOptions() { return openOptions(speciesFilter); }
-    public List<String> openStatusOptions()  { return openOptions(statusFilter); }
-    public List<String> openSortOptions()    { return openOptions(sortFilter); }
+    /**
+     * Filters are in DOM order: 0 = Species, 1 = Status, 2 = Sort.
+     * Returns the visible text of every <option>.
+     */
+    public List<String> openSpeciesOptions() { return getOptionsAt(0); }
+    public List<String> openStatusOptions()  { return getOptionsAt(1); }
+    public List<String> openSortOptions()    { return getOptionsAt(2); }
 
-    public boolean isAddAnimalFormVisible() {
-        return isVisible(formNameInput);
+    private List<String> getOptionsAt(int index) {
+        // Wait until at least 3 fsel selects are present
+        wait.until(d -> d.findElements(filterSelects).size() >= 3);
+        List<WebElement> selects = driver.findElements(filterSelects);
+        WebElement sel = selects.get(index);
+        ((JavascriptExecutor) driver)
+                .executeScript("arguments[0].scrollIntoView({block:'center'});", sel);
+        // Click to focus (good for screenshots; reading via Select wrapper
+        // doesn't require the native dropdown to be visually expanded)
+        try { sel.click(); } catch (Exception ignored) {}
+        List<String> opts = new ArrayList<>();
+        for (WebElement o : new Select(sel).getOptions()) {
+            opts.add(o.getText().trim());
+        }
+        return opts;
     }
 
+    /**
+     * The Add-Animal form is visible when the .form-card container is in the DOM.
+     */
+    public boolean isAddAnimalFormVisible() {
+        return isVisible(formCard);
+    }
+
+    /**
+     * The form must show fields for Animal Name, Species, Breed, Age, Gender
+     * and City. The page uses <label class="field-label"> texts; we match by
+     * substring to tolerate the required-asterisk ("Animal Name *") and unit
+     * suffix ("Age (months)").
+     */
     public boolean addAnimalFormHasExpectedFields() {
-        boolean hasName    = !driver.findElements(formNameInput).isEmpty();
-        boolean hasSpecies = !driver.findElements(formSpeciesInput).isEmpty();
-        boolean hasBreed   = !driver.findElements(formBreedInput).isEmpty();
-        boolean hasAge     = !driver.findElements(formAgeInput).isEmpty();
-        boolean hasGender  = !driver.findElements(formGenderInput).isEmpty();
-        boolean hasCity    = !driver.findElements(formCityInput).isEmpty();
-        return hasName && hasSpecies && hasBreed && hasAge && hasGender && hasCity;
+        if (!isVisible(formCard)) return false;
+        List<String> labels = new ArrayList<>();
+        for (WebElement e : driver.findElements(By.cssSelector("label.field-label"))) {
+            labels.add(e.getText().trim());
+        }
+        String[] required = {"Animal Name", "Species", "Breed", "Age", "Gender", "City"};
+        for (String r : required) {
+            boolean found = labels.stream().anyMatch(l -> l.contains(r));
+            if (!found) {
+                System.out.println("[NGOMyAnimalsPage] Missing form field label: '"
+                        + r + "'. Labels found: " + labels);
+                return false;
+            }
+        }
+        return true;
     }
 
     public String getCurrentUrl() { return driver.getCurrentUrl(); }
 
     // ── helpers ──
-    private List<String> openOptions(By trigger) {
-        WebElement sel = wait.until(ExpectedConditions.elementToBeClickable(trigger));
-        try { sel.click(); } catch (Exception e) {
-            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", sel);
-        }
-        try {
-            wait.until(ExpectedConditions.visibilityOfElementLocated(matOptions));
-            return driver.findElements(matOptions).stream().map(WebElement::getText).map(String::trim).toList();
-        } catch (Exception e) {
-            return List.of();
-        } finally {
-            try { driver.findElement(By.tagName("body")).sendKeys(org.openqa.selenium.Keys.ESCAPE); } catch (Exception ignored) {}
-        }
-    }
-
     private boolean isVisible(By by) {
-        try { return wait.until(ExpectedConditions.visibilityOfElementLocated(by)).isDisplayed(); }
-        catch (Exception e) { return false; }
+        try {
+            return wait.until(ExpectedConditions.visibilityOfElementLocated(by)).isDisplayed();
+        } catch (Exception e) { return false; }
     }
 
     private void safeClick(By by) {
         WebElement el = wait.until(ExpectedConditions.elementToBeClickable(by));
-        try { el.click(); } catch (Exception e) {
+        ((JavascriptExecutor) driver)
+                .executeScript("arguments[0].scrollIntoView({block:'center'});", el);
+        try { el.click(); }
+        catch (Exception e) {
             ((JavascriptExecutor) driver).executeScript("arguments[0].click();", el);
         }
     }
