@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Per-case test data for Landing Page scenarios.
+-->
+<data>
+
+    <!-- TC002 - Landing navigation CTAs -->
+    <section name="landingCtas">
+        <row caseId="CTA_SIGN_UP_FREE" cta="Sign Up Free" expectedPath="/auth/register"/>
+        <row caseId="CTA_LOG_IN"       cta="Log In"       expectedPath="/auth/login"/>
+        <row caseId="CTA_GET_STARTED"  cta="Get Started"  expectedPath="/auth/register"/>
+    </section>
+
+</data>

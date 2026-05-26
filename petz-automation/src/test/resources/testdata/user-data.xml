@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Per-case test data for User (Pet Owner) Portal scenarios.
+  Each <section> name matches the test data lookup in step defs.
+  Each <row> has at minimum: caseId, dimension, field, value, expected.
+  All values are inert here — they only become live when step defs type them into
+  the corresponding form fields.
+-->
+<data>
+
+    <!-- TC010 - Pet Management add form validation -->
+    <section name="pets">
+        <row caseId="PET_NAME_EMPTY"    dimension="BVA"    field="name"        value=""                                expected="DISABLED"/>
+        <row caseId="PET_NAME_VALID"    dimension="BVA"    field="name"        value="Buddy"                           expected="ENABLED"/>
+        <row caseId="PET_AGE_NEGATIVE"  dimension="BVA"    field="age"         value="-1"                              expected="DISABLED"/>
+        <row caseId="PET_AGE_VALID"     dimension="BVA"    field="age"         value="3"                               expected="ENABLED"/>
+        <row caseId="PET_DESC_MONKEY"   dimension="MONKEY" field="description" value="&lt;script&gt;alert(1)&lt;/script&gt;" expected="ENABLED"/>
+    </section>
+
+    <!-- TC012 - Book Appointment validation -->
+    <section name="appointmentBooking">
+        <row caseId="APPT_DATE_PAST"    dimension="BVA"    field="date"   value="2020-01-01"                  expected="DISABLED"/>
+        <row caseId="APPT_DATE_FUTURE"  dimension="BVA"    field="date"   value="2030-01-01"                  expected="ENABLED"/>
+        <row caseId="APPT_REASON_EMPTY" dimension="BVA"    field="reason" value=""                            expected="DISABLED"/>
+        <row caseId="APPT_REASON_VALID" dimension="BVA"    field="reason" value="Annual vaccination check-up" expected="ENABLED"/>
+        <row caseId="APPT_REASON_MONKEY" dimension="MONKEY" field="reason" value="&lt;img src=x onerror=alert(1)&gt;" expected="ENABLED"/>
+    </section>
+
+    <!-- TC014 - Report Rescue validation -->
+    <section name="rescues">
+        <row caseId="RESCUE_LANDMARK_EMPTY"        dimension="BVA"    field="landmark"      value=""                                        expected="DISABLED"/>
+        <row caseId="RESCUE_LANDMARK_VALID"        dimension="BVA"    field="landmark"      value="Near petrol bunk, behind bus stop"       expected="ENABLED"/>
+        <row caseId="RESCUE_CONDITION_EMPTY"       dimension="BVA"    field="condition"     value=""                                        expected="DISABLED"/>
+        <row caseId="RESCUE_CONDITION_MONKEY_XSS"  dimension="MONKEY" field="condition"     value="&lt;script&gt;alert('xss')&lt;/script&gt;" expected="ENABLED"/>
+        <row caseId="RESCUE_CONDITION_MONKEY_SQLI" dimension="MONKEY" field="condition"     value="' OR '1'='1"                              expected="ENABLED"/>
+        <row caseId="RESCUE_PHONE_INVALID"         dimension="EP"     field="reporterPhone" value="abc"                                     expected="DISABLED"/>
+    </section>
+
+</data>
