@@ -132,7 +132,7 @@ public class RegisterPageTest extends BaseTest {
 
     @Test(priority = 17,
           groups = {"authRegister", "functional", "regression", "positive"},
-          description = "PETZ_TC017 - Successful registration as NGO routes to /ngo")
+          description = "PETZ_TC017 - NGO registration succeeds and routes to /auth/login with admin-approval toast")
     public void TC017_RegisterNGOSuccess() {
         RegisterPage page = new RegisterPage(driver);
         page.open();
@@ -146,15 +146,21 @@ public class RegisterPageTest extends BaseTest {
         page.selectAccountType("NGO");
 
         page.clickCreateAccount();
-        Waits.urlContains(driver, "/ngo");
+        // Per docs/API.md: NGO accounts need admin approval before login. The app
+        // routes new NGO registrations to /auth/login with a "pending admin approval"
+        // toast instead of /ngo (verified against the live build 2026-05-25).
+        Waits.urlContains(driver, "/auth/login");
 
         StepReporter.check("After submit",
-                "/ngo", page.getCurrentUrl());
+                "/auth/login (admin approval pending)", page.getCurrentUrl());
+        StepReporter.check("Admin-approval toast",
+                "Toast mentions pending admin approval",
+                driver.getPageSource().toLowerCase().contains("admin approval"));
     }
 
     @Test(priority = 18,
           groups = {"authRegister", "functional", "regression", "positive"},
-          description = "PETZ_TC018 - Successful registration as Vet routes to /hospital")
+          description = "PETZ_TC018 - Vet registration succeeds and routes to /auth/login with admin-approval toast")
     public void TC018_RegisterVetSuccess() {
         RegisterPage page = new RegisterPage(driver);
         page.open();
@@ -168,10 +174,15 @@ public class RegisterPageTest extends BaseTest {
         page.selectAccountType("Veterinary");
 
         page.clickCreateAccount();
-        Waits.urlContains(driver, "/hospital");
+        // Per docs/API.md: HOSPITAL accounts need admin approval before login. Same
+        // admin-approval flow as NGO above.
+        Waits.urlContains(driver, "/auth/login");
 
         StepReporter.check("After submit",
-                "/hospital", page.getCurrentUrl());
+                "/auth/login (admin approval pending)", page.getCurrentUrl());
+        StepReporter.check("Admin-approval toast",
+                "Toast mentions pending admin approval",
+                driver.getPageSource().toLowerCase().contains("admin approval"));
     }
 
     @Test(priority = 19,

@@ -60,7 +60,10 @@ public class LoginPage {
         fillEmail(email);
         fillPassword(password);
         clickSignIn();
-        wait.until(ExpectedConditions.urlMatches(".+/(dashboard|ngo|hospital).*"));
+        // Use a longer wait than EXPLICIT_WAIT — Railway backend can take >15s during cold
+        // starts, which was the root cause of several intermittent TC0XX-via-login timeouts.
+        new WebDriverWait(driver, Duration.ofSeconds(30))
+                .until(ExpectedConditions.urlMatches(".+/(dashboard|ngo|hospital).*"));
     }
 
     // ── TC007 / TC008: progressive enable ──

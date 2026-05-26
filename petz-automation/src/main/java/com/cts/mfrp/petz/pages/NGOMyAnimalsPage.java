@@ -58,6 +58,20 @@ public class NGOMyAnimalsPage {
 
     private final By emptyStateTitle = By.xpath(
             "//*[contains(normalize-space(),'No animals listed yet')]");
+    // Filters are native <select> elements paired with <label class="select-label">…</label>,
+    // not Angular Material mat-select. Confirmed against the live DOM 2026-05-25.
+    private final By speciesFilter = By.xpath(
+            "//label[contains(@class,'select-label') and normalize-space()='Species']/following-sibling::select"
+          + " | //label[normalize-space()='Species']/following-sibling::select");
+    private final By statusFilter = By.xpath(
+            "//label[contains(@class,'select-label') and normalize-space()='Status']/following-sibling::select"
+          + " | //label[normalize-space()='Status']/following-sibling::select");
+    private final By sortFilter = By.xpath(
+            "//label[contains(@class,'select-label') and normalize-space()='Sort']/following-sibling::select"
+          + " | //label[normalize-space()='Sort']/following-sibling::select");
+
+    private final By emptyStateTitle = By.xpath("//*[contains(normalize-space(),'No animals listed yet')]");
+>>>>>>> main
 
     // Add-animal form container
     private final By formCard = By.cssSelector(".form-card");
@@ -170,6 +184,18 @@ public class NGOMyAnimalsPage {
     public String getCurrentUrl() { return driver.getCurrentUrl(); }
 
     // ── helpers ──
+
+    // Native <select> — read the <option> children directly via Selenium's Select wrapper.
+    private List<String> openOptions(By selectLocator) {
+        try {
+            WebElement el = wait.until(ExpectedConditions.visibilityOfElementLocated(selectLocator));
+            return new Select(el).getOptions().stream()
+                    .map(WebElement::getText).map(String::trim).toList();
+        } catch (Exception e) {
+            return List.of();
+        }
+    }
+
     private boolean isVisible(By by) {
         try {
             return wait.until(ExpectedConditions.visibilityOfElementLocated(by)).isDisplayed();

@@ -45,9 +45,15 @@ public class HospitalDoctorsPage {
     private final By slotDurationInput  = By.xpath(
             "//input[@formcontrolname='slotDuration' or @name='slotDuration' or (@type='number' and ancestor::*[contains(.,'Slot Duration')][1])]");
 
+    // Button text is rendered as "save Save Doctor" — the <mat-icon>save</mat-icon>
+    // ligature contributes the leading "save" word to textContent, so exact match fails.
     private final By saveDoctorBtn = By.xpath(
-            "//button[normalize-space()='Save Doctor' or normalize-space()='Save']");
-    private final By cancelBtn = By.xpath("//button[normalize-space()='Cancel']");
+            "//button[contains(normalize-space(),'Save Doctor') or normalize-space()='Save']");
+    // Live text is "close Cancel" (mat-icon ligature). The form has *two* Cancel
+    // buttons — a top-right ✕ and a footer one — both share the icon-prefix text;
+    // contains() matches either and either click discards the form, so we don't
+    // disambiguate further.
+    private final By cancelBtn = By.xpath("(//button[contains(normalize-space(),'Cancel')])[last()]");
 
     public HospitalDoctorsPage(WebDriver driver) {
         this.driver = driver;
