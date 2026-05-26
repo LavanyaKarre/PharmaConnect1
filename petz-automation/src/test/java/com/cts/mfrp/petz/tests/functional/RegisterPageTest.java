@@ -86,7 +86,7 @@ public class RegisterPageTest extends BaseTest {
         page.fillFullName("Some User");
         page.fillPhone("+919876543210");
         page.fillEmail("user@example.com");
-        StepReporter.check("Name + Phone + valid Email only",
+        StepReporter.check("N@me + Phone + valid Email only",
                 "Create Account still disabled (no password yet)",
                 page.isCreateAccountDisabled());
 

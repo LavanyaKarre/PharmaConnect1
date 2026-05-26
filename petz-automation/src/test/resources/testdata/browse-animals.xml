@@ -34,7 +34,7 @@
         <id>TC028</id>
         <description>Filter by Species = Dog</description>
         <searchMode>SPECIES</searchMode>
-        <searchValue>Cat</searchValue>
+        <searchValue>Snake</searchValue>
         <expectedUrlFragment>/adoption/animals</expectedUrlFragment>
         <speciesLookupTolerant>true</speciesLookupTolerant>
     </case>
