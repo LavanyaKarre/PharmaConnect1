@@ -37,8 +37,10 @@ public class ReportAnimalPage {
     private final By animalTypeSelect = By.xpath(
             "//mat-select[@formcontrolname='animalType' or @formcontrolname='type' or @name='animalType']" +
             " | //label[contains(normalize-space(),'Type of animal')]/following::mat-select[1]");
+    // Live form uses formcontrolname='criticality' (not 'urgency') and pre-selects
+    // "🟡 Medium" by default — confirmed against the DOM 2026-05-25.
     private final By urgencySelect = By.xpath(
-            "//mat-select[@formcontrolname='urgency' or @formcontrolname='urgencyLevel' or @name='urgency']" +
+            "//mat-select[@formcontrolname='criticality' or @formcontrolname='urgency' or @formcontrolname='urgencyLevel' or @name='urgency']" +
             " | //label[contains(normalize-space(),'Urgency')]/following::mat-select[1]");
     private final By areaSelect = By.xpath(
             "//mat-select[@formcontrolname='area' or @formcontrolname='chennaiArea' or @name='area']" +
@@ -48,11 +50,18 @@ public class ReportAnimalPage {
     private final By conditionTextarea = By.xpath(
             "//textarea[@formcontrolname='condition' or @formcontrolname='description' or @name='condition' " +
             "or contains(@placeholder,\"animal's condition\") or contains(@placeholder,'animal’s condition')]");
+
+    // Live form has a required reporter-phone field that isn't optional — without
+    // it the submit button stays disabled. Confirmed against the DOM 2026-05-25.
+    private final By reporterPhoneInput = By.xpath(
+            "//input[@formcontrolname='reporterPhone' or @name='reporterPhone' or @type='tel']");
     private final By gpsButton = By.xpath(
             "//button[contains(normalize-space(),'Use My GPS Location') or contains(normalize-space(),'GPS Location')]");
 
+    // Button text may include a mat-icon ligature prefix (e.g. "send Submit Report"),
+    // so match by contains() instead of exact text.
     private final By submitButton = By.xpath(
-            "//button[normalize-space()='Submit Report' or normalize-space()='Submit' or normalize-space()='Send Report' or @type='submit']");
+            "//button[contains(normalize-space(),'Submit Report') or contains(normalize-space(),'Send Report') or contains(normalize-space(),'Submit') or @type='submit']");
 
     private final By matOptions = By.xpath("//mat-option | //*[contains(@class,'mat-mdc-option')]");
 
@@ -151,6 +160,11 @@ public class ReportAnimalPage {
     public void typeCondition(String text) {
         WebElement el = wait.until(ExpectedConditions.visibilityOfElementLocated(conditionTextarea));
         el.clear(); el.sendKeys(text);
+    }
+
+    public void typeReporterPhone(String phone) {
+        WebElement el = wait.until(ExpectedConditions.visibilityOfElementLocated(reporterPhoneInput));
+        el.clear(); el.sendKeys(phone);
     }
 
     public void blurCondition() {

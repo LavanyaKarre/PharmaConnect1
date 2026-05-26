@@ -142,6 +142,9 @@ public class ReportAnimalTest extends BaseTest {
         try { page.selectUrgency("High");   } catch (Exception ignored) {}
         try { page.selectArea("Adyar");     } catch (Exception ignored) {}
         page.typeLandmark("Near petrol bunk, behind bus stop");
+        // Reporter phone is a required field on the live form (added since the test
+        // was written) — without it the submit button stays disabled.
+        try { page.typeReporterPhone("9876543210"); } catch (Exception ignored) {}
         page.typeCondition("Limping right leg, bleeding");
         Waits.documentReady(driver);
 

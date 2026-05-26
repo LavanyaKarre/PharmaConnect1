@@ -5,6 +5,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
@@ -32,18 +33,19 @@ public class NGOMyAnimalsPage {
     private final By searchInput = By.xpath(
             "//input[contains(@placeholder,'Search') and (contains(@placeholder,'name') or contains(@placeholder,'breed'))]");
 
+    // Filters are native <select> elements paired with <label class="select-label">…</label>,
+    // not Angular Material mat-select. Confirmed against the live DOM 2026-05-25.
     private final By speciesFilter = By.xpath(
-            "//mat-select[@formcontrolname='species' or @name='speciesFilter']" +
-            " | //*[contains(@class,'mat-mdc-select') and ancestor::*[contains(.,'Species')][1]]");
+            "//label[contains(@class,'select-label') and normalize-space()='Species']/following-sibling::select"
+          + " | //label[normalize-space()='Species']/following-sibling::select");
     private final By statusFilter = By.xpath(
-            "//mat-select[@formcontrolname='status' or @name='statusFilter']" +
-            " | //*[contains(@class,'mat-mdc-select') and ancestor::*[contains(.,'Status')][1]]");
+            "//label[contains(@class,'select-label') and normalize-space()='Status']/following-sibling::select"
+          + " | //label[normalize-space()='Status']/following-sibling::select");
     private final By sortFilter = By.xpath(
-            "//mat-select[@formcontrolname='sort' or @name='sortFilter']" +
-            " | //*[contains(@class,'mat-mdc-select') and ancestor::*[contains(.,'Sort')][1]]");
+            "//label[contains(@class,'select-label') and normalize-space()='Sort']/following-sibling::select"
+          + " | //label[normalize-space()='Sort']/following-sibling::select");
 
     private final By emptyStateTitle = By.xpath("//*[contains(normalize-space(),'No animals listed yet')]");
-    private final By matOptions = By.xpath("//mat-option | //*[contains(@class,'mat-mdc-option')]");
 
     // Add-animal form (after CTA click)
     private final By formNameInput    = By.xpath("//input[@formcontrolname='name' or @name='name']");
@@ -96,18 +98,14 @@ public class NGOMyAnimalsPage {
     public String getCurrentUrl() { return driver.getCurrentUrl(); }
 
     // ── helpers ──
-    private List<String> openOptions(By trigger) {
-        WebElement sel = wait.until(ExpectedConditions.elementToBeClickable(trigger));
-        try { sel.click(); } catch (Exception e) {
-            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", sel);
-        }
+    // Native <select> — read the <option> children directly via Selenium's Select wrapper.
+    private List<String> openOptions(By selectLocator) {
         try {
-            wait.until(ExpectedConditions.visibilityOfElementLocated(matOptions));
-            return driver.findElements(matOptions).stream().map(WebElement::getText).map(String::trim).toList();
+            WebElement el = wait.until(ExpectedConditions.visibilityOfElementLocated(selectLocator));
+            return new Select(el).getOptions().stream()
+                    .map(WebElement::getText).map(String::trim).toList();
         } catch (Exception e) {
             return List.of();
-        } finally {
-            try { driver.findElement(By.tagName("body")).sendKeys(org.openqa.selenium.Keys.ESCAPE); } catch (Exception ignored) {}
         }
     }
 
