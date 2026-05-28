@@ -32,8 +32,11 @@ export class AuthService {
   }): Observable<any> {
     return this.http.post<any>(`${environment.apiBaseUrl}/api/seller-onboarding/register-pharmacy`, dto);
   }
-  logout() {
-    localStorage.clear();
+  logout(): void {
+    this.http.post(`${this.base}/logout`, {}, { responseType: 'text' }).subscribe({
+      next: () => localStorage.clear(),
+      error: () => localStorage.clear()
+    });
   }
   getCurrentUser() {
     return {

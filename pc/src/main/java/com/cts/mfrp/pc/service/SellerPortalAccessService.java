@@ -39,7 +39,9 @@ public class SellerPortalAccessService {
             }
         }
 
-        if (Boolean.TRUE.equals(sellerPharmacy.getIsVerified())) {
+        if (Boolean.FALSE.equals(sellerPharmacy.getIsActive())) {
+            dto.setPortalAccessMessage("ACCOUNT DEACTIVATED: An administrator has deactivated your pharmacy. Your listings are hidden from buyers. Please contact support to restore access.");
+        } else if (Boolean.TRUE.equals(sellerPharmacy.getIsVerified())) {
             dto.setPortalAccessMessage("Welcome to your Seller Portal. You have full access.");
         } else {
             dto.setPortalAccessMessage("ACCOUNT PENDING: Your registration is currently under review by an Administrator. You cannot add inventory yet.");

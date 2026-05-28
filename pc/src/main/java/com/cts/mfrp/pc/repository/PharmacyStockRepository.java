@@ -28,6 +28,7 @@ public interface PharmacyStockRepository extends JpaRepository<PharmacyStock, St
             "WHERE ps.medicine.id = :medicineId " +
             "AND ps.quantity > 0 " +
             "AND p.isVerified = true " +
+            "AND p.isActive = true " +
             "ORDER BY ps.price ASC")
     List<PharmacyStock> findPharmaciesOrderByPriceAsc(@Param("medicineId") String medicineId);
 

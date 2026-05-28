@@ -268,7 +268,9 @@
               </div>
               <div class="asl-badges">
                 @if (p.is247) { <span class="pc-chip pc-chip-gold">24/7</span> }
-                @if (p.isVerified) {
+                @if (!p.isActive) {
+                  <span class="pc-chip pc-chip-red">Deactivated</span>
+                } @else if (p.isVerified) {
                   <span class="pc-chip pc-chip-green">Verified</span>
                 } @else {
                   <span class="pc-chip pc-chip-amber">Unverified</span>

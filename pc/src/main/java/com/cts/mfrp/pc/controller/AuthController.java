@@ -1,15 +1,21 @@
 package com.cts.mfrp.pc.controller;
 
-import com.cts.mfrp.pc.dto.GoogleLoginRequest;
 import com.cts.mfrp.pc.dto.LoginRequest;
 import com.cts.mfrp.pc.dto.RegistrationRequest;
 import com.cts.mfrp.pc.model.User;
+import com.cts.mfrp.pc.repository.UserRepository;
 import com.cts.mfrp.pc.service.AuthService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -20,38 +26,25 @@ import java.util.Map;
 public class AuthController {
 
     private final AuthService authService;
-
-    private ResponseCookie createSessionCookie(String token) {
-        return ResponseCookie.from("AUTH_SESSION", token)
-                .httpOnly(true)
-                .secure(false)
-                .path("/")
-                .maxAge(24 * 60 * 60)
-                .sameSite("Lax")
-                .build();
-    }
-
-    @PostMapping("/google")
-    public ResponseEntity<?> authenticateGoogleUser(@RequestBody GoogleLoginRequest request) {
-        try {
-            User user = authService.verifyAndLoginWithGoogle(request.getIdToken());
-            String sessionToken = "jwt-token-for-" + user.getEmail();
-            ResponseCookie authCookie = createSessionCookie(sessionToken);
-            return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, authCookie.toString()).body(user);
-        } catch (Exception e) {
-            return ResponseEntity.status(401).body("Google Auth failed: " + e.getMessage());
-        }
-    }
+    private final AuthenticationManager authenticationManager;
+    private final UserRepository userRepository;
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@Valid @RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<?> login(@Valid @RequestBody LoginRequest loginRequest, HttpServletRequest request) {
         try {
-            User user = authService.authenticateUser(loginRequest.getEmail(), loginRequest.getPassword());
-            String sessionToken = "jwt-token-for-" + user.getEmail();
-            ResponseCookie authCookie = createSessionCookie(sessionToken);
-            return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, authCookie.toString()).body(user);
-        } catch (RuntimeException e) {
-            return ResponseEntity.status(401).body(e.getMessage());
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
+
+            SecurityContext context = SecurityContextHolder.createEmptyContext();
+            context.setAuthentication(authentication);
+            SecurityContextHolder.setContext(context);
+            request.getSession(true).setAttribute(
+                    HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, context);
+
+            User user = userRepository.findByEmail(loginRequest.getEmail()).orElseThrow();
+            return ResponseEntity.ok(user);
+        } catch (AuthenticationException e) {
+            return ResponseEntity.status(401).body("Invalid credentials. Please try again.");
         }
     }
 

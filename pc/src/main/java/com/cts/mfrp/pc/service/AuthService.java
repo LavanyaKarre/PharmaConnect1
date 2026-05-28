@@ -3,18 +3,11 @@ package com.cts.mfrp.pc.service;
 import com.cts.mfrp.pc.dto.RegistrationRequest;
 import com.cts.mfrp.pc.model.User;
 import com.cts.mfrp.pc.repository.UserRepository;
-import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
-import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken.Payload;
-import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
-import com.google.api.client.http.javanet.NetHttpTransport;
-import com.google.api.client.json.gson.GsonFactory;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.Collections;
 import java.util.UUID;
 
 @Service
@@ -24,9 +17,6 @@ public class AuthService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final EmailService emailService; // FIXED: Added 'final' for proper injection
-
-    @Value("${google.client.id}")
-    private String googleClientId;
 
     public User authenticateUser(String email, String rawPassword) {
         User user = userRepository.findByEmail(email)
@@ -51,29 +41,6 @@ public class AuthService {
         user.setPasswordHash(passwordEncoder.encode(regRequest.getPassword()));
 
         return userRepository.save(user);
-    }
-
-    public User verifyAndLoginWithGoogle(String idTokenString) throws Exception {
-        GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(new NetHttpTransport(), new GsonFactory())
-                .setAudience(Collections.singletonList(googleClientId))
-                .build();
-
-        GoogleIdToken idToken = verifier.verify(idTokenString);
-        if (idToken == null) {
-            throw new RuntimeException("Google verification failed: Invalid ID token.");
-        }
-
-        Payload payload = idToken.getPayload();
-        String email = payload.getEmail();
-
-        return userRepository.findByEmail(email).orElseGet(() -> {
-            User newUser = new User();
-            newUser.setEmail(email);
-            newUser.setName((String) payload.get("name"));
-            newUser.setRole("BUYER");
-            newUser.setPasswordHash("OAUTH_USER_PROTECTED");
-            return userRepository.save(newUser);
-        });
     }
 
     public void processForgotPassword(String email) {
