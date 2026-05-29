@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { ThemeService } from '../../services/theme.service';
 
 @Component({
   selector: 'app-landing-page',
@@ -10,11 +9,7 @@ import { ThemeService } from '../../services/theme.service';
   styleUrl: './landing-page.css',
 })
 export class LandingPage {
-  constructor(private router: Router, public themeService: ThemeService) {}
-
-  toggleTheme() {
-    this.themeService.toggle();
-  }
+  constructor(private router: Router) {}
 
   goToLogin() {
     this.router.navigate(['/login']);

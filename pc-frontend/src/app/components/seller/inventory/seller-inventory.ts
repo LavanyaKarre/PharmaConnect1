@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink, Router } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
-import { ThemeService } from '../../../services/theme.service';
 import { InventoryService } from '../../../services/inventory.service';
 import { AdminService } from '../../../services/admin.service';
 import { SellerService } from '../../../services/seller.service';
@@ -80,7 +79,6 @@ export class SellerInventory implements OnInit {
 
   constructor(
     private authService: AuthService,
-    public themeService: ThemeService,
     private inventoryService: InventoryService,
     private adminService: AdminService,
     private sellerService: SellerService,

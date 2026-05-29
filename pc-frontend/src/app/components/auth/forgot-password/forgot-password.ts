@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
-import { ThemeService } from '../../../services/theme.service';
 
 @Component({
   selector: 'app-forgot-password',
@@ -18,8 +17,7 @@ export class ForgotPassword {
 
   constructor(
     private authService: AuthService,
-    private router: Router,
-    public themeService: ThemeService
+    private router: Router
   ) {}
 
   onSubmit() {

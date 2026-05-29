@@ -13,8 +13,8 @@
       </svg>
     </div>
 
-    <h1 class="pc-auth-title">{{ loginTitle }}</h1>
-    <p class="pc-auth-sub">{{ loginSubtitle }}</p>
+    <h1 class="pc-auth-title">Welcome back</h1>
+    <p class="pc-auth-sub">Sign in to your PharmaConnect account</p>
 
     @if (errorMessage) {
       <div class="pc-alert pc-alert-error">{{ errorMessage }}</div>
@@ -63,23 +63,6 @@
 
     <div class="pc-auth-switch" style="margin-top:1.25rem">
       Don't have an account? <a routerLink="/register">Sign Up</a>
-    </div>
-
-    <hr class="pc-auth-hr" />
-    <p class="pc-auth-or">Or login as:</p>
-    <div class="pc-auth-role-grid">
-      <button
-        type="button"
-        class="pc-auth-role-btn"
-        [class.active-role]="loginMode === 'pharmacy'"
-        (click)="setMode('pharmacy')"
-      >Pharmacy</button>
-      <button
-        type="button"
-        class="pc-auth-role-btn"
-        [class.active-role]="loginMode === 'admin'"
-        (click)="setMode('admin')"
-      >Admin</button>
     </div>
 
   </div>

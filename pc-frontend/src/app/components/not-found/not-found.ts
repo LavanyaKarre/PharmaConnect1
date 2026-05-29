@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-import { ThemeService } from '../../services/theme.service';
 
 @Component({
   selector: 'app-not-found',
@@ -10,7 +9,7 @@ import { ThemeService } from '../../services/theme.service';
   styleUrl: './not-found.css'
 })
 export class NotFound {
-  constructor(private authService: AuthService, public themeService: ThemeService) {}
+  constructor(private authService: AuthService) {}
 
   get homeLink(): string {
     const role = this.authService.getRole();

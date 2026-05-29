@@ -1,9 +1,5 @@
 @import 'tailwindcss';
 
-/* Theme toggle UI temporarily hidden globally — ThemeService and styles remain intact. */
-.theme-orb,
-.theme-orb-fixed { display: none !important; }
-
 :root {
   --green: #10B981;
   --green-dark: #059669;
@@ -32,13 +28,6 @@
   --text-main: #111827;
   --border-color: #e5e7eb;
   --card-bg: #ffffff;
-}
-body.dark-theme {
-  --green: #34d399; --green-dark: #10B981; --green-light: #064e3b; --green-bg: #022c22;
-  --gold: #fbbf24; --gold-light: #451a03; --gold-bg: #1c1208;
-  --page-bg: #111827; --nav-bg: #1f2937; --card: #1f2937; --border: #374151;
-  --input-bg: #374151; --input-border: #4b5563; --text: #f9fafb; --text-muted: #9ca3af; --text-light: #6b7280;
-  --primary-green: #34d399; --bg-white: #1f2937; --bg-soft: #111827; --text-main: #f9fafb; --border-color: #374151; --card-bg: #1f2937;
 }
 * { box-sizing: border-box; }
 body { margin: 0; background: var(--page-bg); color: var(--text); font-family: 'Inter', system-ui, -apple-system, sans-serif; }
@@ -262,11 +251,6 @@ body { margin: 0; background: var(--page-bg); color: var(--text); font-family: '
 .pc-auth-switch { text-align: center; margin-top: 1.1rem; font-size: 0.875rem; color: var(--text-muted); }
 .pc-auth-switch a { color: var(--green); font-weight: 600; text-decoration: none; }
 .pc-auth-switch a:hover { text-decoration: underline; }
-.pc-auth-hr { border: none; border-top: 1px solid var(--border); margin: 1.5rem 0 1rem; }
-.pc-auth-or { text-align: center; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.75rem; }
-.pc-auth-role-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
-.pc-auth-role-btn { background: white; border: 1.5px solid var(--border); color: var(--green); border-radius: 8px; padding: 0.65rem; font-size: 0.875rem; font-weight: 600; cursor: pointer; transition: all 0.15s; }
-.pc-auth-role-btn:hover { border-color: var(--green); background: var(--green-light); }
 .pc-remember { display: flex; justify-content: space-between; align-items: center; margin: 0.9rem 0; }
 .pc-remember label { display: flex; align-items: center; gap: 0.45rem; font-size: 0.875rem; color: var(--text); cursor: pointer; }
 .pc-remember input { accent-color: var(--green); }
@@ -274,25 +258,13 @@ body { margin: 0; background: var(--page-bg); color: var(--text); font-family: '
 .pc-forgot:hover { text-decoration: underline; }
 .pc-security-note { background: #fffbeb; border: 1px solid #fde68a; border-radius: 8px; padding: 0.75rem 1rem; display: flex; gap: 0.6rem; margin: 0.75rem 0; font-size: 0.8rem; color: #92400e; line-height: 1.5; }
 
-/* dark compat */
-body.dark-theme .pc-auth-page { background: #052e16; }
-body.dark-theme .pc-auth-card { background: #1f2937; }
-body.dark-theme .pc-input:focus { background: #374151; }
-body.dark-theme .pc-logout { background: #1f2937; }
-body.dark-theme .pc-auth-role-btn { background: #1f2937; border-color: #374151; }
-body.dark-theme .pc-sidebar { background: #1f2937; }
-
 @media (max-width: 640px) {
   .pc-auth-card { padding: 1.75rem 1.25rem; }
   .pc-auth-form-grid, .pc-form-grid { grid-template-columns: 1fr; }
-  .pc-auth-role-grid { grid-template-columns: 1fr; }
   .pc-page-inner { padding: 1.25rem 1rem; }
   .pc-stats { grid-template-columns: 1fr 1fr; }
   .pc-quick-grid { grid-template-columns: 1fr; }
 }
-
-/* ── ACTIVE ROLE (login page) ── */
-.active-role { background: var(--green-light) !important; border-color: var(--green) !important; color: var(--green) !important; }
 
 /* ── LOW STOCK ALERT (seller dashboard) ── */
 .low-stock-alert { background: var(--gold-bg); border: 1px solid var(--gold-light); border-left: 3px solid var(--gold); border-radius: var(--radius); padding: 1rem 1.25rem; margin-top: 1rem; }

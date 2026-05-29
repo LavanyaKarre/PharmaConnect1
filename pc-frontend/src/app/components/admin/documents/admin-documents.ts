@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, Router } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
-import { ThemeService } from '../../../services/theme.service';
 import { AdminService } from '../../../services/admin.service';
 import { environment } from '../../../../environments/environment';
 
@@ -25,7 +24,6 @@ export class AdminDocuments implements OnInit {
 
   constructor(
     private authService: AuthService,
-    public themeService: ThemeService,
     private adminService: AdminService,
     private router: Router
   ) {

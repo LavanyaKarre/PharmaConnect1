@@ -7,7 +7,6 @@ import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { SearchService } from '../../../services/search.service';
 import { ReservationService } from '../../../services/reservation.service';
 import { AuthService } from '../../../services/auth.service';
-import { ThemeService } from '../../../services/theme.service';
 
 interface ResultCard {
   stockId: string;
@@ -74,7 +73,6 @@ export class SearchPage implements OnDestroy {
     private searchService: SearchService,
     private reservationService: ReservationService,
     private authService: AuthService,
-    public themeService: ThemeService,
     private router: Router,
     private ngZone: NgZone
   ) {

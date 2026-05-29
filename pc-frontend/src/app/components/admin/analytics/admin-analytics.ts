@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink, Router } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
-import { ThemeService } from '../../../services/theme.service';
 import { SellerService } from '../../../services/seller.service';
 import { AdminService } from '../../../services/admin.service';
 @Component({
@@ -24,7 +23,6 @@ export class AdminAnalytics implements OnInit {
   error = '';
   constructor(
     private authService: AuthService,
-    public themeService: ThemeService,
     private sellerService: SellerService,
     private adminService: AdminService,
     private router: Router

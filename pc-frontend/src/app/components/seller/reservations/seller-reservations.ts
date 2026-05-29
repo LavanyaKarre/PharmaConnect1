@@ -2,7 +2,6 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, Router } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
-import { ThemeService } from '../../../services/theme.service';
 import { ReservationService } from '../../../services/reservation.service';
 import { SellerService } from '../../../services/seller.service';
 
@@ -28,7 +27,6 @@ export class SellerReservations implements OnInit, OnDestroy {
 
   constructor(
     private authService: AuthService,
-    public themeService: ThemeService,
     private reservationService: ReservationService,
     private sellerService: SellerService,
     private router: Router
