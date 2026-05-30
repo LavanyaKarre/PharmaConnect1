@@ -112,20 +112,30 @@
                     </suiteXmlFiles>
                     <!--
                       -Dgroups / -DexcludedGroups passes through to TestNG so the
-                      command line can filter (smoke, regression, bva, monkey, ...).
+                      command line can filter (smoke, regression, bva, auth, ...).
                     -->
                     <groups>${groups}</groups>
                     <excludedGroups>${excludedGroups}</excludedGroups>
                 </configuration>
             </plugin>
 
-            <!-- Lets us run TestDataBootstrap (and any other main() class) via `mvn exec:java` -->
+            <!-- Lets us run TestDataBootstrap (and any other main() class) via `mvn exec:java`.
+                 exec:java runs in Maven's own JVM, so `workingDirectory` does NOT affect
+                 `Paths.get(...)` / `user.dir`. Instead we pass the module basedir as a
+                 system property and the bootstrap anchors on it — this works even when mvn
+                 is invoked from a parent directory with `-f petz-automation/pom.xml`. -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>3.1.1</version>
                 <configuration>
                     <classpathScope>test</classpathScope>
+                    <systemProperties>
+                        <systemProperty>
+                            <key>petz.basedir</key>
+                            <value>${project.basedir}</value>
+                        </systemProperty>
+                    </systemProperties>
                 </configuration>
             </plugin>
         </plugins>

@@ -16,7 +16,7 @@ import java.util.*;
  * Expected XML layout:
  *   &lt;data&gt;
  *     &lt;section name="pets"&gt;
- *       &lt;row caseId="..." dimension="..." field="..." value="..." expected="..."/&gt;
+ *       &lt;row caseId="..." field="..." value="..." expected="..."/&gt;
  *     &lt;/section&gt;
  *     &lt;section name="rescues"&gt;...&lt;/section&gt;
  *   &lt;/data&gt;

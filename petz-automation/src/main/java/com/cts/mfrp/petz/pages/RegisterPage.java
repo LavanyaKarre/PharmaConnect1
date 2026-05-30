@@ -16,7 +16,7 @@ public class RegisterPage extends BasePage {
     private static final By EMAIL         = By.cssSelector("input[type='email'], input[formcontrolname='email']");
     private static final By PASSWORD      = By.cssSelector("input[formcontrolname='password']");
     private static final By CONFIRM       = By.cssSelector("input[formcontrolname='confirmPassword'], input[formcontrolname='confirm']");
-    private static final By ACCOUNT_TYPE  = By.cssSelector("mat-select[formcontrolname='accountType'], select[formcontrolname='accountType']");
+    private static final By ACCOUNT_TYPE  = By.cssSelector("mat-select[formcontrolname='role']");
     private static final By CREATE_BUTTON = By.xpath("//button[contains(normalize-space(),'Create Account') or contains(normalize-space(),'Create') or contains(normalize-space(),'Register') or contains(normalize-space(),'Sign Up')]");
     private static final By ANY_ERROR     = By.cssSelector("mat-error, .error, .mat-mdc-snack-bar-label");
 

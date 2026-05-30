@@ -1,24 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  Per-case test data for NGO Portal scenarios.
+  Per-case test data for NGO journey TCs. One happy-path row per section.
 -->
 <data>
 
-    <!-- TC024 - Approve / Reject application with notes (Monkey on Reject) -->
-    <section name="applicationDecisions">
-        <row caseId="APPROVE_VALID" action="Approve" notes="Excellent applicant with prior pet experience."/>
-        <row caseId="REJECT_MONKEY" action="Reject"  notes="&lt;script&gt;alert('xss')&lt;/script&gt; insufficient info"/>
-    </section>
-
-    <!-- TC020 - NGO Add Animal validation -->
+    <!-- TC11 - NGO adds an animal -->
     <section name="animals">
-        <row caseId="NGO_NAME_EMPTY"          dimension="BVA"    field="name"        value=""                                       expected="DISABLED"/>
-        <row caseId="NGO_NAME_VALID"          dimension="BVA"    field="name"        value="Rex"                                    expected="ENABLED"/>
-        <row caseId="NGO_NAME_TOO_LONG"       dimension="BVA"    field="name"        value="ThisIsAnExtremelyLongAnimalNameThatExceedsTheMaximumAllowedLengthForTheNameFieldOnThisAddAnimalFormForSure"     expected="DISABLED"/>
-        <row caseId="NGO_AGE_NEGATIVE"        dimension="BVA"    field="age"         value="-5"                                     expected="DISABLED"/>
-        <row caseId="NGO_AGE_VALID"           dimension="BVA"    field="age"         value="4"                                      expected="ENABLED"/>
-        <row caseId="NGO_DESC_MONKEY_XSS"     dimension="MONKEY" field="description" value="&lt;script&gt;alert('xss')&lt;/script&gt;" expected="ENABLED"/>
-        <row caseId="NGO_DESC_MONKEY_UNICODE" dimension="MONKEY" field="description" value="可爱的狗狗 🐶 राजा"                          expected="ENABLED"/>
+        <row caseId="ADD_ANIMAL_HAPPY" name="Rex" age="4" description="Healthy and friendly" species="Dog"/>
     </section>
 
 </data>
