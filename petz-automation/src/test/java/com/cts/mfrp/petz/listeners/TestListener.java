@@ -18,6 +18,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Base64;
 
 /**
  * TestNG listener that:
@@ -45,6 +46,9 @@ public class TestListener implements ITestListener {
         String name = displayName(result);
         String desc = result.getMethod().getDescription();
         ExtentTest test = ExtentReportManager.get().createTest(name, desc == null ? "" : desc);
+        // Group the report by journey (the test class) so the Categories tab is populated
+        // even though the journey tests carry no TestNG group tags.
+        test.assignCategory(result.getTestClass().getRealClass().getSimpleName());
         for (String group : result.getMethod().getGroups()) test.assignCategory(group);
         // Show data-row parameter if this is a data-driven invocation
         Object[] params = result.getParameters();
@@ -62,7 +66,7 @@ public class TestListener implements ITestListener {
         if (test != null) {
             if (shot != null) {
                 test.pass("Passed",
-                        MediaEntityBuilder.createScreenCaptureFromPath(shot).build());
+                        MediaEntityBuilder.createScreenCaptureFromBase64String(shot).build());
             } else {
                 test.pass("Passed");
             }
@@ -80,7 +84,7 @@ public class TestListener implements ITestListener {
             String msg = err == null ? "Failed" : firstLine(err.getMessage() == null ? err.toString() : err.getMessage());
             if (shot != null) {
                 test.fail("FAILED: " + msg,
-                        MediaEntityBuilder.createScreenCaptureFromPath(shot).build());
+                        MediaEntityBuilder.createScreenCaptureFromBase64String(shot).build());
             } else {
                 test.fail("FAILED: " + msg);
             }
@@ -129,6 +133,12 @@ public class TestListener implements ITestListener {
         return method;
     }
 
+    /**
+     * Captures the current page, writes a standalone .png to disk (CI artifact) and
+     * returns the screenshot as a base64 string. We embed base64 in the Extent report
+     * rather than a file path: absolute Windows paths don't resolve as &lt;img src&gt; in a
+     * browser, so a base64-embedded image always renders and the HTML stays portable.
+     */
     private String captureScreenshot(ITestResult result, String tag) {
         if (!DriverFactory.hasDriver()) return null;
         try {
@@ -137,9 +147,8 @@ public class TestListener implements ITestListener {
             Files.createDirectories(dir);
             String filename = sanitize(displayName(result)) + "_" + tag + "_"
                     + LocalDateTime.now().format(STAMP) + ".png";
-            Path file = dir.resolve(filename);
-            Files.write(file, png);
-            return file.toAbsolutePath().toString();
+            Files.write(dir.resolve(filename), png);
+            return Base64.getEncoder().encodeToString(png);
         } catch (Exception e) {
             logger.error("Screenshot capture failed: {}", e.getMessage());
             return null;

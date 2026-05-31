@@ -24,7 +24,11 @@
         <slf4j.version>2.0.13</slf4j.version>
         <logback.version>1.5.6</logback.version>
         <commonsio.version>2.15.1</commonsio.version>
+        <cucumber.version>7.18.0</cucumber.version>
+        <cucumberreporting.version>5.8.0</cucumberreporting.version>
 
+        <!-- Which TestNG suite surefire runs. Default = the TestNG journey suite.
+             The "cucumber" profile overrides this to testng-cucumber.xml. -->
         <suiteXmlFile>testng.xml</suiteXmlFile>
         <!-- Empty defaults so unset -Dgroups means "run everything" -->
         <groups></groups>
@@ -98,6 +102,22 @@
             <artifactId>logback-classic</artifactId>
             <version>${logback.version}</version>
         </dependency>
+
+        <!-- Cucumber BDD layer (second test module). Reuses every Page Object in
+             src/main; only the test layer differs. cucumber-testng lets the same
+             surefire/TestNG runner execute the .feature scenarios. -->
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <version>${cucumber.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-testng</artifactId>
+            <version>${cucumber.version}</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -140,4 +160,51 @@
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <!--
+          Cucumber BDD suite. Activate with: mvn verify -Pcucumber
+            - flips the surefire suite to testng-cucumber.xml (runs RunCucumberTest)
+            - the cucumber runner emits target/cucumber.json + a self-contained
+              target/cucumber-report.html (screenshots embedded as base64)
+            - maven-cucumber-reporting then builds the dashboard at
+              target/cucumber-html-reports/overview-features.html
+          Without -Pcucumber, `mvn test` is unchanged and runs the 4 TestNG journeys.
+        -->
+        <profile>
+            <id>cucumber</id>
+            <properties>
+                <suiteXmlFile>testng-cucumber.xml</suiteXmlFile>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>net.masterthought</groupId>
+                        <artifactId>maven-cucumber-reporting</artifactId>
+                        <version>${cucumberreporting.version}</version>
+                        <executions>
+                            <execution>
+                                <id>cucumber-dashboard</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>generate</goal>
+                                </goals>
+                                <configuration>
+                                    <projectName>PETZ E2E - 15 Scenarios (Cucumber BDD)</projectName>
+                                    <inputDirectory>${project.build.directory}</inputDirectory>
+                                    <jsonFiles>
+                                        <param>**/cucumber.json</param>
+                                    </jsonFiles>
+                                    <!-- The plugin creates its own cucumber-html-reports/ subfolder
+                                         under this dir, so point at target (not target/cucumber-html-reports)
+                                         to avoid a doubly-nested path. -->
+                                    <outputDirectory>${project.build.directory}</outputDirectory>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>

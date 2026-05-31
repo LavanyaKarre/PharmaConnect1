@@ -1,6 +1,7 @@
 package com.cts.mfrp.petz.base;
 
 import com.cts.mfrp.petz.constants.AppConstants;
+import com.cts.mfrp.petz.utils.ExtentReportManager;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -31,6 +32,7 @@ public abstract class BasePage {
 
     public void goTo(String url) {
         driver.get(url);
+        ExtentReportManager.logStep("Navigated to " + url);
     }
 
     public String currentUrl() {
@@ -68,12 +70,17 @@ public abstract class BasePage {
 
     protected void click(By locator) {
         findClickable(locator).click();
+        ExtentReportManager.logStep("Clicked " + describe(locator));
     }
 
     protected void type(By locator, String value) {
         WebElement el = findVisible(locator);
         el.clear();
         if (value != null) el.sendKeys(value);
+        // Mask secrets: never echo what was typed into a password field.
+        boolean isPassword = "password".equalsIgnoreCase(el.getAttribute("type"));
+        String shown = (value == null) ? "" : (isPassword ? "********" : "'" + value + "'");
+        ExtentReportManager.logStep("Entered " + shown + " into " + describe(locator));
     }
 
     protected void blur(By locator) {
@@ -85,10 +92,12 @@ public abstract class BasePage {
 
     protected void selectByVisibleText(By locator, String text) {
         new Select(findVisible(locator)).selectByVisibleText(text);
+        ExtentReportManager.logStep("Selected '" + text + "' in " + describe(locator));
     }
 
     protected void selectByValue(By locator, String value) {
         new Select(findVisible(locator)).selectByValue(value);
+        ExtentReportManager.logStep("Selected value '" + value + "' in " + describe(locator));
     }
 
     // ---- Element state ----
@@ -134,5 +143,10 @@ public abstract class BasePage {
     public void scrollIntoView(By locator) {
         WebElement el = find(locator);
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", el);
+    }
+
+    /** Short, readable locator label for report steps (drops the verbose "By." prefix). */
+    private static String describe(By locator) {
+        return locator.toString().replaceFirst("^By\\.", "");
     }
 }
