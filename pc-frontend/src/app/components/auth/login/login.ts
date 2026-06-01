@@ -12,7 +12,6 @@ import { AuthService } from '../../../services/auth.service';
 export class Login {
   email = '';
   password = '';
-  rememberMe = false;
   errorMessage = '';
   loading = false;
   constructor(

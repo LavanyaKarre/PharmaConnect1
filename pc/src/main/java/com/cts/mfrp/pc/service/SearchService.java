@@ -2,13 +2,9 @@ package com.cts.mfrp.pc.service;
 
 import com.cts.mfrp.pc.model.Medicine;
 import com.cts.mfrp.pc.model.PharmacyStock;
-import com.cts.mfrp.pc.model.SearchLog;
-import com.cts.mfrp.pc.model.User;
 import com.cts.mfrp.pc.dto.MedicineSearchResult;
 import com.cts.mfrp.pc.repository.MedicineRepository;
 import com.cts.mfrp.pc.repository.PharmacyStockRepository;
-import com.cts.mfrp.pc.repository.SearchLogRepository;
-import com.cts.mfrp.pc.repository.UserRepository;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,8 +20,6 @@ public class SearchService {
 
     private final PharmacyStockRepository stockRepository;
     private final MedicineRepository medicineRepository;
-    private final SearchLogRepository searchLogRepository;
-    private final UserRepository userRepository;
     private final DemandAnalyticsService demandAnalyticsService;
 
     // ==========================================
@@ -34,7 +28,6 @@ public class SearchService {
 
     // 1. Spatial Search API (Closest Pharmacies using GPS)
     public List<MedicineSearchResult> searchClosestMedicines(String keyword, Float lat, Float lng, String userId) {
-        logSearch(keyword, lat, lng, false, userId);
         List<MedicineSearchResult> results = stockRepository.findClosestPharmaciesWithStock(keyword, lat, lng);
         results.forEach(r -> demandAnalyticsService.recordSearch(r.getPharmacyId(), r.getMedicineId()));
         return results;
@@ -42,22 +35,9 @@ public class SearchService {
 
     // Emergency Mode: 24/7 pharmacies only, sorted by distance, search flagged in logs
     public List<MedicineSearchResult> emergencySearch(String keyword, Float lat, Float lng, String userId) {
-        logSearch(keyword, lat, lng, true, userId);
         List<MedicineSearchResult> results = stockRepository.findEmergencyPharmaciesWithStock(keyword, lat, lng);
         results.forEach(r -> demandAnalyticsService.recordSearch(r.getPharmacyId(), r.getMedicineId()));
         return results;
-    }
-
-    private void logSearch(String keyword, Float lat, Float lng, boolean isEmergency, String userId) {
-        SearchLog log = new SearchLog();
-        log.setQuery(keyword);
-        log.setUserLat(lat);
-        log.setUserLng(lng);
-        log.setEmergencyMode(isEmergency);
-        if (userId != null) {
-            userRepository.findById(userId).ifPresent(log::setUser);
-        }
-        searchLogRepository.save(log);
     }
 
     // 2. Keyword Search & Price Comparison (Cheapest across all local pharmacies)

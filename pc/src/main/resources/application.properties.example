@@ -40,11 +40,6 @@ app.cors.origins=${CORS_ORIGINS:http://localhost:4200,https://*.app.github.dev}
 # ===============================
 brevo.api.key=${BREVO_API_KEY:DUMMY_VALUE}
 
-# Gemini (Google AI Studio). Get a key at https://aistudio.google.com/apikey
-# Requires Cloud Billing enabled on the linked Google Cloud project.
-gemini.api.key=${GEMINI_API_KEY:}
-gemini.model=${GEMINI_MODEL:gemini-2.5-flash}
-
 # ===============================
 # FILE UPLOADS
 # ===============================

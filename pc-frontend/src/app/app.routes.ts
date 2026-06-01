@@ -18,7 +18,6 @@ import { AdminDocuments } from './components/admin/documents/admin-documents';
 import { AdminProfile } from './components/admin/profile/admin-profile';
 import { SellerProfile } from './components/seller/profile/seller-profile';
 import { Profile } from './components/patient/profile/profile';
-import { Chatbot } from './components/patient/chatbot/chatbot';
 import { authGuard } from './guards/auth.guard';
 import { sellerGuard } from './guards/seller.guard';
 import { adminGuard } from './guards/admin.guard';
@@ -45,6 +44,5 @@ export const routes: Routes = [
   { path: 'admin/profile', component: AdminProfile, canActivate: [adminGuard] },
   { path: 'seller/profile', component: SellerProfile, canActivate: [sellerGuard] },
   { path: 'profile', component: Profile, canActivate: [authGuard] },
-  { path: 'chatbot', component: Chatbot, canActivate: [authGuard] },
   { path: '**', component: NotFound }
 ];
