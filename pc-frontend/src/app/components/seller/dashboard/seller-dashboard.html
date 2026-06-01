@@ -8,7 +8,7 @@
       </button>
       <a class="pc-logo" routerLink="/seller/dashboard">
         <div class="pc-logo-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14h16"/><path d="M6 14c0 3 2.5 5 6 5s6-2 6-5"/><path d="M12 14 C 14 12 14 10 12 9 C 10 8 10 6 12 5"/><circle cx="12" cy="4.5" r="1.2" fill="currentColor"/></svg>
+          <img src="pod8-icon-six.png" alt="PharmaConnect" />
         </div>
         <span class="pc-logo-text">Pharma<span class="pc-logo-accent">Connect</span></span>
       </a>
@@ -26,7 +26,7 @@
       <div class="pc-sidebar-head">
         <div class="pc-logo">
           <div class="pc-logo-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14h16"/><path d="M6 14c0 3 2.5 5 6 5s6-2 6-5"/><path d="M12 14 C 14 12 14 10 12 9 C 10 8 10 6 12 5"/><circle cx="12" cy="4.5" r="1.2" fill="currentColor"/></svg>
+            <img src="pod8-icon-six.png" alt="PharmaConnect" />
           </div>
           <span class="pc-logo-text">Pharma<span class="pc-logo-accent">Connect</span></span>
         </div>
@@ -172,8 +172,8 @@
           <div class="pc-quick-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
           </div>
-          <p class="pc-quick-title">Analytics</p>
-          <p class="pc-quick-sub">View sales and demand insights</p>
+          <p class="pc-quick-title">Document Upload</p>
+          <p class="pc-quick-sub">Upload and verify documents via Admin</p>
         </a>
       </div>
 
@@ -191,16 +191,17 @@
       <!-- Demand Analytics -->
       @if (analytics.length > 0) {
         <div class="pc-card" style="margin-top:1.5rem">
-          <h2 style="font-size:1rem;font-weight:700;margin:0 0 1rem;color:var(--text)">Demand Analytics</h2>
+          <h2 style="font-size:1rem;font-weight:700;margin:0 0 0.15rem;color:var(--text)">Demand Analytics</h2>
+          <p style="font-size:0.8rem;color:var(--text-muted);margin:0 0 1rem">Top {{ analytics.length }} most-demanded medicines · last 30 days</p>
           <div class="pc-table-wrap">
             <table class="pc-table">
               <thead>
                 <tr>
                   <th>Medicine</th>
                   <th>Generic</th>
-                  <th>Searches</th>
+                  <th>Search Appearances</th>
                   <th>Reservations</th>
-                  <th>Period</th>
+                  <th>Last Activity</th>
                 </tr>
               </thead>
               <tbody>
@@ -210,7 +211,7 @@
                     <td style="color:var(--text-muted)">{{ a.genericName || '—' }}</td>
                     <td><span class="pc-chip pc-chip-blue">{{ a.searchCount ?? 0 }}</span></td>
                     <td><span class="pc-chip pc-chip-green">{{ a.reservationCount ?? 0 }}</span></td>
-                    <td style="color:var(--text-muted)">{{ a.periodDate || '—' }}</td>
+                    <td style="color:var(--text-muted)">{{ formatDate(a.periodDate) }}</td>
                   </tr>
                 }
               </tbody>

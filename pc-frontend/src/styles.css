@@ -39,8 +39,8 @@ body { margin: 0; background: var(--page-bg); color: var(--text); font-family: '
 .pc-hamburger:hover { background: var(--input-bg); color: var(--text); }
 .pc-hamburger svg { width: 22px; height: 22px; }
 .pc-logo { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; }
-.pc-logo-icon { width: 32px; height: 32px; background: var(--green); border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.pc-logo-icon svg { width: 18px; height: 18px; color: white; }
+.pc-logo-icon { width: 32px; height: 32px; background: #fff; border: 1px solid var(--border); border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.pc-logo-icon img { width: 22px; height: 22px; object-fit: contain; }
 .pc-logo-text { font-size: 1.05rem; font-weight: 800; color: var(--text); letter-spacing: -0.3px; }
 .pc-logo-accent { color: var(--gold); }
 .pc-logout { display: flex; align-items: center; gap: 0.45rem; border: 1.5px solid var(--border); background: var(--card); color: var(--text); border-radius: 8px; padding: 0.4rem 1rem; font-size: 0.875rem; font-weight: 500; cursor: pointer; transition: all 0.15s; }
@@ -235,12 +235,13 @@ body { margin: 0; background: var(--page-bg); color: var(--text); font-family: '
 .pc-auth-card-lg { max-width: 780px; }
 .pc-auth-icon {
   width: 64px; height: 64px;
-  background: linear-gradient(135deg, var(--green) 0%, var(--green-dark) 100%);
+  background: #fff;
+  border: 1px solid var(--border);
   border-radius: 16px; display: flex; align-items: center; justify-content: center;
   margin: 0 auto 1.25rem;
-  box-shadow: 0 8px 24px rgba(16, 185, 129, 0.3);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
 }
-.pc-auth-icon svg { width: 32px; height: 32px; color: white; }
+.pc-auth-icon img { width: 42px; height: 42px; object-fit: contain; }
 .pc-auth-title { font-size: 1.75rem; font-weight: 800; color: var(--text); text-align: center; margin: 0 0 0.4rem; letter-spacing: -0.5px; }
 .pc-auth-sub { font-size: 0.875rem; color: var(--text-muted); text-align: center; margin: 0 0 1.75rem; }
 .pc-auth-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.1rem; margin-bottom: 1.25rem; }

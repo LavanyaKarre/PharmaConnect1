@@ -76,6 +76,9 @@ public class SearchService {
         // Default to a 10km search area if the frontend doesn't provide a radius
         Double searchRadius = (radius != null && radius > 0) ? radius : 10.0;
 
-        return stockRepository.filterNearbyMedicines(keyword, lat, lng, searchRadius);
+        List<MedicineSearchResult> results = stockRepository.filterNearbyMedicines(keyword, lat, lng, searchRadius);
+        // This is the default search path the UI uses — record demand here too (US-14)
+        results.forEach(r -> demandAnalyticsService.recordSearch(r.getPharmacyId(), r.getMedicineId()));
+        return results;
     }
 }

@@ -46,6 +46,14 @@ export class SellerDashboard implements OnInit {
     });
   }
 
+  formatDate(dt: any): string {
+    if (!dt) return '—';
+    if (Array.isArray(dt)) {
+      return new Date(dt[0], dt[1] - 1, dt[2]).toLocaleDateString([], { dateStyle: 'medium' });
+    }
+    return new Date(dt).toLocaleDateString([], { dateStyle: 'medium' });
+  }
+
   logout() {
     this.authService.logout();
     this.router.navigate(['/']);

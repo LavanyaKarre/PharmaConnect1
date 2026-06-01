@@ -32,11 +32,12 @@
 }
 .logo-icon {
   width: 36px; height: 36px; border-radius: 9px;
-  background: var(--primary-green);
-  color: white;
+  background: #fff;
+  border: 1px solid #e5e7eb;
   display: inline-flex; align-items: center; justify-content: center;
   flex-shrink: 0;
 }
+.logo-icon img { width: 24px; height: 24px; object-fit: contain; }
 .logo-text { line-height: 1; color: var(--text-main); }
 .logo-text > span { color: var(--secondary-gold); }
 
@@ -351,10 +352,11 @@
 }
 .footer-logo-icon {
   width: 30px; height: 30px; border-radius: 7px;
-  background: var(--primary-green);
+  background: #fff;
   display: inline-flex; align-items: center; justify-content: center;
-  flex-shrink: 0; color: white;
+  flex-shrink: 0;
 }
+.footer-logo-icon img { width: 20px; height: 20px; object-fit: contain; }
 .footer-logo > span > span { color: var(--secondary-gold); }
 .footer-links { display: flex; gap: 1.5rem; }
 .footer-links a { font-size: 0.875rem; color: rgba(255,255,255,0.65); cursor: pointer; text-decoration: none; transition: color 0.2s; }
