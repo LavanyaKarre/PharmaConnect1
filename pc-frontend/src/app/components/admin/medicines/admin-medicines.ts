@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink, Router } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
-import { ThemeService } from '../../../services/theme.service';
 import { AdminService } from '../../../services/admin.service';
 
 @Component({
@@ -40,7 +39,6 @@ export class AdminMedicines implements OnInit {
 
   constructor(
     private authService: AuthService,
-    public themeService: ThemeService,
     private adminService: AdminService,
     private router: Router
   ) {

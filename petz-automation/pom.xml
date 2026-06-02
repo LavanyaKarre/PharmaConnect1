@@ -7,94 +7,116 @@
 
     <groupId>com.cts.mfrp</groupId>
     <artifactId>petz-automation</artifactId>
-    <version>1.0.0</version>
+    <version>3.0.0</version>
     <packaging>jar</packaging>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
         <selenium.version>4.18.1</selenium.version>
-        <testng.version>7.9.0</testng.version>
         <webdrivermanager.version>5.7.0</webdrivermanager.version>
-        <extentreports.version>5.1.1</extentreports.version>
-        <restassured.version>5.4.0</restassured.version>
+        <testng.version>7.9.0</testng.version>
+        <poi.version>5.2.5</poi.version>
         <jackson.version>2.16.1</jackson.version>
+        <extentreports.version>5.1.1</extentreports.version>
+        <slf4j.version>2.0.13</slf4j.version>
+        <logback.version>1.5.6</logback.version>
+        <commonsio.version>2.15.1</commonsio.version>
+        <cucumber.version>7.18.0</cucumber.version>
+        <cucumberreporting.version>5.8.0</cucumberreporting.version>
+
+        <!-- Which TestNG suite surefire runs. Default = the TestNG journey suite.
+             The "cucumber" profile overrides this to testng-cucumber.xml. -->
         <suiteXmlFile>testng.xml</suiteXmlFile>
-        <!-- Empty defaults so an unset -Dgroups means "run everything". -->
+        <!-- Empty defaults so unset -Dgroups means "run everything" -->
         <groups></groups>
         <excludedGroups></excludedGroups>
     </properties>
 
     <dependencies>
-        <!-- Selenium -->
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
             <version>${selenium.version}</version>
         </dependency>
 
-        <!-- WebDriver Manager - auto downloads chromedriver -->
         <dependency>
             <groupId>io.github.bonigarcia</groupId>
             <artifactId>webdrivermanager</artifactId>
             <version>${webdrivermanager.version}</version>
         </dependency>
 
-        <!-- TestNG -->
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
             <version>${testng.version}</version>
         </dependency>
 
-        <!-- Extent Reports -->
+        <!-- Apache POI - reads .xlsx test-data fixtures -->
         <dependency>
-            <groupId>com.aventstack</groupId>
-            <artifactId>extentreports</artifactId>
-            <version>${extentreports.version}</version>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>${poi.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>${poi.version}</version>
         </dependency>
 
-        <!-- Apache Commons IO -->
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>2.15.1</version>
-        </dependency>
-
-        <!-- REST Assured (API testing) -->
-        <dependency>
-            <groupId>io.rest-assured</groupId>
-            <artifactId>rest-assured</artifactId>
-            <version>${restassured.version}</version>
-        </dependency>
-
-        <!-- Jackson — POJO (de)serialization used by REST Assured's .body(pojo) and .as(Class) -->
+        <!-- Jackson - needed transitively by jackson-dataformat-xml (XmlDataProvider uses plain DOM though) -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
             <version>${jackson.version}</version>
         </dependency>
-
-        <!-- Jackson XML — reads test-data fixtures under src/test/resources/testdata/*.xml into POJOs -->
         <dependency>
             <groupId>com.fasterxml.jackson.dataformat</groupId>
             <artifactId>jackson-dataformat-xml</artifactId>
             <version>${jackson.version}</version>
         </dependency>
 
-        <!-- SLF4J facade — framework code logs through this, never System.out -->
+        <!-- ExtentReports - rich HTML dashboard (driven by TestListener) -->
+        <dependency>
+            <groupId>com.aventstack</groupId>
+            <artifactId>extentreports</artifactId>
+            <version>${extentreports.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>${commonsio.version}</version>
+        </dependency>
+
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>2.0.13</version>
+            <version>${slf4j.version}</version>
         </dependency>
 
-        <!-- Logback as the concrete logger (richer config than slf4j-simple) -->
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
-            <version>1.5.6</version>
+            <version>${logback.version}</version>
+        </dependency>
+
+        <!-- Cucumber BDD layer (second test module). Reuses every Page Object in
+             src/main; only the test layer differs. cucumber-testng lets the same
+             surefire/TestNG runner execute the .feature scenarios. -->
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <version>${cucumber.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-testng</artifactId>
+            <version>${cucumber.version}</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
@@ -109,15 +131,80 @@
                         <suiteXmlFile>${suiteXmlFile}</suiteXmlFile>
                     </suiteXmlFiles>
                     <!--
-                      Wire -Dgroups / -DexcludedGroups through to TestNG so the
-                      command line can filter (smoke, sanity, regression, ...).
-                      Default groups property is unset, so all tests in the
-                      configured suite XML run.
+                      -Dgroups / -DexcludedGroups passes through to TestNG so the
+                      command line can filter (smoke, regression, bva, auth, ...).
                     -->
                     <groups>${groups}</groups>
                     <excludedGroups>${excludedGroups}</excludedGroups>
                 </configuration>
             </plugin>
+
+            <!-- Lets us run TestDataBootstrap (and any other main() class) via `mvn exec:java`.
+                 exec:java runs in Maven's own JVM, so `workingDirectory` does NOT affect
+                 `Paths.get(...)` / `user.dir`. Instead we pass the module basedir as a
+                 system property and the bootstrap anchors on it — this works even when mvn
+                 is invoked from a parent directory with `-f petz-automation/pom.xml`. -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.1.1</version>
+                <configuration>
+                    <classpathScope>test</classpathScope>
+                    <systemProperties>
+                        <systemProperty>
+                            <key>petz.basedir</key>
+                            <value>${project.basedir}</value>
+                        </systemProperty>
+                    </systemProperties>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <!--
+          Cucumber BDD suite. Activate with: mvn verify -Pcucumber
+            - flips the surefire suite to testng-cucumber.xml (runs RunCucumberTest)
+            - the cucumber runner emits target/cucumber.json + a self-contained
+              target/cucumber-report.html (screenshots embedded as base64)
+            - maven-cucumber-reporting then builds the dashboard at
+              target/cucumber-html-reports/overview-features.html
+          Without -Pcucumber, `mvn test` is unchanged and runs the 4 TestNG journeys.
+        -->
+        <profile>
+            <id>cucumber</id>
+            <properties>
+                <suiteXmlFile>testng-cucumber.xml</suiteXmlFile>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>net.masterthought</groupId>
+                        <artifactId>maven-cucumber-reporting</artifactId>
+                        <version>${cucumberreporting.version}</version>
+                        <executions>
+                            <execution>
+                                <id>cucumber-dashboard</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>generate</goal>
+                                </goals>
+                                <configuration>
+                                    <projectName>PETZ E2E - 15 Scenarios (Cucumber BDD)</projectName>
+                                    <inputDirectory>${project.build.directory}</inputDirectory>
+                                    <jsonFiles>
+                                        <param>**/cucumber.json</param>
+                                    </jsonFiles>
+                                    <!-- The plugin creates its own cucumber-html-reports/ subfolder
+                                         under this dir, so point at target (not target/cucumber-html-reports)
+                                         to avoid a doubly-nested path. -->
+                                    <outputDirectory>${project.build.directory}</outputDirectory>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>

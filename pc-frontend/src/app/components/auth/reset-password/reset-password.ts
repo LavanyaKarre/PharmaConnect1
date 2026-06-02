@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
-import { ThemeService } from '../../../services/theme.service';
 
 @Component({
   selector: 'app-reset-password',
@@ -21,8 +20,7 @@ export class ResetPassword implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private route: ActivatedRoute,
-    public themeService: ThemeService
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit() {

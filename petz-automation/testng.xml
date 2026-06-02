@@ -1,34 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 <!--
-  Default umbrella suite. Surefire is wired to this file in pom.xml.
+  PETZ Automation - 15 TCs as an end-to-end narrative.
 
-  Runs the Functional (UI) suite followed by the API suite in one shot.
-  If you only want one of them, use the dedicated files directly:
-    mvn test -DsuiteXmlFile=functional-testng.xml
-    mvn test -DsuiteXmlFile=api-testng.xml
+  Four classes execute in fixed order (preserve-order=true). Each role logs in
+  once at @BeforeClass and shares one browser session across its TCs:
 
-  Group filtering works here too (wired through surefire <groups> in pom.xml):
-    mvn test -Dgroups=smoke              <- runs all smoke tests across UI + API
-    mvn test -Dgroups=regression         <- runs everything (default)
-    mvn test -Dgroups=sanity,negative    <- multiple tags
+    1. PublicJourneyTest    (TC01-TC02)  anonymous: landing render + register
+    2. PetOwnerJourneyTest  (TC03-TC09)  one PetOwner login: dashboard + add pet + book appt + report rescue + browse/apply adoption + verify reservations
+    3. NGOJourneyTest       (TC10-TC12)  one NGO login: dashboard + add animal + review applications
+    4. HospitalJourneyTest  (TC13-TC15)  one Hospital login: dashboard + add doctor + confirm appointment
+
+  Run:
+    mvn test                        - visible browser (default), all 15 TCs
+    mvn test -Dheadless=true        - headless mode for CI
 -->
-<suite name="PETZ Full Suite (Functional + API)" verbose="1" parallel="false">
+<suite name="PETZ E2E Suite" verbose="1">
 
     <listeners>
-        <listener class-name="com.cts.mfrp.petz.utils.TestListener"/>
+        <listener class-name="com.cts.mfrp.petz.listeners.TestListener"/>
     </listeners>
 
-    <test name="Functional (UI) tests">
-        <packages>
-            <package name="com.cts.mfrp.petz.tests.functional"/>
-        </packages>
-    </test>
-
-    <test name="API tests (REST Assured)">
-        <packages>
-            <package name="com.cts.mfrp.petz.tests.api"/>
-        </packages>
+    <test name="PETZ E2E Flow" preserve-order="true">
+        <classes>
+            <class name="com.cts.mfrp.petz.tests.PublicJourneyTest"/>
+            <class name="com.cts.mfrp.petz.tests.PetOwnerJourneyTest"/>
+            <class name="com.cts.mfrp.petz.tests.NGOJourneyTest"/>
+            <class name="com.cts.mfrp.petz.tests.HospitalJourneyTest"/>
+        </classes>
     </test>
 
 </suite>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Per-case test data for NGO journey TCs. One happy-path row per section.
+-->
+<data>
+
+    <!-- TC11 - NGO adds an animal -->
+    <section name="animals">
+        <row caseId="ADD_ANIMAL_HAPPY" name="Rex" age="4" description="Healthy and friendly" species="Dog"/>
+    </section>
+
+</data>

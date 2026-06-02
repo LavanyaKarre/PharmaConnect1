@@ -8,6 +8,7 @@ import com.cts.mfrp.pc.repository.DemandAnalyticsRepository;
 import com.cts.mfrp.pc.repository.MedicineRepository;
 import com.cts.mfrp.pc.repository.PharmacyRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -47,18 +48,24 @@ public class DemandAnalyticsService {
         analyticsRepository.save(record);
     }
 
-    // US-15: Seller views analytics for their pharmacy
+    // US-15: Seller views analytics for their pharmacy.
+    // Returns the top 10 most-demanded medicines over the last 30 days, aggregated
+    // to one row per medicine (instead of one raw row per medicine per day).
+    private static final int TOP_N = 10;
+    private static final int WINDOW_DAYS = 30;
+
     public List<DemandAnalyticsResponseDto> getPharmacyAnalytics(String pharmacyId) {
+        LocalDate since = LocalDate.now().minusDays(WINDOW_DAYS);
         return analyticsRepository
-                .findByPharmacyIdOrderBySearchCountDescReservationCountDesc(pharmacyId)
+                .findTopDemandByPharmacy(pharmacyId, since, PageRequest.of(0, TOP_N))
                 .stream()
-                .map(a -> DemandAnalyticsResponseDto.builder()
-                        .medicineId(a.getMedicine().getId())
-                        .medicineName(a.getMedicine().getName())
-                        .genericName(a.getMedicine().getGenericName())
-                        .searchCount(a.getSearchCount())
-                        .reservationCount(a.getReservationCount())
-                        .periodDate(a.getPeriodDate())
+                .map(v -> DemandAnalyticsResponseDto.builder()
+                        .medicineId(v.getMedicineId())
+                        .medicineName(v.getMedicineName())
+                        .genericName(v.getGenericName())
+                        .searchCount(v.getTotalSearches())
+                        .reservationCount(v.getTotalReservations())
+                        .periodDate(v.getLastActivity())
                         .build())
                 .collect(Collectors.toList());
     }

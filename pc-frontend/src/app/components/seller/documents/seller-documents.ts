@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { RouterLink, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../../services/auth.service';
-import { ThemeService } from '../../../services/theme.service';
 import { SellerService } from '../../../services/seller.service';
 
 @Component({
@@ -28,7 +27,6 @@ export class SellerDocuments implements OnInit {
 
   constructor(
     private authService: AuthService,
-    public themeService: ThemeService,
     private sellerService: SellerService,
     private router: Router
   ) {

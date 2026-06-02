@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { RouterLink, Router } from '@angular/router';
 import { ReservationService } from '../../../services/reservation.service';
 import { AuthService } from '../../../services/auth.service';
-import { ThemeService } from '../../../services/theme.service';
 
 @Component({
   selector: 'app-my-reservations',
@@ -24,7 +23,6 @@ export class MyReservations implements OnInit, OnDestroy {
   constructor(
     private reservationService: ReservationService,
     private authService: AuthService,
-    public themeService: ThemeService,
     private router: Router
   ) {
     this.user = this.authService.getCurrentUser();

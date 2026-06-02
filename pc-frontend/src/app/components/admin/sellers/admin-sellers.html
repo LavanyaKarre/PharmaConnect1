@@ -8,7 +8,7 @@
       </button>
       <a class="pc-logo" routerLink="/admin/sellers">
         <div class="pc-logo-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14h16"/><path d="M6 14c0 3 2.5 5 6 5s6-2 6-5"/><path d="M12 14 C 14 12 14 10 12 9 C 10 8 10 6 12 5"/><circle cx="12" cy="4.5" r="1.2" fill="currentColor"/></svg>
+          <img src="pod8-icon-six.png" alt="PharmaConnect" />
         </div>
         <span class="pc-logo-text">Pharma<span class="pc-logo-accent">Connect</span></span>
       </a>
@@ -26,7 +26,7 @@
       <div class="pc-sidebar-head">
         <div class="pc-logo">
           <div class="pc-logo-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14h16"/><path d="M6 14c0 3 2.5 5 6 5s6-2 6-5"/><path d="M12 14 C 14 12 14 10 12 9 C 10 8 10 6 12 5"/><circle cx="12" cy="4.5" r="1.2" fill="currentColor"/></svg>
+            <img src="pod8-icon-six.png" alt="PharmaConnect" />
           </div>
           <span class="pc-logo-text">Pharma<span class="pc-logo-accent">Connect</span></span>
         </div>
@@ -40,7 +40,7 @@
           Manage Pharmacies
         </a>
         <a routerLink="/admin/medicines" class="pc-sidebar-link" (click)="sidebarOpen = false">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14h16"/><path d="M6 14c0 3 2.5 5 6 5s6-2 6-5"/><path d="M12 14 C 14 12 14 10 12 9 C 10 8 10 6 12 5"/><circle cx="12" cy="4.5" r="1.2" fill="currentColor"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5 7 7"/></svg>
           Manage Medicines
         </a>
         <a routerLink="/admin/documents" class="pc-sidebar-link" (click)="sidebarOpen = false">
@@ -268,7 +268,9 @@
               </div>
               <div class="asl-badges">
                 @if (p.is247) { <span class="pc-chip pc-chip-gold">24/7</span> }
-                @if (p.isVerified) {
+                @if (!p.isActive) {
+                  <span class="pc-chip pc-chip-red">Deactivated</span>
+                } @else if (p.isVerified) {
                   <span class="pc-chip pc-chip-green">Verified</span>
                 } @else {
                   <span class="pc-chip pc-chip-amber">Unverified</span>

@@ -4,9 +4,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -25,9 +29,18 @@ public class SecurityConfig {
     @Value("${app.cors.origins:http://localhost:4200}")
     private String allowedOrigins;
 
+    private final AppUserDetailsService userDetailsService;
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public AuthenticationManager authenticationManager(PasswordEncoder passwordEncoder) {
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider(userDetailsService);
+        provider.setPasswordEncoder(passwordEncoder);
+        return new org.springframework.security.authentication.ProviderManager(provider);
     }
 
     @Bean
@@ -35,9 +48,42 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+                .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/**").permitAll()
-                        .anyRequest().permitAll()
+                        // public auth endpoints
+                        .requestMatchers(
+                                "/api/auth/login",
+                                "/api/auth/register",
+                                "/api/auth/logout",
+                                "/api/auth/forgot-password",
+                                "/api/auth/reset-password"
+                        ).permitAll()
+                        // public search + price compare + bootstrap signup flow
+                        .requestMatchers("/api/search/**").permitAll()
+                        .requestMatchers("/api/auth/medicines/**").permitAll()
+                        .requestMatchers("/api/seller-onboarding/**").permitAll()
+                        // shared endpoints (declared BEFORE the broad role rules)
+                        // sellers need the medicine master list for stock dropdown
+                        .requestMatchers(HttpMethod.GET, "/api/admin/medicines").authenticated()
+                        // admins need to view analytics for any pharmacy
+                        .requestMatchers(HttpMethod.GET, "/api/seller-portal/*/analytics").authenticated()
+                        // admin
+                        .requestMatchers("/api/admin/**", "/api/auth/admin/**").hasRole("ADMIN")
+                        // seller
+                        .requestMatchers(
+                                "/api/auth/seller/**",
+                                "/api/inventory/**",
+                                "/api/seller-portal/**",
+                                "/api/pharmacies/**"
+                        ).hasRole("SELLER")
+                        // anything else (reservations, chatbot, ...) needs to be logged in
+                        .anyRequest().authenticated()
+                )
+                .logout(l -> l
+                        .logoutUrl("/api/auth/logout")
+                        .invalidateHttpSession(true)
+                        .deleteCookies("JSESSIONID")
+                        .logoutSuccessHandler((req, res, auth) -> res.setStatus(200))
                 )
                 .formLogin(AbstractHttpConfigurer::disable)
                 .httpBasic(AbstractHttpConfigurer::disable);

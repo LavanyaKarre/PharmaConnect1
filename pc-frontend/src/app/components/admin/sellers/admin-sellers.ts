@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink, Router } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
-import { ThemeService } from '../../../services/theme.service';
 import { AdminService } from '../../../services/admin.service';
 
 type Tab = 'pending' | 'all';
@@ -33,7 +32,6 @@ export class AdminSellers implements OnInit {
 
   constructor(
     private authService: AuthService,
-    public themeService: ThemeService,
     private adminService: AdminService,
     private router: Router
   ) {
@@ -86,8 +84,10 @@ export class AdminSellers implements OnInit {
   private applyAllFilter() {
     const term = this.searchTerm.trim().toLowerCase();
     this.filteredAll = this.all.filter(p => {
-      if (this.statusFilter === 'VERIFIED'   && !p.isVerified) return false;
-      if (this.statusFilter === 'UNVERIFIED' && p.isVerified) return false;
+      // Mutually exclusive buckets: a deactivated pharmacy belongs to INACTIVE only,
+      // never to VERIFIED or UNVERIFIED.
+      if (this.statusFilter === 'VERIFIED'   && !(p.isActive && p.isVerified)) return false;
+      if (this.statusFilter === 'UNVERIFIED' && !(p.isActive && !p.isVerified)) return false;
       if (this.statusFilter === 'INACTIVE'   && p.isActive) return false;
       if (term) {
         const hay = `${p.pharmacyName} ${p.ownerName} ${p.ownerEmail} ${p.pharmacyAddress}`.toLowerCase();
@@ -162,8 +162,8 @@ export class AdminSellers implements OnInit {
   countByStatus(s: StatusFilter): number {
     if (s === 'ALL') return this.all.length;
     return this.all.filter(p =>
-      s === 'VERIFIED'   ? p.isVerified :
-      s === 'UNVERIFIED' ? !p.isVerified :
+      s === 'VERIFIED'   ? p.isActive && p.isVerified :
+      s === 'UNVERIFIED' ? p.isActive && !p.isVerified :
       /* INACTIVE */       !p.isActive
     ).length;
   }

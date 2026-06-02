@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Per-case test data for Hospital journey TCs. One happy-path row per section.
+-->
+<data>
+
+    <!-- TC14 - Hospital adds a doctor (no phone field on the live form) -->
+    <section name="doctors">
+        <row caseId="ADD_DOCTOR_HAPPY"
+             fullName="Dr. Anita Sharma"
+             specialization="General"
+             slotDuration="30"/>
+    </section>
+
+</data>

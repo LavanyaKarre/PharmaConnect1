@@ -45,8 +45,6 @@ app.cors.origins=${CORS_ORIGINS:-http://localhost:4200}
 # ===============================
 # THIRD-PARTY SERVICES
 # ===============================
-google.client.id=${GOOGLE_CLIENT_ID:-}
-google.client.secret=${GOOGLE_CLIENT_SECRET:-}
 brevo.api.key=${BREVO_API_KEY:-}
 
 # Gemini (chatbot)

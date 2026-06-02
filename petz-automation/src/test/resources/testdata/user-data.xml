@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Per-case test data for Pet Owner journey TCs.
+  One happy-path row per section. Read via XmlDataProvider.readSection(file, sectionName).get(0).
+-->
+<data>
+
+    <!-- TC04 - Add a pet -->
+    <section name="pets">
+        <row caseId="ADD_PET_HAPPY" name="Buddy" age="3" description="Friendly Labrador"/>
+    </section>
+
+    <!-- TC05 - Book a vet appointment -->
+    <section name="appointmentBooking">
+        <row caseId="BOOK_APPT_HAPPY" dateOffsetDays="7" reason="Annual vaccination check-up"/>
+    </section>
+
+    <!-- TC06 - Report a rescue -->
+    <section name="rescues">
+        <row caseId="REPORT_RESCUE_HAPPY"
+             animalType="Dog"
+             urgency="Medium"
+             area="Anna Nagar"
+             landmark="Near petrol bunk, behind bus stop"
+             condition="Limping with visible wound on the left leg"
+             reporterPhone="9876543210"/>
+    </section>
+
+    <!-- TC08 - Apply for adoption -->
+    <section name="adoptionApplications">
+        <row caseId="APPLY_ADOPTION_HAPPY" reason="I have a fenced yard and prior experience with rescues."/>
+    </section>
+
+</data>

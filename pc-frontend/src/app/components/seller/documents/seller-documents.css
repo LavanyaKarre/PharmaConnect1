@@ -11,15 +11,6 @@
 .btn-logout { border: 1.5px solid var(--border-color); background: transparent; color: var(--text-muted); border-radius: 6px; padding: 0.3rem 0.8rem; font-size: 0.82rem; cursor: pointer; transition: all 0.2s; }
 .btn-logout:hover { border-color: var(--primary-green); color: var(--primary-green); }
 
-.theme-orb { width: 34px; height: 34px; border-radius: 50%; border: 1.5px solid var(--border-color); background: var(--card-bg); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s; position: relative; overflow: hidden; }
-.orb-content { display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; }
-.sun-icon { width: 14px; height: 14px; color: var(--secondary-gold); display: block; }
-.moon-icon { width: 13px; height: 13px; color: var(--primary-green); display: none; }
-.theme-orb.dark .sun-icon { display: none; }
-.theme-orb.dark .moon-icon { display: block; }
-.orb-glow { position: absolute; inset: 0; border-radius: 50%; background: radial-gradient(circle, rgba(46,125,50,0.15), transparent); opacity: 0; transition: opacity 0.3s; }
-.theme-orb:hover .orb-glow { opacity: 1; }
-
 .toast { position: fixed; top: 70px; left: 50%; transform: translateX(-50%); z-index: 200; padding: 0.75rem 1.5rem; border-radius: 8px; font-size: 0.9rem; box-shadow: 0 4px 16px rgba(0,0,0,0.15); animation: slideDown 0.25s ease; }
 @keyframes slideDown { from { opacity: 0; transform: translateX(-50%) translateY(-8px); } }
 .toast-success { background: var(--green-bg); color: var(--green-dark); border: 1px solid var(--green-light); }
